@@ -8,8 +8,8 @@ class Cloud extends Movableobject {
 
         this.x = Math.random() * 500;
 
-        this.width = 400;
-        this.height = 150;
+        this.width = 120;
+        this.height = 50;
         this.speed = 0.1;
 
      

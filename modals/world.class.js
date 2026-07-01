@@ -9,9 +9,13 @@ class World {
         new SkeletonEnemy(450),
     ];
 
-    clouds =[
+    clouds = [
         new Cloud(),
     ]
+
+     backgroundImg = new Image();
+
+
 
 
     ctx;
@@ -22,6 +26,9 @@ class World {
         this.canvas = canvas;
         this.ctx.imageSmoothingEnabled = true;
         this.ctx.imageSmoothingQuality = 'high';
+
+        this.backgroundImg.src = 'img/5_background/winter-location.png';
+
 
         window.addEventListener("keydown", (e) => {
             this.arrowKey[e.key] = true;
@@ -34,25 +41,25 @@ class World {
         this.draw();
     }
 
+
     draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        if( this.backgroundImg.complete){
+            this.ctx.drawImage(this.backgroundImg, 0, 0, 720, 480);
+        }
 
         const speed = this.character.speed || 5;
         if (this.arrowKey["ArrowLeft"]) this.character.x -= speed;
         if (this.arrowKey["ArrowRight"]) this.character.x += speed;
+    
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
 
 
         this.enemies.forEach((enemy) => {
             this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
         });
-
-
-        this.enemies.forEach((enemy) => {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-        });
-        
 
 
         this.clouds.forEach((cloud) => {

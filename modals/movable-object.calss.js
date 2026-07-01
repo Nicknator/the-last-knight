@@ -14,9 +14,7 @@ class Movableobject {
     // loadImage('img/test.png');
     loadImage(path){
         this.img = new Image();  // this.img = document.getElementById('image') <img id="image" src>
-        this.img.src = path;
-        
-        
+        this.img.src = path;  
     }
 
       constructor(startX) {
@@ -29,16 +27,10 @@ class Movableobject {
 
     moveRight() {
         console.log('Moving right');
-        
-
     }
 
- 
 
     moveLeft() {
-        
-        
-
     }
     
 }
