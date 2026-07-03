@@ -1,5 +1,5 @@
 class SkeletonEnemy extends Movableobject {
-    y = 245;
+    y = 300;
     
     constructor(startX) {
         

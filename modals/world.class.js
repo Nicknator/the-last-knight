@@ -11,11 +11,15 @@ class World {
 
     clouds = [
         new Cloud(),
+        new Cloud(),
+        new Cloud(),
     ]
 
     backgroundObjects = [
-        new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0)
+        new BackgroundObject('img/5_background/winter-location.png', 0),
     ]
+
+    
 
     //  backgroundImg = new Image();
 
@@ -23,7 +27,7 @@ class World {
 
 
 
-    ctx;
+    ctx;  
     canvas;
     constructor(canvas) {
 
@@ -59,14 +63,16 @@ class World {
         // }
 
         const speed = this.character.speed || 5;
-        if (this.arrowKey["ArrowLeft"]) this.character.x -= speed;
-        if (this.arrowKey["ArrowRight"]) this.character.x += speed;
+        if (this.arrowKey["a"]) this.character.x -= speed;
+        if (this.arrowKey["d"]) this.character.x += speed;
+        if (this.arrowKey["w"]) this.character.y -= speed;
+        if (this.arrowKey["s"]) this.character.y += speed;
 
-
+        this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.backgroundObjects);
+        
 
 
 
@@ -86,9 +92,7 @@ class World {
 
     addObjectsToMap(objects) {
         objects.forEach((object) => {
-            if (object.constructor.name === 'Cloud') {
-                object.animate();
-            }
+
             this.addToMap(object);
         });
     }
