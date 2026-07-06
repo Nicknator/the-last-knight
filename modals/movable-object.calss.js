@@ -8,6 +8,7 @@ class Movableobject {
     currentImage = 0;
     speed = 0.05
     enemySpeed=0.15
+    otherDirection = false;
 
     animate() {
         this.x -= this.speed;

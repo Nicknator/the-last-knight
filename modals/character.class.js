@@ -24,22 +24,29 @@ class Character extends Movableobject {
 
     animate() {
         setInterval(() => {
+            if (!this.world || !this.world.keyboard) return;
+
             if (this.world.keyboard.right) {
                 this.x += this.speed;
+                this.otherDirection = false;
             }
             if (this.world.keyboard.left) {
                 this.x -= this.speed;
+                this.otherDirection= true;
+
             }
         }, 1000 / 60)
 
         setInterval(() => {
-            if (world.keyboard.right ||world.keyboard.left ) {
+            if (!this.world || !this.world.keyboard) return;
+
+            if (this.world.keyboard.right ||world.keyboard.left ) {
 
                 let i = this.currentImage % this.IMAGES_WALKING.length;
                 let path = this.IMAGES_WALKING[i];
                 this.img = this.imageCashe[path];
                 this.currentImage++;
-                this.x += this.speed;
+                
             }
 
         }, 100); // 150ms sorgt für eine wunderschöne, flüssige Bewegung!

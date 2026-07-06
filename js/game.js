@@ -24,28 +24,28 @@ async function init() {
 window.addEventListener('keydown', (e) => {
     if(e.key==='d'){
         keyboard.right=true;
-        console.log(keyboard);
+        
 
     } 
     if(e.key==='s'){
         keyboard.down=true;
-        console.log(keyboard);
+        
 
     } 
     if(e.key==='a'){
         keyboard.left=true;
-        console.log(keyboard);
+        
 
     } 
     if(e.key==='w'){
         keyboard.up=true;
-        console.log(keyboard);
+        
 
     } 
     if(e.key===' '){
         e.preventDefault(); 
         keyboard.space=true;
-        console.log(keyboard);
+        
     } 
 
 
@@ -56,28 +56,27 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
     if(e.key==='d'){
         keyboard.right=false;
-        console.log(keyboard);
+        
 
     } 
     if(e.key==='s'){
         keyboard.down=false;
-        console.log(keyboard);
+      
 
     } 
     if(e.key==='a'){
         keyboard.left=false;
-        console.log(keyboard);
+       
 
     } 
     if(e.key==='w'){
         keyboard.up=false;
-        console.log(keyboard);
+        
 
     } 
     if(e.key===' '){
         e.preventDefault(); 
         keyboard.space=false;
-        console.log(keyboard);
     } 
 
 
