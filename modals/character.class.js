@@ -34,7 +34,7 @@ class Character extends Movableobject {
                 this.x -= this.speed;
                 this.otherDirection= true;
 
-            }
+            }this.world.camera_x= -this.x
         }, 1000 / 60)
 
         setInterval(() => {
@@ -46,7 +46,6 @@ class Character extends Movableobject {
                 let path = this.IMAGES_WALKING[i];
                 this.img = this.imageCashe[path];
                 this.currentImage++;
-                
             }
 
         }, 100); // 150ms sorgt für eine wunderschöne, flüssige Bewegung!
