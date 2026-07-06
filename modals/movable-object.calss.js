@@ -1,26 +1,37 @@
 class Movableobject {
     x = 0;
     y = 320;
-    width= 100;
+    width = 100;
     height = 150;
     img;
+    imageCashe = {};
+    currentImage = 0;
+    speed = 0.05
+    enemySpeed=0.15
 
-    speed = 0.5;
-
-    animate(){
+    animate() {
         this.x -= this.speed;
     }
 
     // loadImage('img/test.png');
-    loadImage(path){
+    loadImage(path) {
         this.img = new Image();  // this.img = document.getElementById('image') <img id="image" src>
-        this.img.src = path;  
+        this.img.src = path;
     }
 
-      constructor(startX) {
+    loadImages(arr) {
+        arr.forEach((path) => {
+            let img = new Image();
+            img.src = path;
+            this.imageCashe[path] = img;
+        });
+    }
+
+    constructor(startX) {
         if (startX !== undefined) {
-            this.x = startX; 
+            this.x = startX;
         }
+        
     }
 
 
@@ -30,9 +41,13 @@ class Movableobject {
     }
 
 
-    moveLeft() {
-    }
-    
+    moveLeft(){
+    setInterval(() => {
+   
+        this.x -= this.enemySpeed;
+    }, 1000 / 60);
+}
+
 }
 
 

@@ -1,7 +1,7 @@
 class Character extends Movableobject {
-    y = 300;
+    y = 320; // Schön auf den braunen Weg angepasst
 
-    characterImges = [
+    IMAGES_WALKING = [
         'img/2.character/walk/knight-idle-frame.png',
         'img/2.character/walk/knight-idle-frame2.png',
         'img/2.character/walk/knight-idle-frame3.png',
@@ -11,37 +11,41 @@ class Character extends Movableobject {
         'img/2.character/walk/knight-idle-frame7.png',
         'img/2.character/walk/knight-idle-frame8.png',
     ];
-
-    currentImage = 0;
-
+    world;
 
 
     constructor() {
-        super(0).loadImage('img/2.character/walk/knight-idle-frame.png');
-
+        super(); // Aktiviert Movableobject
+        this.loadImage('img/2.character/walk/knight-idle-frame.png');
+        this.loadImages(this.IMAGES_WALKING);
         this.speed = 5;
-        this.characterAnimate();
-
+        this.animate();
     }
 
-    characterAnimate() {
+    animate() {
         setInterval(() => {
-            let path = this.characterImges[this.currentImage];
-            this.img.src=path;
-            this.currentImage++;
-            this.currentImage = this.currentImage % this.characterImges.length;
+            if (this.world.keyboard.right) {
+                this.x += this.speed;
+            }
+            if (this.world.keyboard.left) {
+                this.x -= this.speed;
+            }
+        }, 1000 / 60)
 
+        setInterval(() => {
+            if (world.keyboard.right ||world.keyboard.left ) {
 
+                let i = this.currentImage % this.IMAGES_WALKING.length;
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCashe[path];
+                this.currentImage++;
+                this.x += this.speed;
+            }
 
-        }, 300);
-
-
+        }, 100); // 150ms sorgt für eine wunderschöne, flüssige Bewegung!
     }
-
 
     jump() {
-
+        // Schwerkraft kommt hier später rein
     }
-
-
 }
