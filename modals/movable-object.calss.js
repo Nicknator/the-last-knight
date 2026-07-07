@@ -10,13 +10,26 @@ class Movableobject {
     enemySpeed = 0.15
     otherDirection = false;
     speedY = 0;
-    acceleration = 1;
+    acceleration = 2.4;
 
     applyGravity() {
         setInterval(() => {
-            this.y -= this.speedY;
-            this.speedY -= this.acceleration;
+            // Wenn er in der Luft ist: Physik berechnen!
+            if (this.isAboveGround()) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+                console.log(this.y);
+            } else {
+                // 💡 DIE RETTUNG: Wenn er den Boden berührt oder durchbricht...
+                this.y = 320;      // 1. Drücke ihn fest auf den Boden
+                this.speedY = 0;   // 2. Lösche die Fallgeschwindigkeit, damit er wieder bereit zum Springen ist!
+            }
         }, 1000 / 25);
+    }
+
+
+    isAboveGround() {
+        return this.y < 320
     }
 
     animate() {
@@ -41,7 +54,6 @@ class Movableobject {
         if (startX !== undefined) {
             this.x = startX;
         }
-
     }
 
 
@@ -53,11 +65,8 @@ class Movableobject {
 
     moveLeft() {
         setInterval(() => {
-
             this.x -= this.enemySpeed;
         }, 1000 / 60);
-
-
     }
 
     playAnimation(images) {
@@ -66,10 +75,6 @@ class Movableobject {
         this.img = this.imageCashe[path];
         this.currentImage++;
     }
-
-
-
-
 }
 
 

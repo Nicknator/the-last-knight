@@ -19,14 +19,15 @@ class Character extends Movableobject {
         this.loadImage('img/2.character/walk/knight-idle-frame.png');
         this.loadImages(this.IMAGES_WALKING);
         this.speed = 5;
+        this.applyGravity();
         this.animate();
+       
     }
 
     animate() {
         setInterval(() => {
             if (!this.world || !this.world.keyboard) return;
-            
-            console.log(this.x);
+
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
@@ -47,7 +48,11 @@ class Character extends Movableobject {
         }, 70); // 150ms sorgt für eine wunderschöne, flüssige Bewegung!
     }
 
-    jump() { 
-        // Schwerkraft kommt hier später rein
+     jump() {
+     
+        if (!this.isAboveGround()) {
+            this.speedY = 25; 
+        }
     }
+
 }
