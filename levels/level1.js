@@ -3,7 +3,8 @@ const level1 = new Level(
         new SkeletonEnemy(300),
         new SkeletonEnemy(350),
         new SkeletonEnemy(450),
-        // new Endboss(),
+        new Endboss(),
+        
     ],
 
 

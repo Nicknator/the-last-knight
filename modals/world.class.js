@@ -21,7 +21,7 @@ class World {
         this.setWorld();
 
     }
-
+ 
     setWorld() {
         this.character.world = this;
     }
@@ -36,8 +36,8 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
 

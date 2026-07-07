@@ -1,5 +1,5 @@
 class Character extends Movableobject {
-    y = 320; // Schön auf den braunen Weg angepasst
+    y = 220; // Schön auf den braunen Weg angepasst
 
     IMAGES_WALKING = [
         'img/2.character/walk/knight-idle-frame.png',
@@ -12,7 +12,7 @@ class Character extends Movableobject {
         'img/2.character/walk/knight-idle-frame8.png',
     ];
     world;
-
+ 
 
     constructor() {
         super(); // Aktiviert Movableobject
@@ -31,28 +31,23 @@ class Character extends Movableobject {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
-            if (this.world.keyboard.left && this.x > -650 ) {
+            if (this.world.keyboard.left && this.x > -425 ) {
                 this.x -= this.speed;
                 this.otherDirection= true;
 
-            }this.world.camera_x= -this.x +60
+            }this.world.camera_x= -this.x +280
         }, 1000 / 60)
 
         setInterval(() => {
             if (!this.world || !this.world.keyboard) return;
-
             if (this.world.keyboard.right ||world.keyboard.left ) {
-
-                let i = this.currentImage % this.IMAGES_WALKING.length;
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCashe[path];
-                this.currentImage++;
+               this.playAnimation(this.IMAGES_WALKING);
             }
 
-        }, 100); // 150ms sorgt für eine wunderschöne, flüssige Bewegung!
+        }, 70); // 150ms sorgt für eine wunderschöne, flüssige Bewegung!
     }
 
-    jump() {
+    jump() { 
         // Schwerkraft kommt hier später rein
     }
 }
