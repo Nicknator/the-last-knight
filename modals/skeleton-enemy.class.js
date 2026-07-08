@@ -28,6 +28,10 @@ class SkeletonEnemy extends Movableobject {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 500);
+
+        setInterval(() => {
+             this.moveLeft();
+        }, 1000 / 60);
     }
 
 

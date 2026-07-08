@@ -6,7 +6,7 @@ class Movableobject {
     img;
     imageCashe = {};
     currentImage = 0;
-    speed = 0.05
+    speed = 0.15
     enemySpeed = 0.15
     otherDirection = false;
     speedY = 0;
@@ -60,14 +60,15 @@ class Movableobject {
 
     moveRight() {
         console.log('Moving right');
+        this.x += this.speed;
+        this.otherDirection = false;
     }
 
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.enemySpeed;
-        }, 1000 / 60);
-    }
+        this.x -= this.speed;
+       
+    }   
 
     playAnimation(images) {
         let i = this.currentImage % images.length;

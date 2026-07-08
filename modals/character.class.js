@@ -14,13 +14,13 @@ class Character extends Movableobject {
 
 
     IMAGES_JUMPING = [
+        'img/2.character/jum/jump6.png',
         'img/2.character/jum/jump1.png',
-        'img/2.character/jum/jump2.png',
-        'img/2.character/jum/jump3.png',
+        // 'img/2.character/jum/jump3.png',
         'img/2.character/jum/jump4.png',
         'img/2.character/jum/jump5.png',
         'img/2.character/jum/jump6.png',
-        'img/2.character/jum/jump6.png',
+        
 
     ];
 
@@ -43,15 +43,14 @@ class Character extends Movableobject {
             if (!this.world || !this.world.keyboard) return;
 
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
+                 this.moveRight();
             }
             if (this.world.keyboard.left && this.x > -425) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+              this.moveLeft();
+               this.otherDirection = true;
 
             }
-            if (this.world.keyboard.up) {
+            if (this.world.keyboard.up && !this.isAboveGround() ) {
                 this.jump();
 
             }
