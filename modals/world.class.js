@@ -53,9 +53,6 @@ class World {
 
     }
 
-
-
-
     addToMap(mo) {
         if (mo.otherDirection) {
             this.ctx.save();

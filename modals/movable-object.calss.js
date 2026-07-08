@@ -15,7 +15,7 @@ class Movableobject {
     applyGravity() {
         setInterval(() => {
             // Wenn er in der Luft ist: Physik berechnen!
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
                 console.log(this.y);
@@ -70,7 +70,7 @@ class Movableobject {
     }
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCashe[path];
         this.currentImage++;
