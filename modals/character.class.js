@@ -20,9 +20,18 @@ class Character extends Movableobject {
         'img/2.character/jum/jump4.png',
         'img/2.character/jum/jump5.png',
         'img/2.character/jum/jump6.png',
-        
-
     ];
+
+    IMAGE_DEAD = [
+        'img/2.character/dead/dead1.png',
+        'img/2.character/dead/dead2.png',
+        'img/2.character/dead/dead3.png',
+        'img/2.character/dead/dead4.png',
+        'img/2.character/dead/dead5.png',
+        'img/2.character/dead/dead6.png',
+    ];
+
+
 
     world;
 
@@ -32,6 +41,7 @@ class Character extends Movableobject {
         this.loadImage('img/2.character/walk/knight-idle-frame.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGE_DEAD);
         this.speed = 5;
         this.applyGravity();
         this.animate();
@@ -43,14 +53,14 @@ class Character extends Movableobject {
             if (!this.world || !this.world.keyboard) return;
 
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
-                 this.moveRight();
+                this.moveRight();
             }
             if (this.world.keyboard.left && this.x > -425) {
-              this.moveLeft();
-               this.otherDirection = true;
+                this.moveLeft();
+                this.otherDirection = true;
 
             }
-            if (this.world.keyboard.up && !this.isAboveGround() ) {
+            if (this.world.keyboard.up && !this.isAboveGround()) {
                 this.jump();
 
             }
@@ -73,7 +83,7 @@ class Character extends Movableobject {
                 }
 
             }
-            
+
 
 
 
@@ -87,5 +97,7 @@ class Character extends Movableobject {
             this.speedY = 25;
         }
     }
+
+
 
 }
