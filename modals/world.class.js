@@ -41,17 +41,11 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
-
         this.ctx.translate(-this.camera_x, 0);
-
-
-
-
 
         self = this;
         requestAnimationFrame(function () {
             self.draw();
-
         })// bind(this)); statt self = this geht auch.
 
     }
@@ -62,12 +56,9 @@ class World {
         }
         mo.draw(this.ctx);
         mo.showDrawFrame(this.ctx)
-
-
         if (mo.otherDirection) {
             this.flipImageBack(mo)
         }
-
     }
 
     flipImage(mo) {
@@ -97,18 +88,13 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    this.character.energy -=5;
+                    this.character.hit();
                     console.log("Collsion with Character, energy",this.character.energy);
 
-                    if(this.character.energy<=0){
-                        console.log("dead");
-                        this.character.dead();
-                    }
-                   
                 }
             });
 
-        }, 60);
+        }, 300);
     }
 
 

@@ -22,7 +22,7 @@ class Character extends Movableobject {
         'img/2.character/jum/jump6.png',
     ];
 
-    IMAGE_DEAD = [
+    IMAGES_DEAD = [
         'img/2.character/dead/dead1.png',
         'img/2.character/dead/dead2.png',
         'img/2.character/dead/dead3.png',
@@ -30,6 +30,16 @@ class Character extends Movableobject {
         'img/2.character/dead/dead5.png',
         'img/2.character/dead/dead6.png',
     ];
+
+
+    IMAGES_HURT = [
+        'img/2.character/hurt/hurt1.png',
+        'img/2.character/hurt/hurt2.png',
+    ];
+
+
+
+
 
 
 
@@ -41,11 +51,11 @@ class Character extends Movableobject {
         this.loadImage('img/2.character/walk/knight-idle-frame.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
-        this.loadImages(this.IMAGE_DEAD);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.speed = 5;
         this.applyGravity();
         this.animate();
-
     }
 
     animate() {
@@ -58,38 +68,46 @@ class Character extends Movableobject {
             if (this.world.keyboard.left && this.x > -425) {
                 this.moveLeft();
                 this.otherDirection = true;
-
             }
             if (this.world.keyboard.up && !this.isAboveGround()) {
                 this.jump();
-
             }
 
             this.world.camera_x = -this.x + 280
         }, 1000 / 60)
 
-        setInterval(() => {
+
+        this.characterAnimationInterval = setInterval(() => {
             if (!this.world || !this.world.keyboard) return;
 
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+
+                if (this.currentImage >= this.IMAGES_DEAD.length) {
+                    clearInterval(this.characterAnimationInterval); // ...schalten wir den Timer für immer aus!
+                    console.log("Knight dead");
+                }
+                return; 
+            }
+            else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
+            else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             }
-
             else {
-
-
                 if (this.world.keyboard.right || this.world.keyboard.left) {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
-
             }
+        }, 70);
 
 
 
-
-
-        }, 70); // 150ms sorgt für eine wunderschöne, flüssige Bewegung!
     }
+
+
+
 
     jump() {
 
@@ -97,6 +115,7 @@ class Character extends Movableobject {
             this.speedY = 25;
         }
     }
+
 
 
 

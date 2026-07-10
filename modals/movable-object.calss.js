@@ -12,6 +12,7 @@ class Movableobject {
     speedY = 0;
     acceleration = 2.4;
     energy = 100;
+    lastHit = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -107,19 +108,38 @@ class Movableobject {
             this.y < mo.y + mo.height;
     }
 
-
-    dead() {
-        let deadPath = this.IMAGE_DEAD[0];
-        this.img = this.imageCashe[deadPath];
-        this.energy = 0;
+    hit() {
+        this.energy -= 10;
+        console.log("damage");
+        if (this.energy <= 0) {
+            this.energy = 0;
+        }
+        else {
+            this.lastHit = new Date().getTime();
+        }
     }
- 
+
+    isHurt() {
+        let timepassed = new Date().getTime()- this.lastHit;
+        timepassed = timepassed/1000;
+        return timepassed < 0.2;
+    }
+
+
+
+    isDead() {
+        return this.energy == 0;
+
+    }
+
+
 
 
 
 
 
 }
+
 
 
 
