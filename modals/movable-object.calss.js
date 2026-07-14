@@ -1,4 +1,4 @@
-class Movableobject {
+class Movableobject extends DrawableObject  {
     x = 0;
     y = 320;
     width = 100;
@@ -20,7 +20,7 @@ class Movableobject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                console.log(this.y);
+                // console.log(this.y);
             } else {
                 // 💡 DIE RETTUNG: Wenn er den Boden berührt oder durchbricht...
                 this.y = 320;      // 1. Drücke ihn fest auf den Boden
@@ -39,11 +39,11 @@ class Movableobject {
         this.x -= this.speed;
     }
 
-    // loadImage('img/test.png');
-    loadImage(path) {
-        this.img = new Image();  // this.img = document.getElementById('image') <img id="image" src>
-        this.img.src = path;
-    }
+    // // loadImage('img/test.png');
+    // loadImage(path) {
+    //     this.img = new Image();  // this.img = document.getElementById('image') <img id="image" src>
+    //     this.img.src = path;
+    // }
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -53,16 +53,16 @@ class Movableobject {
         });
     }
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    // draw(ctx) {
+    //     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
-    }
+    // }
 
     showDrawFrame(ctx) {
         if (this instanceof Character || this instanceof SkeletonEnemy || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = "5";
-            ctx.strokeStyle = "red";
+            ctx.strokeStyle = "#ffffff00";
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
@@ -70,18 +70,17 @@ class Movableobject {
 
 
 
-
-
-    constructor(startX) {
-        if (startX !== undefined) {
-            this.x = startX;
-        }
-    }
+    // constructor(startX) {
+    //     super();
+    //     if (startX !== undefined) {
+    //         this.x = startX;
+    //     }
+    // }
 
 
 
     moveRight() {
-        console.log('Moving right');
+        // console.log('Moving right');
         this.x += this.speed;
         this.otherDirection = false;
     }
@@ -89,7 +88,6 @@ class Movableobject {
 
     moveLeft() {
         this.x -= this.speed;
-
     }
 
     playAnimation(images) {
@@ -97,7 +95,7 @@ class Movableobject {
         let path = images[i];
         this.img = this.imageCashe[path];
         this.currentImage++;
-    }
+    }   
 
 
     // Ritter.isColliding(enemy)
@@ -110,7 +108,7 @@ class Movableobject {
 
     hit() {
         this.energy -= 10;
-        console.log("damage");
+        // console.log("damage");
         if (this.energy <= 0) {
             this.energy = 0;
         }
@@ -126,10 +124,8 @@ class Movableobject {
     }
 
 
-
     isDead() {
         return this.energy == 0;
-
     }
 
 

@@ -35,7 +35,4 @@ class SkeletonEnemy extends Movableobject {
     }
 
 
-
-
-
 }

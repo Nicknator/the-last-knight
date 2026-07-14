@@ -37,14 +37,7 @@ class Character extends Movableobject {
         'img/2.character/hurt/hurt2.png',
     ];
 
-
-
-
-
-
-
     world;
-
 
     constructor() {
         super(); // Aktiviert Movableobject
@@ -77,15 +70,23 @@ class Character extends Movableobject {
         }, 1000 / 60)
 
 
+              // Oben im Constructor oder direkt hier merken wir uns, ob der Reset schon durch ist
+        this.deathResetDone = false;
+
         this.characterAnimationInterval = setInterval(() => {
             if (!this.world || !this.world.keyboard) return;
 
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+                if (!this.deathResetDone) {
+                    this.currentImage = 0; 
+                    this.deathResetDone = true; // Riegel vorschieben, damit das Laufen vorher nicht gestört wird!
+                }
 
+                this.playAnimation(this.IMAGES_DEAD);
+                
                 if (this.currentImage >= this.IMAGES_DEAD.length) {
-                    clearInterval(this.characterAnimationInterval); // ...schalten wir den Timer für immer aus!
-                    console.log("Knight dead");
+                    clearInterval(this.characterAnimationInterval); 
+                    console.log("Ritter liegt komplett flach. Animation gestoppt.");
                 }
                 return; 
             }
@@ -101,14 +102,9 @@ class Character extends Movableobject {
                 }
             }
         }, 70);
-
-
-
     }
 
-
-
-
+    
     jump() {
 
         if (!this.isAboveGround()) {
