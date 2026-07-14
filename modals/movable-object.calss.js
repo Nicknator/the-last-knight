@@ -1,11 +1,4 @@
 class Movableobject extends DrawableObject  {
-    x = 0;
-    y = 320;
-    width = 100;
-    height = 150;
-    img;
-    imageCashe = {};
-    currentImage = 0;
     speed = 0.15
     enemySpeed = 0.15
     otherDirection = false;
@@ -39,24 +32,7 @@ class Movableobject extends DrawableObject  {
         this.x -= this.speed;
     }
 
-    // // loadImage('img/test.png');
-    // loadImage(path) {
-    //     this.img = new Image();  // this.img = document.getElementById('image') <img id="image" src>
-    //     this.img.src = path;
-    // }
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCashe[path] = img;
-        });
-    }
-
-    // draw(ctx) {
-    //     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
-    // }
+  
 
     showDrawFrame(ctx) {
         if (this instanceof Character || this instanceof SkeletonEnemy || this instanceof Endboss) {
@@ -67,15 +43,6 @@ class Movableobject extends DrawableObject  {
             ctx.stroke();
         }
     }
-
-
-
-    // constructor(startX) {
-    //     super();
-    //     if (startX !== undefined) {
-    //         this.x = startX;
-    //     }
-    // }
 
 
 
