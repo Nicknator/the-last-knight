@@ -2,6 +2,7 @@ class World {
 
 
     character = new Character();
+    statusbar = new Statusbar();
     level = level1;
 
 
@@ -10,8 +11,6 @@ class World {
     keyboard;
     camera_x = 100;
     constructor(canvas, keyboard) {
-
-
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.ctx.imageSmoothingEnabled = true;
@@ -20,28 +19,24 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollisions();
-
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-
-
+    
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        // if( this.backgroundImg.complete){
-        //     this.ctx.drawImage(this.backgroundImg, 0, 0, 720, 480);
-        // }
-
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusbar);
+        
 
         self = this;
         requestAnimationFrame(function () {

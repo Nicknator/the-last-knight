@@ -34,15 +34,7 @@ class Movableobject extends DrawableObject  {
 
   
 
-    showDrawFrame(ctx) {
-        if (this instanceof Character || this instanceof SkeletonEnemy || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = "5";
-            ctx.strokeStyle = "#ffffff00";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
+   
 
 
 
@@ -60,7 +52,7 @@ class Movableobject extends DrawableObject  {
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
-        this.img = this.imageCashe[path];
+        this.img = this.imageCache[path];
         this.currentImage++;
     }   
 

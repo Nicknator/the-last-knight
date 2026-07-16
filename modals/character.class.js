@@ -1,5 +1,5 @@
 class Character extends Movableobject {
-    y = 220; // Schön auf den braunen Weg angepasst
+    y = 220; 
 
     IMAGES_WALKING = [
         'img/2.character/walk/knight-idle-frame.png',
@@ -70,7 +70,6 @@ class Character extends Movableobject {
         }, 1000 / 60)
 
 
-              // Oben im Constructor oder direkt hier merken wir uns, ob der Reset schon durch ist
         this.deathResetDone = false;
 
         this.characterAnimationInterval = setInterval(() => {
@@ -79,7 +78,7 @@ class Character extends Movableobject {
             if (this.isDead()) {
                 if (!this.deathResetDone) {
                     this.currentImage = 0; 
-                    this.deathResetDone = true; // Riegel vorschieben, damit das Laufen vorher nicht gestört wird!
+                    this.deathResetDone = true; 
                 }
 
                 this.playAnimation(this.IMAGES_DEAD);
