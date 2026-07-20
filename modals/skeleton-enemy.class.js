@@ -11,6 +11,8 @@ class SkeletonEnemy extends Movableobject {
 
     ];
 
+    
+
 
     constructor(startX) {
         super(startX);
@@ -27,12 +29,10 @@ class SkeletonEnemy extends Movableobject {
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
-        }, 500);
-
-        setInterval(() => {
-             this.moveLeft();
-        }, 1000 / 60);
+            this.x -= this.enemySpeed * 30; 
+        }, 500); // 
     }
+
 
 
 }

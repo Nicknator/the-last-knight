@@ -33,11 +33,6 @@ class Movableobject extends DrawableObject  {
     }
 
   
-
-   
-
-
-
     moveRight() {
         // console.log('Moving right');
         this.x += this.speed;
@@ -47,6 +42,22 @@ class Movableobject extends DrawableObject  {
 
     moveLeft() {
         this.x -= this.speed;
+    }
+
+    attack(){
+        
+        
+
+    }
+
+
+
+
+     jump() {
+
+        if (!this.isAboveGround()) {
+            this.speedY = 25;
+        }
     }
 
     playAnimation(images) {
@@ -66,7 +77,7 @@ class Movableobject extends DrawableObject  {
     }
 
     hit() {
-        this.energy -= 10;
+        this.energy -= 20;
         // console.log("damage");
         if (this.energy <= 0) {
             this.energy = 0;
@@ -87,6 +98,8 @@ class Movableobject extends DrawableObject  {
         return this.energy == 0;
     }
 
+
+    
 
 
 

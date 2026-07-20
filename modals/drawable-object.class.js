@@ -1,5 +1,5 @@
 class DrawableObject {
-    
+
     constructor() {
         // Hier setzen wir Standardwerte anstelle des sofortigen Zeichnens,
         // damit beim späteren Zeichnen keine Fehler entstehen.
@@ -10,7 +10,7 @@ class DrawableObject {
         this.img;
         this.imageCache = {};
         this.currentImage = 0;
-        
+
 
 
     }
@@ -20,12 +20,20 @@ class DrawableObject {
         this.img.src = path;
     }
 
-    draw(ctx) {
-        // Nur zeichnen, wenn das Bild auch wirklich geladen wurde
+      draw(ctx) {
         if (this.img) {
-            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+            let data = { w: this.width, h: this.height, y: this.y, x: this.x };
+            if (this.img.src && this.img.src.includes('attack')) {
+                let file = this.img.src.split('/').pop();
+                this.getAttackDimensions(file, data);
+            }
+            ctx.drawImage(this.img, data.x, data.y, data.w, data.h);
         }
     }
+    
+
+
+
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -36,7 +44,7 @@ class DrawableObject {
     }
 
 
-     showDrawFrame(ctx) {
+    showDrawFrame(ctx) {
         if (this instanceof Character || this instanceof SkeletonEnemy || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = "5";
@@ -45,4 +53,8 @@ class DrawableObject {
             ctx.stroke();
         }
     }
+
+
+
+
 }

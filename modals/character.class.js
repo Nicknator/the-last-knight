@@ -1,5 +1,10 @@
 class Character extends Movableobject {
-    y = 220; 
+    y = 220;
+
+
+    IMAGES_IDLE = [
+        'img/2.character/idle/knight-idle-frame-origen.png',
+    ]
 
     IMAGES_WALKING = [
         'img/2.character/walk/knight-idle-frame.png',
@@ -11,6 +16,14 @@ class Character extends Movableobject {
         'img/2.character/walk/knight-idle-frame7.png',
         'img/2.character/walk/knight-idle-frame8.png',
     ];
+
+    IMAGES_ATTACK = [
+        'img/2.character/attack/attack1.png',
+        'img/2.character/attack/attack2.png',
+        'img/2.character/attack/attack3.png',
+        'img/2.character/attack/attack4.png',
+    ]
+
 
 
     IMAGES_JUMPING = [
@@ -37,12 +50,15 @@ class Character extends Movableobject {
         'img/2.character/hurt/hurt2.png',
     ];
 
+
+
     world;
 
     constructor() {
         super(); // Aktiviert Movableobject
-        this.loadImage('img/2.character/walk/knight-idle-frame.png');
+        this.loadImage(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
@@ -66,6 +82,15 @@ class Character extends Movableobject {
                 this.jump();
             }
 
+            if (this.world.keyboard.attack) {
+                this.attack();
+                console.log("zustand");
+
+            }
+
+
+
+
             this.world.camera_x = -this.x + 280
         }, 1000 / 60)
 
@@ -77,17 +102,17 @@ class Character extends Movableobject {
 
             if (this.isDead()) {
                 if (!this.deathResetDone) {
-                    this.currentImage = 0; 
-                    this.deathResetDone = true; 
+                    this.currentImage = 0;
+                    this.deathResetDone = true;
                 }
 
                 this.playAnimation(this.IMAGES_DEAD);
-                
+
                 if (this.currentImage >= this.IMAGES_DEAD.length) {
-                    clearInterval(this.characterAnimationInterval); 
+                    clearInterval(this.characterAnimationInterval);
                     console.log("Ritter liegt komplett flach. Animation gestoppt.");
                 }
-                return; 
+                return;
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -95,20 +120,31 @@ class Character extends Movableobject {
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             }
+            else if (this.world.keyboard.attack) {
+                this.playAnimation(this.IMAGES_ATTACK);
+                console.log("attack")
+
+            }
+
+
             else {
                 if (this.world.keyboard.right || this.world.keyboard.left) {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
+
+
+
         }, 70);
     }
 
-    
-    jump() {
 
-        if (!this.isAboveGround()) {
-            this.speedY = 25;
-        }
+    getAttackDimensions(file, data) {
+        if (file === 'attack1.png') { data.w = 120; data.h = 130; data.y = this.y + 5; }
+        else if (file === 'attack2.png') { data.w = 120; data.h = 180; data.y = this.y - 45; }
+        else if (file === 'attack3.png') { data.w = 120; data.h = 125; data.y = this.y + 10; }
+        else if (file === 'attack4.png') { data.w = 140; data.h = 130; data.y = this.y + 5; }
+        data.x = this.x - ((data.w - this.width) / 2);
     }
 
 

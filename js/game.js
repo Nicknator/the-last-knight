@@ -42,11 +42,21 @@ window.addEventListener('keydown', (e) => {
 
 
     }
+    if (e.key === 'e') {
+        keyboard.attack = true;
+
+    }
+
+
     if (e.key === ' ') {
         e.preventDefault();
         keyboard.space = true;
 
     }
+
+
+
+
 
 
 });
@@ -72,6 +82,11 @@ window.addEventListener('keyup', (e) => {
     if (e.key === 'w') {
         keyboard.up = false;
 
+
+    }
+     if (e.key === 'e') {
+        keyboard.attack = false;
+        
 
     }
     if (e.key === ' ') {
