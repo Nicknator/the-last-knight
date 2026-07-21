@@ -4,7 +4,7 @@ class Character extends Movableobject {
 
     IMAGES_IDLE = [
         'img/2.character/idle/knight-idle-frame-origen.png',
-    ]
+    ];
 
     IMAGES_WALKING = [
         'img/2.character/walk/knight-idle-frame.png',
@@ -22,6 +22,10 @@ class Character extends Movableobject {
         'img/2.character/attack/attack2.png',
         'img/2.character/attack/attack3.png',
         'img/2.character/attack/attack4.png',
+    ];
+    IMAGES_PROTECTION = [
+        'img/2.character/protection/protection1.png',
+
     ]
 
 
@@ -59,6 +63,7 @@ class Character extends Movableobject {
         this.loadImage(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_PROTECTION);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
@@ -71,10 +76,11 @@ class Character extends Movableobject {
         setInterval(() => {
             if (!this.world || !this.world.keyboard) return;
 
-            if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.right && !this.world.keyboard.down && this.x < this.world.level.level_end_x) {
                 this.moveRight();
             }
-            if (this.world.keyboard.left && this.x > -425) {
+
+            if (this.world.keyboard.left && this.x > -425 && !this.world.keyboard.down) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
@@ -85,9 +91,13 @@ class Character extends Movableobject {
             if (this.world.keyboard.attack) {
                 this.attack();
                 console.log("zustand");
-
             }
 
+            if(this.world.keyboard.down){
+                console.log("Block");
+
+
+            }
 
 
 
@@ -112,10 +122,12 @@ class Character extends Movableobject {
                     clearInterval(this.characterAnimationInterval);
                     console.log("Ritter liegt komplett flach. Animation gestoppt.");
                 }
+
                 return;
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
@@ -123,20 +135,25 @@ class Character extends Movableobject {
             else if (this.world.keyboard.attack) {
                 this.playAnimation(this.IMAGES_ATTACK);
                 console.log("attack")
-
             }
 
+            else if(this.world.keyboard.down){
+                this.playAnimation(this.IMAGES_PROTECTION);
+                
+            }
+            
 
+
+
+        
             else {
                 if (this.world.keyboard.right || this.world.keyboard.left) {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
-
-
-
         }, 70);
     }
+
 
 
     getAttackDimensions(file, data) {

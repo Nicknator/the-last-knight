@@ -1,4 +1,4 @@
-class Movableobject extends DrawableObject  {
+class Movableobject extends DrawableObject {
     speed = 0.15
     enemySpeed = 0.15
     otherDirection = false;
@@ -32,7 +32,7 @@ class Movableobject extends DrawableObject  {
         this.x -= this.speed;
     }
 
-  
+
     moveRight() {
         // console.log('Moving right');
         this.x += this.speed;
@@ -44,16 +44,8 @@ class Movableobject extends DrawableObject  {
         this.x -= this.speed;
     }
 
-    attack(){
-        
-        
 
-    }
-
-
-
-
-     jump() {
+    jump() {
 
         if (!this.isAboveGround()) {
             this.speedY = 25;
@@ -65,7 +57,7 @@ class Movableobject extends DrawableObject  {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-    }   
+    }
 
 
     // Ritter.isColliding(enemy)
@@ -88,8 +80,8 @@ class Movableobject extends DrawableObject  {
     }
 
     isHurt() {
-        let timepassed = new Date().getTime()- this.lastHit;
-        timepassed = timepassed/1000;
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
         return timepassed < 0.2;
     }
 
@@ -98,8 +90,15 @@ class Movableobject extends DrawableObject  {
         return this.energy == 0;
     }
 
+   
 
-    
+
+
+
+
+
+
+
 
 
 

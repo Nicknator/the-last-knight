@@ -26,7 +26,6 @@ class World {
     }
 
 
-
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -37,13 +36,13 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusbar);
 
-
         self = this;
         requestAnimationFrame(function () {
             self.draw();
         })// bind(this)); statt self = this geht auch.
 
     }
+
 
     addToMap(mo) {
         if (mo.otherDirection) {
@@ -56,6 +55,7 @@ class World {
         }
     }
 
+
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -63,32 +63,48 @@ class World {
         mo.x = mo.x * -1;
     }
 
+
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
 
 
-
     addObjectsToMap(objects) {
         objects.forEach((object) => {
-
-
             this.addToMap(object);
         });
     }
 
 
+    letEnemiesWalkPast() {
+        this.level.enemies.forEach((enemy) => {
+            enemy.isAttacking = false;
+        });
+    }
+
+    handleEnemyAttack(enemy) {
+        enemy.isAttacking = true;
+        if (this.keyboard.down) { console.log("Schieldblock"); }
+        else {
+            this.character.hit();
+            this.statusbar.setPercentage(this.character.energy);
+            console.log("Collsion with Character, energy", this.character.energy);
+        }
+    }
+
+
+
     checkCollisions() {
         setInterval(() => {
+            if (this.character.energy === 0) {
+                this.letEnemiesWalkPast();return;
+            }
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    // this.enemy.attack();
-                    this.statusbar.setPercentage(this.character.energy);
-                    console.log("Collsion with Character, energy", this.character.energy);
-
+                    this.handleEnemyAttack(enemy);
                 }
+                else { enemy.isAttacking = false; }
             });
 
         }, 300);
