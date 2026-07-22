@@ -25,8 +25,6 @@ class SkeletonEnemy extends Movableobject {
     ];
 
 
-
-
     constructor(startX) {
         super(startX);
         this.loadImage(this.IMAGES_IDLE);
@@ -34,30 +32,38 @@ class SkeletonEnemy extends Movableobject {
         this.loadImages(this.IMAGES_ATTACK);
         this.animate();
         this.moveLeft();
-        this.x = 200 + Math.random() * 400;
+        this.x = 200 + Math.random() * 600;
         this.enemySpeed = 0.05 + Math.random() * 0.25
 
-        
-    }
 
-    
+    }
 
 
     animate() {
         setInterval(() => {
             if (this.isAttacking === true) {
                 this.playAnimation(this.IMAGES_ATTACK);
-
             }
-            
+
         }, 200);
 
 
         setInterval(() => {
+
             if (this.isAttacking === false) {
                 this.playAnimation(this.IMAGES_WALKING);
-                this.x -= this.enemySpeed * 30;
+
+                if (this.otherDirection==true) {
+                    this.x += this.enemySpeed * 30;
+                    
+                }
+                else {
+                    this.x -= this.enemySpeed * 30;
+                }
+
             }
+
+
         }, 500);
     }
 

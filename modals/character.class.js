@@ -95,9 +95,8 @@ class Character extends Movableobject {
 
             if(this.world.keyboard.down){
                 console.log("Block");
-
-
             }
+            
 
 
 
@@ -142,10 +141,6 @@ class Character extends Movableobject {
                 
             }
             
-
-
-
-        
             else {
                 if (this.world.keyboard.right || this.world.keyboard.left) {
                     this.playAnimation(this.IMAGES_WALKING);

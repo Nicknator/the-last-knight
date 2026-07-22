@@ -1,15 +1,13 @@
 class World {
 
-
     character = new Character();
     statusbar = new Statusbar(this.character);
     level = level1;
-
-
     ctx;
     canvas;
     keyboard;
     camera_x = 100;
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -26,6 +24,7 @@ class World {
     }
 
 
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -40,6 +39,7 @@ class World {
         requestAnimationFrame(function () {
             self.draw();
         })// bind(this)); statt self = this geht auch.
+
 
     }
 
@@ -83,6 +83,7 @@ class World {
         });
     }
 
+
     handleEnemyAttack(enemy) {
         enemy.isAttacking = true;
         if (this.keyboard.down) { console.log("Schieldblock"); }
@@ -94,13 +95,20 @@ class World {
     }
 
 
-
     checkCollisions() {
         setInterval(() => {
             if (this.character.energy === 0) {
-                this.letEnemiesWalkPast();return;
+                this.letEnemiesWalkPast(); return;
             }
+
             this.level.enemies.forEach((enemy) => {
+                if (this.character.x > enemy.x) {
+                    enemy.otherDirection = true;
+                        
+                }
+                else {
+                    enemy.otherDirection = false;
+                }
                 if (this.character.isColliding(enemy)) {
                     this.handleEnemyAttack(enemy);
                 }
@@ -109,8 +117,6 @@ class World {
 
         }, 300);
     }
-
-
 
 
 

@@ -33,10 +33,6 @@ class DrawableObject {
     }
 
 
-
-
-
-
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -55,8 +51,4 @@ class DrawableObject {
             ctx.stroke();
         }
     }
-
-
-
-
 }

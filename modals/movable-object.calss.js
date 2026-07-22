@@ -9,15 +9,13 @@ class Movableobject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-            // Wenn er in der Luft ist: Physik berechnen!
+
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                // console.log(this.y);
             } else {
-                // 💡 DIE RETTUNG: Wenn er den Boden berührt oder durchbricht...
-                this.y = 320;      // 1. Drücke ihn fest auf den Boden
-                this.speedY = 0;   // 2. Lösche die Fallgeschwindigkeit, damit er wieder bereit zum Springen ist!
+                this.y = 320;
+                this.speedY = 0;
             }
         }, 1000 / 25);
     }
@@ -58,15 +56,24 @@ class Movableobject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+    
 
 
     // Ritter.isColliding(enemy)
     isColliding(mo) {
+        if (this.otherDirection) {
+            let abstandX = Math.abs(this.x - mo.x);
+            return abstandX < (this.width + mo.width) / 2 && // Horizontal nah genug?
+                this.y + this.height > mo.y &&
+                this.y < mo.y + mo.height;
+        }
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
     }
+
+
 
     hit() {
         this.energy -= 20;
@@ -90,7 +97,7 @@ class Movableobject extends DrawableObject {
         return this.energy == 0;
     }
 
-   
+
 
 
 
