@@ -34,10 +34,9 @@ class SkeletonEnemy extends Movableobject {
         this.moveLeft();
         this.x = 200 + Math.random() * 600;
         this.enemySpeed = 0.05 + Math.random() * 0.25
-
-
+        this.energy = 90;
+        // console.log(this.energy);
     }
-
 
     animate() {
         setInterval(() => {
@@ -53,9 +52,10 @@ class SkeletonEnemy extends Movableobject {
             if (this.isAttacking === false) {
                 this.playAnimation(this.IMAGES_WALKING);
 
-                if (this.otherDirection==true) {
+
+                if (this.otherDirection == true) {
                     this.x += this.enemySpeed * 30;
-                    
+
                 }
                 else {
                     this.x -= this.enemySpeed * 30;
@@ -63,8 +63,10 @@ class SkeletonEnemy extends Movableobject {
 
             }
 
-
         }, 500);
+
+
+
     }
 
 

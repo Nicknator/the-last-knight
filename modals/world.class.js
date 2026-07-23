@@ -88,11 +88,25 @@ class World {
         enemy.isAttacking = true;
         if (this.keyboard.down) { console.log("Schieldblock"); }
         else {
-            this.character.hit();
+            this.character.hit(5);
             this.statusbar.setPercentage(this.character.energy);
-            console.log("Collsion with Character, energy", this.character.energy);
+            // console.log("Collsion with Character, energy", this.character.energy);
         }
     }
+
+    attackEnemy(enemy) {
+        enemy.hit(30);
+        console.log("Skelett Energie:", enemy.energy);
+
+        if (enemy.energy === 0) {
+            let index = this.level.enemies.indexOf(enemy);
+            setTimeout(() => {
+                this.level.enemies.splice(index, 1);
+            }, 1000);
+        }
+    }
+
+
 
 
     checkCollisions() {
@@ -100,23 +114,33 @@ class World {
             if (this.character.energy === 0) {
                 this.letEnemiesWalkPast(); return;
             }
-
             this.level.enemies.forEach((enemy) => {
+
+                if (this.character.isColliding(enemy) && this.keyboard.attack) {
+                    this.attackEnemy(enemy);
+                }
+
+                else if (this.character.isColliding(enemy)) {
+                    this.handleEnemyAttack(enemy);
+                }
+                else {
+                    enemy.isAttacking = false;
+                }
+
                 if (this.character.x > enemy.x) {
                     enemy.otherDirection = true;
-                        
                 }
                 else {
                     enemy.otherDirection = false;
                 }
-                if (this.character.isColliding(enemy)) {
-                    this.handleEnemyAttack(enemy);
-                }
-                else { enemy.isAttacking = false; }
             });
 
         }, 300);
     }
+
+
+
+
 
 
 

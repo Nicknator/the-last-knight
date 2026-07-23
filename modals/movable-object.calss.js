@@ -46,7 +46,7 @@ class Movableobject extends DrawableObject {
     jump() {
 
         if (!this.isAboveGround()) {
-            this.speedY = 25;
+            this.speedY = 30;
         }
     }
 
@@ -75,9 +75,8 @@ class Movableobject extends DrawableObject {
 
 
 
-    hit() {
-        this.energy -= 20;
-        // console.log("damage");
+    hit(damageAmount) {
+        this.energy -= damageAmount;    
         if (this.energy <= 0) {
             this.energy = 0;
         }
@@ -88,7 +87,7 @@ class Movableobject extends DrawableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;
+        timepassed = timepassed / 500;
         return timepassed < 0.2;
     }
 

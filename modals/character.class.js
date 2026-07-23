@@ -89,17 +89,13 @@ class Character extends Movableobject {
             }
 
             if (this.world.keyboard.attack) {
-                this.attack();
-                console.log("zustand");
+                // this.attack();
+                // console.log("zustand");
             }
 
             if(this.world.keyboard.down){
                 console.log("Block");
             }
-            
-
-
-
             this.world.camera_x = -this.x + 280
         }, 1000 / 60)
 
