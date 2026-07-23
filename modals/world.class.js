@@ -99,13 +99,15 @@ class World {
         console.log("Skelett Energie:", enemy.energy);
 
         if (enemy.energy === 0) {
-            let index = this.level.enemies.indexOf(enemy);
             setTimeout(() => {
-                this.level.enemies.splice(index, 1);
+                let index = this.level.enemies.indexOf(enemy);
+                if (index > -1) {
+                    this.level.enemies.splice(index, 1);
+                    console.log("Skelett endgültig aus dem Speicher gelöscht!");
+                }
             }, 1000);
         }
     }
-
 
 
 
@@ -137,11 +139,6 @@ class World {
 
         }, 300);
     }
-
-
-
-
-
 
 
 

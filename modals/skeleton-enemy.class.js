@@ -24,12 +24,18 @@ class SkeletonEnemy extends Movableobject {
         'img/3_enemies_skeleton/3.attack/skeleton-attack3.png',
     ];
 
+    IMAGES_DEAD = [
+        'img/3_enemies_skeleton/4.dead/dead1.png',
+        'img/3_enemies_skeleton/4.dead/dead2.png',
+    ]
+
 
     constructor(startX) {
         super(startX);
         this.loadImage(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.moveLeft();
         this.x = 200 + Math.random() * 600;
@@ -40,7 +46,7 @@ class SkeletonEnemy extends Movableobject {
 
     animate() {
         setInterval(() => {
-            if (this.isAttacking === true) {
+            if (this.isAttacking === true && this.energy >0) {
                 this.playAnimation(this.IMAGES_ATTACK);
             }
 
@@ -49,18 +55,19 @@ class SkeletonEnemy extends Movableobject {
 
         setInterval(() => {
 
+          if(this.energy==0){
+            this.playAnimation(this.IMAGES_DEAD);
+          }
+
             if (this.isAttacking === false) {
                 this.playAnimation(this.IMAGES_WALKING);
 
-
                 if (this.otherDirection == true) {
                     this.x += this.enemySpeed * 30;
-
                 }
                 else {
                     this.x -= this.enemySpeed * 30;
                 }
-
             }
 
         }, 500);
