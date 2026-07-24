@@ -23,7 +23,8 @@ class DrawableObject {
     draw(ctx) {
         if (this.img) {
             let data = { w: this.width, h: this.height, y: this.y, x: this.x };
-            if (this.img.src && this.img.src.includes('character') && this.getAttackDimensions) {
+            
+            if (this.img.src && this.img.src.includes('attack') && this.getAttackDimensions) {
                 let file = this.img.src.split('/').pop();
                 this.getAttackDimensions(file, data);
             }
@@ -31,6 +32,7 @@ class DrawableObject {
             ctx.drawImage(this.img, data.x, data.y, data.w, data.h);
         }
     }
+
 
 
     loadImages(arr) {

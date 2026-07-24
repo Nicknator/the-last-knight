@@ -93,7 +93,7 @@ class Character extends Movableobject {
                 // console.log("zustand");
             }
 
-            if(this.world.keyboard.down){
+            if (this.world.keyboard.down) {
                 console.log("Block");
             }
             this.world.camera_x = -this.x + 280
@@ -132,11 +132,11 @@ class Character extends Movableobject {
                 console.log("attack")
             }
 
-            else if(this.world.keyboard.down){
+            else if (this.world.keyboard.down) {
                 this.playAnimation(this.IMAGES_PROTECTION);
-                
+
             }
-            
+
             else {
                 if (this.world.keyboard.right || this.world.keyboard.left) {
                     this.playAnimation(this.IMAGES_WALKING);
@@ -147,13 +147,26 @@ class Character extends Movableobject {
 
 
 
+    // getAttackDimensions(file, data) {
+    //     if (file === 'attack1.png') { data.w = 120; data.h = 130; data.y = this.y + 5; }
+    //     else if (file === 'attack2.png') { data.w = 120; data.h = 180; data.y = this.y - 45; }
+    //     else if (file === 'attack3.png') { data.w = 120; data.h = 125; data.y = this.y + 10; }
+    //     else if (file === 'attack4.png') { data.w = 140; data.h = 130; data.y = this.y + 5; }
+    //     data.x = this.x - ((data.w - this.width) / 2);
+    // }
+
+
+
     getAttackDimensions(file, data) {
-        if (file === 'attack1.png') { data.w = 120; data.h = 130; data.y = this.y + 5; }
-        else if (file === 'attack2.png') { data.w = 120; data.h = 180; data.y = this.y - 45; }
-        else if (file === 'attack3.png') { data.w = 120; data.h = 125; data.y = this.y + 10; }
-        else if (file === 'attack4.png') { data.w = 140; data.h = 130; data.y = this.y + 5; }
+        let i = this.currentImage % this.IMAGES_ATTACK.length;
+        if (i === 0) { data.w = 140; data.h = 130; data.y = this.y + 5; }  //0
+        else if (i === 2) { data.w = 120; data.h = 180; data.y = this.y - 45; }
+        else if (i === 3) { data.w = 120; data.h = 125; data.y = this.y + 10; }
+        else if (i === 1) { data.w = 120; data.h = 130; data.y = this.y + 5; }  
         data.x = this.x - ((data.w - this.width) / 2);
     }
+
+
 
 
 

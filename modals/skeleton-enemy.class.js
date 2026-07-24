@@ -18,7 +18,6 @@ class SkeletonEnemy extends Movableobject {
     ];
 
     IMAGES_ATTACK = [
-        // 'img/3_enemies_skeleton/3.attack/skeleton-attack3.png',
         'img/3_enemies_skeleton/3.attack/skeleton-attack1.png',
         'img/3_enemies_skeleton/3.attack/skeleton-attack2.png',
         'img/3_enemies_skeleton/3.attack/skeleton-attack3.png',
@@ -72,9 +71,23 @@ class SkeletonEnemy extends Movableobject {
 
         }, 500);
 
+        
+
 
 
     }
+
+          getAttackDimensions(file, data) {
+        let i = this.currentImage % this.IMAGES_ATTACK.length; 
+
+        if (i === 0) { data.w = 180; data.h = 145; data.y = this.y - 0; }     
+        else if (i === 1) { data.w = 110; data.h = 190; data.y = this.y - 45; } 
+        else if (i === 2) { data.w = 130; data.h = 145; data.y = this.y - 0; } 
+
+        data.x = this.x - ((data.w - this.width) / 2);
+    }
+
+
 
 
 
