@@ -46,6 +46,11 @@ window.addEventListener('keydown', (e) => {
         keyboard.attack = true;
 
     }
+    if (e.key === 'f') {
+        keyboard.shoot_crossbow = true;
+       
+
+    }
 
 
     if (e.key === ' ') {
@@ -87,8 +92,15 @@ window.addEventListener('keyup', (e) => {
      if (e.key === 'e') {
         keyboard.attack = false;
         
-
     }
+    
+
+     if (e.key === 'f') {
+        keyboard.shoot_crossbow = false;
+        
+        
+    }
+
     if (e.key === ' ') {
         e.preventDefault();
         keyboard.space = false;

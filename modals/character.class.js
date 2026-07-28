@@ -1,6 +1,6 @@
 class Character extends Movableobject {
     y = 220;
-
+    world;
 
     IMAGES_IDLE = [
         'img/2.character/idle/knight-idle-frame-origen.png',
@@ -54,9 +54,13 @@ class Character extends Movableobject {
         'img/2.character/hurt/hurt2.png',
     ];
 
+    IMAGES_SHOOT = [
+        'img/2.character/shoot_crossbow/shoot1.png',
+        'img/2.character/shoot_crossbow/shoot2.png',
+        'img/2.character/shoot_crossbow/shoot3.png',
+    ]
 
 
-    world;
 
     constructor() {
         super(); // Aktiviert Movableobject
@@ -67,6 +71,7 @@ class Character extends Movableobject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_SHOOT);
         this.speed = 5;
         this.applyGravity();
         this.animate();
@@ -84,6 +89,7 @@ class Character extends Movableobject {
                 this.moveLeft();
                 this.otherDirection = true;
             }
+            
             if (this.world.keyboard.up && !this.isAboveGround()) {
                 this.jump();
             }
@@ -96,6 +102,12 @@ class Character extends Movableobject {
             if (this.world.keyboard.down) {
                 console.log("Block");
             }
+
+            if (this.world.keyboard.shoot_crossbow) {
+                // console.log("shoot");
+                
+            }
+
             this.world.camera_x = -this.x + 280
         }, 1000 / 60)
 
@@ -134,6 +146,10 @@ class Character extends Movableobject {
 
             else if (this.world.keyboard.down) {
                 this.playAnimation(this.IMAGES_PROTECTION);
+            }
+
+            else if (this.world.keyboard.shoot_crossbow) {
+                this.playAnimation(this.IMAGES_SHOOT);
 
             }
 
@@ -162,7 +178,7 @@ class Character extends Movableobject {
         if (i === 0) { data.w = 140; data.h = 130; data.y = this.y + 5; }  //0
         else if (i === 2) { data.w = 120; data.h = 180; data.y = this.y - 45; }
         else if (i === 3) { data.w = 120; data.h = 125; data.y = this.y + 10; }
-        else if (i === 1) { data.w = 120; data.h = 130; data.y = this.y + 5; }  
+        else if (i === 1) { data.w = 120; data.h = 130; data.y = this.y + 5; }
         data.x = this.x - ((data.w - this.width) / 2);
     }
 

@@ -7,6 +7,7 @@ class World {
     canvas;
     keyboard;
     camera_x = 100;
+    flyBolt = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -17,6 +18,7 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollisions();
+        this.rangedCombat(this.flyBolt);
     }
 
     setWorld() {
@@ -27,13 +29,21 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
         this.ctx.translate(this.camera_x, 0);
+
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+
+
+        this.addObjectsToMap(this.flyBolt);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusbar);
+
+
+
 
         self = this;
         requestAnimationFrame(function () {
@@ -42,6 +52,23 @@ class World {
 
 
     }
+
+    rangedCombat() {
+        setInterval(() => {
+            if (this.keyboard.shoot_crossbow) {
+                let distanceX = this.character.otherDirection ? -30 : 80;
+                let newArrow = new Bolt(
+                    this.character.x + distanceX,
+                    this.character.y + 45,
+                    this.character.otherDirection
+                );
+
+                this.flyBolt.push(newArrow);
+            }
+        }, 1000);
+    }
+
+
 
 
     addToMap(mo) {

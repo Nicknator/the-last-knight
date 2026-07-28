@@ -5,7 +5,7 @@ class Keyboard {
     down = false;
     space = false;
     attack = false;
-
+    shoot_crossbow= false;
 }
 
 // Source - https://stackoverflow.com/q/5597060
