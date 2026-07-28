@@ -58,6 +58,7 @@ class Character extends Movableobject {
         'img/2.character/shoot_crossbow/shoot1.png',
         'img/2.character/shoot_crossbow/shoot2.png',
         'img/2.character/shoot_crossbow/shoot3.png',
+        'img/2.character/shoot_crossbow/shoot4.png',
     ]
 
 
@@ -89,7 +90,7 @@ class Character extends Movableobject {
                 this.moveLeft();
                 this.otherDirection = true;
             }
-            
+
             if (this.world.keyboard.up && !this.isAboveGround()) {
                 this.jump();
             }
@@ -105,7 +106,7 @@ class Character extends Movableobject {
 
             if (this.world.keyboard.shoot_crossbow) {
                 // console.log("shoot");
-                
+
             }
 
             this.world.camera_x = -this.x + 280
@@ -147,11 +148,21 @@ class Character extends Movableobject {
             else if (this.world.keyboard.down) {
                 this.playAnimation(this.IMAGES_PROTECTION);
             }
+            
 
             else if (this.world.keyboard.shoot_crossbow) {
-                this.playAnimation(this.IMAGES_SHOOT);
+                if (!this.lastShootTime) this.lastShootTime = 0;
+                let now = new Date().getTime();
 
+                if (now - this.lastShootTime > 250) {
+                    this.playAnimation(this.IMAGES_SHOOT);
+                    this.lastShootTime = now;
+                } else {
+                    let i = this.currentImage % this.IMAGES_SHOOT.length;
+                    this.loadImage(this.IMAGES_SHOOT[i]);
+                }
             }
+
 
             else {
                 if (this.world.keyboard.right || this.world.keyboard.left) {
