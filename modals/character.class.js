@@ -107,6 +107,7 @@ class Character extends Movableobject {
             if (this.world.keyboard.shoot_crossbow) {
                 // console.log("shoot");
 
+
             }
 
             this.world.camera_x = -this.x + 280
@@ -146,11 +147,12 @@ class Character extends Movableobject {
             }
 
             else if (this.world.keyboard.down) {
-                this.playAnimation(this.IMAGES_PROTECTION);
+                this.playAnimation(this.IMAGES_PROTECTION); 
             }
             
 
             else if (this.world.keyboard.shoot_crossbow) {
+                
                 if (!this.lastShootTime) this.lastShootTime = 0;
                 let now = new Date().getTime();
 
@@ -161,6 +163,8 @@ class Character extends Movableobject {
                     let i = this.currentImage % this.IMAGES_SHOOT.length;
                     this.loadImage(this.IMAGES_SHOOT[i]);
                 }
+
+
             }
 
 

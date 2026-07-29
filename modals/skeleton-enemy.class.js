@@ -44,7 +44,9 @@ class SkeletonEnemy extends Movableobject {
     }
 
     animate() {
+        
         setInterval(() => {
+            
             if (this.isAttacking === true && this.energy >0) {
                 this.playAnimation(this.IMAGES_ATTACK);
             }
@@ -53,9 +55,10 @@ class SkeletonEnemy extends Movableobject {
 
 
         setInterval(() => {
-
-          if(this.energy==0){
+            
+          if(this.isDead()){
             this.playAnimation(this.IMAGES_DEAD);
+            return;
           }
 
             if (this.isAttacking === false) {

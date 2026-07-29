@@ -8,6 +8,7 @@ class World {
     keyboard;
     camera_x = 100;
     flyBolt = [];
+   
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -44,22 +45,20 @@ class World {
     }
 
     rangedCombat() {
-        this.lastShotImageNumber = -1; 
+        this.lastShotImageNumber = -1;
         setInterval(() => {
             let i = this.character.currentImage % this.character.IMAGES_SHOOT.length;
-
             if (this.keyboard.shoot_crossbow && i === 2 && this.character.currentImage !== this.lastShotImageNumber) {
-                let dx = this.character.otherDirection ? -30 : 80;
-                this.flyBolt.push(new Bolt(this.character.x + dx, this.character.y + 45, this.character.otherDirection));
-                this.lastShotImageNumber = this.character.currentImage; // Sperrt den Frame
+                this.helbRangedCombatFunction();
             }
         }, 100);
     }
 
-
-
-
-
+    helbRangedCombatFunction() {
+        let dx = this.character.otherDirection ? -30 : 80;
+        this.flyBolt.push(new Bolt(this.character.x + dx, this.character.y + 45, this.character.otherDirection));
+        this.lastShotImageNumber = this.character.currentImage;
+    }
 
 
     addToMap(mo) {
@@ -112,10 +111,11 @@ class World {
         }
     }
 
-    attackEnemy(enemy) {
-        enemy.hit(30);
-        console.log("Skelett Energie:", enemy.energy);
+    attackEnemy(enemy, damageAmount) {
+        if (enemy.energy <= 0) return; 
 
+        enemy.hit(damageAmount);
+        console.log("Skelett Energie:", enemy.energy);
         if (enemy.energy === 0) {
             setTimeout(() => {
                 let index = this.level.enemies.indexOf(enemy);
@@ -123,9 +123,10 @@ class World {
                     this.level.enemies.splice(index, 1);
                     console.log("Skelett endgültig aus dem Speicher gelöscht!");
                 }
-            }, 1000);
+            }, 1000); 
         }
     }
+
 
 
 
@@ -137,9 +138,8 @@ class World {
             this.level.enemies.forEach((enemy) => {
 
                 if (this.character.isColliding(enemy) && this.keyboard.attack) {
-                    this.attackEnemy(enemy);
+                    this.attackEnemy(enemy, 30);
                 }
-
                 else if (this.character.isColliding(enemy)) {
                     this.handleEnemyAttack(enemy);
                 }
@@ -149,14 +149,27 @@ class World {
 
                 if (this.character.x > enemy.x) {
                     enemy.otherDirection = true;
-                }
-                else {
+                } else {
                     enemy.otherDirection = false;
                 }
             });
-
         }, 300);
+
+        setInterval(() => {
+            this.flyBolt.forEach((bolt) => {
+
+                this.level.enemies.forEach((enemy) => {
+                    if (bolt.isColliding(enemy) && this.keyboard.shoot_crossbow ) {
+                        this.attackEnemy(enemy, 45);
+                        bolt.isDead = true;
+                    }
+                  
+                });
+            });
+            this.flyBolt = this.flyBolt.filter(bolt => !bolt.isDead);
+        }, 1000 / 60);
     }
+
 
 
 
