@@ -1,6 +1,8 @@
 class Character extends Movableobject {
     y = 220;
     world;
+    
+
 
     IMAGES_IDLE = [
         'img/2.character/idle/knight-idle-frame-origen.png',
@@ -76,6 +78,8 @@ class Character extends Movableobject {
         this.speed = 5;
         this.applyGravity();
         this.animate();
+        this.ammo = 5;
+        this.coins = 0;
     }
 
     animate() {
@@ -106,7 +110,7 @@ class Character extends Movableobject {
 
             if (this.world.keyboard.shoot_crossbow) {
                 // console.log("shoot");
-
+                
 
             }
 
@@ -147,12 +151,12 @@ class Character extends Movableobject {
             }
 
             else if (this.world.keyboard.down) {
-                this.playAnimation(this.IMAGES_PROTECTION); 
+                this.playAnimation(this.IMAGES_PROTECTION);
             }
-            
+
 
             else if (this.world.keyboard.shoot_crossbow) {
-                
+
                 if (!this.lastShootTime) this.lastShootTime = 0;
                 let now = new Date().getTime();
 

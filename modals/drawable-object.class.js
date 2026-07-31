@@ -10,10 +10,9 @@ class DrawableObject {
         this.img;
         this.imageCache = {};
         this.currentImage = 0;
-
-
-
+       
     }
+
 
     loadImage(path) {
         this.img = new Image();

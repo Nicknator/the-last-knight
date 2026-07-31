@@ -49,7 +49,10 @@ window.addEventListener('keydown', (e) => {
     if (e.key === 'f') {
         keyboard.shoot_crossbow = true;
        
-
+    }
+    if (e.key === 'r') {
+        keyboard.shoot_crossbow2 = true;
+       
     }
 
 
@@ -97,6 +100,11 @@ window.addEventListener('keyup', (e) => {
 
      if (e.key === 'f') {
         keyboard.shoot_crossbow = false;
+        
+        
+    }
+     if (e.key === 'r') {
+        keyboard.shoot_crossbow2 = false;
         
         
     }

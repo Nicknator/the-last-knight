@@ -6,6 +6,8 @@ class Movableobject extends DrawableObject {
     acceleration = 2.4;
     energy = 100;
     lastHit = 0;
+    boltSpeed=20;
+    
 
     applyGravity() {
         setInterval(() => {
@@ -95,6 +97,7 @@ class Movableobject extends DrawableObject {
     isDead() {
         return this.energy === 0;
     }
+    
 
 
 
