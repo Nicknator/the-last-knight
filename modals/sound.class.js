@@ -5,10 +5,11 @@ class Sound extends Movableobject {
     walkR_sound = 'audio/1_character/1_run/character-run-right.wav';
     attack_sound = 'audio/1_character/2_attack/attack-sound (mp3cut.net).wav';
     shield_block_sound = 'audio/1_character/3_block/character-block.wav';
-    bolt_hit_sound  = 'audio/1_character/4_crossbow_attack/crossbow-sound.wav';
+    bolt_hit_sound = 'audio/1_character/4_crossbow_attack/crossbow-sound.wav';
     loading_crossbow_sound = 'audio/1_character/4_crossbow_attack/loading.wav';
     jump_sound = 'audio/1_character/5_jump/jump1.wav';
     jump_ground_sound = 'audio/1_character/5_jump/jump_ground.wav';
+    attack_from_enemy_sound = 'audio/2_skeleton/attack-skeleton.mp3';
 
 
 
@@ -23,6 +24,7 @@ class Sound extends Movableobject {
         this.loading_crossbow_sound = new Audio(this.loading_crossbow_sound);
         this.jump_sound = new Audio(this.jump_sound);
         this.jump_ground_sound = new Audio(this.jump_ground_sound);
+        this.attack_from_enemy_sound = new Audio(this.attack_from_enemy_sound);
         this.walkL_sound.volume = 0.45;
         this.walkR_sound.volume = 0.45;
         this.attack_sound.volume = 0.45;
@@ -31,6 +33,7 @@ class Sound extends Movableobject {
         this.loading_crossbow_sound.volume = 0.45;
         this.jump_sound.volume = 0.45;
         this.jump_ground_sound.volume = 0.45;
+        this.attack_from_enemy_sound.volume = 0.45;
         this.stepToggle = true;
     }
 
@@ -41,44 +44,50 @@ class Sound extends Movableobject {
     }
 
 
-        attackSound() {
-        this.attack_sound.pause(); 
-        this.attack_sound.currentTime = 0; 
-        this.attack_sound.playbackRate = 1; 
-        this.attack_sound.play().catch(() => {});
+    attackSound() {
+        this.attack_sound.pause();
+        this.attack_sound.currentTime = 0;
+        this.attack_sound.playbackRate = 1;
+        this.attack_sound.play().catch(() => { });
     }
 
-    shieldBlockSound(){
-        this.shield_block_sound.play().catch(() => {});
+    shieldBlockSound() {
+        this.shield_block_sound.play().catch(() => { });
     }
 
     boltHitSound() {
-        this.bolt_hit_sound.pause(); 
-        this.bolt_hit_sound.currentTime = 0; 
-        this.bolt_hit_sound.play().catch(() => {});
+        this.bolt_hit_sound.pause();
+        this.bolt_hit_sound.currentTime = 0;
+        this.bolt_hit_sound.play().catch(() => { });
     }
 
     loadingCrossbowSound() {
         this.loading_crossbow_sound.pause();
         this.loading_crossbow_sound.currentTime = 0;
-        this.loading_crossbow_sound.play().catch(() => {});
+        this.loading_crossbow_sound.play().catch(() => { });
     }
 
     jumpSound() {
         this.jump_sound.pause();
         this.jump_sound.currentTime = 0;
-        this.jump_sound.play().catch(() => {});
+        this.jump_sound.play().catch(() => { });
     }
 
     jumpGroundSound() {
         this.jump_ground_sound.pause();
         this.jump_ground_sound.currentTime = 0;
-        this.jump_ground_sound.play().catch(() => {});
+        this.jump_ground_sound.play().catch(() => { });
     }
 
-
-
+    attackFromEnemySound() {
+        this.attack_from_enemy_sound.pause();
+        this.attack_from_enemy_sound.currentTime = 0;
+        this.attack_from_enemy_sound.play().catch(() => { });
+    }
  
+
+
+
     playNextStep() {
         if (this.stepToggle) {
             this.walkL_sound.currentTime = 0;

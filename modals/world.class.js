@@ -247,20 +247,28 @@ class World {
         this.level.enemies.forEach((enemy) => { enemy.isAttacking = false; });
     }
 
-    handleEnemyAttack(enemy) {
+       handleEnemyAttack(enemy) { 
         enemy.isAttacking = true;
         let currentAttackFrame = enemy.currentImage % enemy.IMAGES_ATTACK.length;
-        if (currentAttackFrame === 2) {
+        if (currentAttackFrame === 0) {
+            enemy.damageDealt = false;
+        }
+        if (currentAttackFrame === 2 && !enemy.damageDealt) {
+            
             if (this.keyboard.down && this.character.isColliding(enemy)) {
                 this.sound.shieldBlockSound();
                 console.log("Schildblock!");
+                enemy.damageDealt = true; 
             }
             else if (this.character.isColliding(enemy)) {
                 this.character.hit(5);
                 this.healthStatusbar.setPercentage(this.character.energy);
+                this.sound.attackFromEnemySound();
+                enemy.damageDealt = true; 
             }
         }
     }
+ 
 
 
     attackEnemy(enemy, damageAmount) {
