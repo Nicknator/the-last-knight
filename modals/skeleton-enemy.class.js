@@ -44,23 +44,17 @@ class SkeletonEnemy extends Movableobject {
     }
 
     animate() {
-        
         setInterval(() => {
-            
-            if (this.isAttacking === true && this.energy >0) {
+            if (this.isAttacking === true && this.energy > 0) {
                 this.playAnimation(this.IMAGES_ATTACK);
             }
-
-        }, 200);
-
+        }, 500);
 
         setInterval(() => {
-            
-          if(this.isDead()){
-            this.playAnimation(this.IMAGES_DEAD);
-            return;
-          }
-
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+                return;
+            }
             if (this.isAttacking === false) {
                 this.playAnimation(this.IMAGES_WALKING);
 
@@ -71,21 +65,15 @@ class SkeletonEnemy extends Movableobject {
                     this.x -= this.enemySpeed * 30;
                 }
             }
-
         }, 500);
-
-        
-
-
-
     }
 
-          getAttackDimensions(file, data) {
-        let i = this.currentImage % this.IMAGES_ATTACK.length; 
+    getAttackDimensions(file, data) {
+        let i = this.currentImage % this.IMAGES_ATTACK.length;
 
-        if (i === 0) { data.w = 180; data.h = 145; data.y = this.y - 0; }     
-        else if (i === 1) { data.w = 110; data.h = 190; data.y = this.y - 45; } 
-        else if (i === 2) { data.w = 130; data.h = 145; data.y = this.y - 0; } 
+        if (i === 0) { data.w = 180; data.h = 145; data.y = this.y - 0; }
+        else if (i === 1) { data.w = 110; data.h = 190; data.y = this.y - 45; }
+        else if (i === 2) { data.w = 130; data.h = 145; data.y = this.y - 0; }
 
         data.x = this.x - ((data.w - this.width) / 2);
     }

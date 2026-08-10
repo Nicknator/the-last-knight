@@ -1,8 +1,6 @@
 class Character extends Movableobject {
     y = 220;
     world;
-    
-
 
     IMAGES_IDLE = [
         'img/2.character/idle/knight-idle-frame-origen.png',
@@ -25,17 +23,14 @@ class Character extends Movableobject {
         'img/2.character/attack/attack3.png',
         'img/2.character/attack/attack4.png',
     ];
+
     IMAGES_PROTECTION = [
         'img/2.character/protection/protection1.png',
-
-    ]
-
-
+    ];
 
     IMAGES_JUMPING = [
         'img/2.character/jum/jump6.png',
         'img/2.character/jum/jump1.png',
-        // 'img/2.character/jum/jump3.png',
         'img/2.character/jum/jump4.png',
         'img/2.character/jum/jump5.png',
         'img/2.character/jum/jump6.png',
@@ -50,7 +45,6 @@ class Character extends Movableobject {
         'img/2.character/dead/dead6.png',
     ];
 
-
     IMAGES_HURT = [
         'img/2.character/hurt/hurt1.png',
         'img/2.character/hurt/hurt2.png',
@@ -61,12 +55,10 @@ class Character extends Movableobject {
         'img/2.character/shoot_crossbow/shoot2.png',
         'img/2.character/shoot_crossbow/shoot3.png',
         'img/2.character/shoot_crossbow/shoot4.png',
-    ]
-
-
+    ];
 
     constructor() {
-        super(); // Aktiviert Movableobject
+        super();
         this.loadImage(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
@@ -80,6 +72,8 @@ class Character extends Movableobject {
         this.animate();
         this.ammo = 5;
         this.coins = 0;
+        this.wasAboveGround = false;
+
     }
 
     animate() {
@@ -97,26 +91,15 @@ class Character extends Movableobject {
 
             if (this.world.keyboard.up && !this.isAboveGround()) {
                 this.jump();
+                this.world.sound.jumpSound();
             }
 
-            if (this.world.keyboard.attack) {
-                // this.attack();
-                // console.log("zustand");
+            if (!this.isAboveGround() && this.wasAboveGround) {
+                this.world.sound.jumpGroundSound();
             }
-
-            if (this.world.keyboard.down) {
-                console.log("Block");
-            }
-
-            if (this.world.keyboard.shoot_crossbow) {
-                // console.log("shoot");
-                
-
-            }
-
-            this.world.camera_x = -this.x + 280
-        }, 1000 / 60)
-
+            this.wasAboveGround = this.isAboveGround();
+            this.world.camera_x = -this.x + 280;
+        }, 1000 / 60);
 
         this.deathResetDone = false;
 
@@ -127,6 +110,7 @@ class Character extends Movableobject {
                 if (!this.deathResetDone) {
                     this.currentImage = 0;
                     this.deathResetDone = true;
+                    this.world.sound.deadSound();
                 }
 
                 this.playAnimation(this.IMAGES_DEAD);
@@ -135,75 +119,59 @@ class Character extends Movableobject {
                     clearInterval(this.characterAnimationInterval);
                     console.log("Ritter liegt komplett flach. Animation gestoppt.");
                 }
-
                 return;
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             }
             else if (this.world.keyboard.attack) {
                 this.playAnimation(this.IMAGES_ATTACK);
-                console.log("attack")
-            }
 
+
+            }
             else if (this.world.keyboard.down) {
                 this.playAnimation(this.IMAGES_PROTECTION);
+
             }
-
-
             else if (this.world.keyboard.shoot_crossbow) {
-
                 if (!this.lastShootTime) this.lastShootTime = 0;
                 let now = new Date().getTime();
+
 
                 if (now - this.lastShootTime > 250) {
                     this.playAnimation(this.IMAGES_SHOOT);
                     this.lastShootTime = now;
+                    this.world.sound.loadingCrossbowSound();
                 } else {
                     let i = this.currentImage % this.IMAGES_SHOOT.length;
                     this.loadImage(this.IMAGES_SHOOT[i]);
                 }
-
-
             }
-
-
             else {
                 if (this.world.keyboard.right || this.world.keyboard.left) {
                     this.playAnimation(this.IMAGES_WALKING);
+
+                    if (this.currentImage % 2 === 0) {
+                        this.world.sound.playNextStep();
+                    }
+                } else {
+                    this.world.sound.stopSteps();
                 }
             }
-        }, 70);
+        }, 100);
     }
-
-
-
-    // getAttackDimensions(file, data) {
-    //     if (file === 'attack1.png') { data.w = 120; data.h = 130; data.y = this.y + 5; }
-    //     else if (file === 'attack2.png') { data.w = 120; data.h = 180; data.y = this.y - 45; }
-    //     else if (file === 'attack3.png') { data.w = 120; data.h = 125; data.y = this.y + 10; }
-    //     else if (file === 'attack4.png') { data.w = 140; data.h = 130; data.y = this.y + 5; }
-    //     data.x = this.x - ((data.w - this.width) / 2);
-    // }
 
 
 
     getAttackDimensions(file, data) {
         let i = this.currentImage % this.IMAGES_ATTACK.length;
-        if (i === 0) { data.w = 140; data.h = 130; data.y = this.y + 5; }  //0
+        if (i === 0) { data.w = 140; data.h = 130; data.y = this.y + 5; }
         else if (i === 2) { data.w = 120; data.h = 180; data.y = this.y - 45; }
         else if (i === 3) { data.w = 120; data.h = 125; data.y = this.y + 10; }
         else if (i === 1) { data.w = 120; data.h = 130; data.y = this.y + 5; }
         data.x = this.x - ((data.w - this.width) / 2);
     }
-
-
-
-
-
-
 }

@@ -3,7 +3,9 @@ class World {
     healthStatusbar = new StatusbarHealth();
     ammoStatusbar = new StatusbarAMMO();
     coinStatusbar = new StatusbarCoin();
+    sound = new Sound();
     enemyProjectiles = [];
+
 
     fireParticles = [];
 
@@ -24,6 +26,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+
     }
 
     setWorld() {
@@ -40,7 +43,7 @@ class World {
             this.checkCoinCollisions();
             this.dragonFireAttack();
 
-        }, 200); 
+        }, 200);
 
         setInterval(() => {
             this.checkBoltCollisions();
@@ -106,7 +109,7 @@ class World {
         if (bossIsAttacking) {
             this.fireParticles = this.fireParticles.filter(p => p.life > 0);
         } else {
-            this.fireParticles = []; 
+            this.fireParticles = [];
         }
     }
 
@@ -136,18 +139,23 @@ class World {
     checkCharacterCollisions() {
         if (this.character.energy === 0) {
             this.letEnemiesWalkPast();
+            this.sound.deadSound();
             return;
         }
         this.level.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss) {
                 let xDistance = Math.abs(this.character.x - enemy.x);
                 if (enemy.y === 50 && xDistance < 200 && this.keyboard.attack) {
-                    this.attackEnemy(enemy, 30); // Fügt dem Boss Schaden zu
+                    this.attackEnemy(enemy, 30);
+                    this.sound.attackSound();
                 }
-            } 
+            }
             else if (this.character.isColliding(enemy)) {
                 if (this.keyboard.attack) {
-                    this.attackEnemy(enemy, 30);
+                    if (enemy.energy > 0) {
+                        this.attackEnemy(enemy, 30);
+                        this.sound.attackSound();
+                    }
                 } else {
                     this.handleEnemyAttack(enemy);
                 }
@@ -191,15 +199,18 @@ class World {
         });
     }
 
+
     checkBoltCollisions() {
         this.flyBolt.forEach((bolt) => {
             this.level.enemies.forEach((enemy) => {
                 if (bolt.isColliding(enemy)) {
                     if (enemy instanceof Endboss) {
                         enemy.hit(20);
+                        this.sound.boltHitSound();
                         bolt.isDead = true;
                     } else {
                         this.attackEnemy(enemy, 30);
+                        this.sound.boltHitSound();
                         bolt.isDead = true;
                     }
                 }
@@ -238,13 +249,19 @@ class World {
 
     handleEnemyAttack(enemy) {
         enemy.isAttacking = true;
-        if (this.keyboard.down) {
-            console.log("Schieldblock");
-        } else {
-            this.character.hit(5);
-            this.healthStatusbar.setPercentage(this.character.energy);
+        let currentAttackFrame = enemy.currentImage % enemy.IMAGES_ATTACK.length;
+        if (currentAttackFrame === 2) {
+            if (this.keyboard.down && this.character.isColliding(enemy)) {
+                this.sound.shieldBlockSound();
+                console.log("Schildblock!");
+            }
+            else if (this.character.isColliding(enemy)) {
+                this.character.hit(5);
+                this.healthStatusbar.setPercentage(this.character.energy);
+            }
         }
     }
+
 
     attackEnemy(enemy, damageAmount) {
         if (enemy.energy <= 0) return;
