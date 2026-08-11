@@ -10,32 +10,38 @@ class Sound extends Movableobject {
     jump_sound = 'audio/1_character/5_jump/jump1.wav';
     jump_ground_sound = 'audio/1_character/5_jump/jump_ground.wav';
     attack_from_enemy_sound = 'audio/2_skeleton/attack-skeleton.mp3';
-
+    skeleton_hit_sound = 'audio/2_skeleton/attack-skeleton.mp3';
 
 
     constructor() {
         super();
-        this.deadsound = new Audio(this.deadsound);
-        this.walkL_sound = new Audio(this.walkL_sound);
-        this.walkR_sound = new Audio(this.walkR_sound);
-        this.attack_sound = new Audio(this.attack_sound);
-        this.shield_block_sound = new Audio(this.shield_block_sound);
-        this.bolt_hit_sound = new Audio(this.bolt_hit_sound);
-        this.loading_crossbow_sound = new Audio(this.loading_crossbow_sound);
-        this.jump_sound = new Audio(this.jump_sound);
-        this.jump_ground_sound = new Audio(this.jump_ground_sound);
-        this.attack_from_enemy_sound = new Audio(this.attack_from_enemy_sound);
-        this.walkL_sound.volume = 0.45;
-        this.walkR_sound.volume = 0.45;
-        this.attack_sound.volume = 0.45;
-        this.shield_block_sound.volume = 0.45;
-        this.bolt_hit_sound.volume = 0.45;
-        this.loading_crossbow_sound.volume = 0.45;
-        this.jump_sound.volume = 0.45;
-        this.jump_ground_sound.volume = 0.45;
-        this.attack_from_enemy_sound.volume = 0.45;
-        this.stepToggle = true;
+        const soundConfig = {
+            'deadsound': 0.45,
+            'walkL_sound': 0.45,
+            'walkR_sound': 0.45,
+            'attack_sound': 0.45,
+            'shield_block_sound': 0.45,
+            'bolt_hit_sound': 0.45,
+            'loading_crossbow_sound': 0.45,
+            'jump_sound': 0.45,
+            'jump_ground_sound': 0.45,
+            'attack_from_enemy_sound': 0.45,
+        }
+        const keys = Object.keys(soundConfig);
+
+        keys.forEach(key => {
+           
+            if (this[key]) {
+                let volume = soundConfig[key];
+                this[key] = new Audio(this[key]);
+                this[key].volume = volume;
+            }
+        });
+
     }
+
+
+
 
     deadSound() {
         if (!this.deadsound) return;
@@ -84,7 +90,7 @@ class Sound extends Movableobject {
         this.attack_from_enemy_sound.currentTime = 0;
         this.attack_from_enemy_sound.play().catch(() => { });
     }
- 
+
 
 
 
