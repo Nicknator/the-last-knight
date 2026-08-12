@@ -11,6 +11,11 @@ class Sound extends Movableobject {
     jump_ground_sound = 'audio/1_character/5_jump/jump_ground.wav';
     attack_from_enemy_sound = 'audio/2_skeleton/attack-skeleton.mp3';
     skeleton_hit_sound = 'audio/2_skeleton/attack-skeleton.mp3';
+    skeleton_hurt_sound = 'audio/2_skeleton/hit/skeleton-hurt.mp3';
+    dragon_wing_sound = 'audio/3_dragon/wing/npc_dragon_wingflap_01.wav';
+    dragon_fire_sound = 'audio/3_dragon/fire/dragon-fire5s.mp3';
+    dragon_growl_sound = 'audio/3_dragon/growl/npc_dragon_injuredflight_01.wav';
+
 
 
     constructor() {
@@ -26,17 +31,23 @@ class Sound extends Movableobject {
             'jump_sound': 0.45,
             'jump_ground_sound': 0.45,
             'attack_from_enemy_sound': 0.45,
+            'skeleton_hurt_sound': 0.45,
+            'dragon_wing_sound': 0.45,
+            'dragon_fire_sound': 1,
+            'dragon_growl_sound': 0.65,
         }
         const keys = Object.keys(soundConfig);
 
         keys.forEach(key => {
-           
+
             if (this[key]) {
                 let volume = soundConfig[key];
                 this[key] = new Audio(this[key]);
                 this[key].volume = volume;
             }
         });
+
+
 
     }
 
@@ -53,7 +64,7 @@ class Sound extends Movableobject {
     attackSound() {
         this.attack_sound.pause();
         this.attack_sound.currentTime = 0;
-        this.attack_sound.playbackRate = 1;
+        // this.attack_sound.playbackRate = 1;
         this.attack_sound.play().catch(() => { });
     }
 
@@ -90,6 +101,32 @@ class Sound extends Movableobject {
         this.attack_from_enemy_sound.currentTime = 0;
         this.attack_from_enemy_sound.play().catch(() => { });
     }
+
+    skeletonHurtSound() {
+        this.skeleton_hurt_sound.pause();
+        this.skeleton_hurt_sound.currentTime = 0;
+        this.skeleton_hurt_sound.play().catch(() => { });
+
+    }
+    dragonWingSound() {
+        this.dragon_wing_sound.pause();
+        this.dragon_wing_sound.currentTime = 0;
+        this.dragon_wing_sound.play().catch(() => { });
+    }
+    
+    dragonFireSound() {
+        this.dragon_fire_sound.pause();
+        this.dragon_fire_sound.currentTime = 0;
+        this.dragon_fire_sound.play().catch(() => { });
+    }
+
+    dragonGrowlSound() {
+        this.dragon_growl_sound.pause();
+        this.dragon_growl_sound.currentTime = 0;
+        this.dragon_growl_sound.play().catch(() => { });
+    }
+
+
 
 
 

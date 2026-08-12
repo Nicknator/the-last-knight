@@ -31,6 +31,13 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach(enemy => {
+            enemy.world = this;
+        });
+        
+         if (this.endboss) {
+            this.endboss.world = this;
+        }
     }
 
 
@@ -38,7 +45,6 @@ class World {
         setInterval(() => {
             this.checkCharacterCollisions();
             this.checkCrossbowAttack();
-            this.checkSwordAttack();
             this.checkAmmoPickups();
             this.checkCoinCollisions();
             this.dragonFireAttack();
@@ -130,24 +136,22 @@ class World {
     }
 
 
-    checkSwordAttack() {
-        if (this.keyboard.attack) {
-            console.log("Schwert-Angriff ausgeführt!");
-        }
-    }
-
     checkCharacterCollisions() {
         if (this.character.energy === 0) {
             this.letEnemiesWalkPast();
             this.sound.deadSound();
             return;
         }
+
+
         this.level.enemies.forEach((enemy) => {
+
             if (enemy instanceof Endboss) {
                 let xDistance = Math.abs(this.character.x - enemy.x);
                 if (enemy.y === 50 && xDistance < 200 && this.keyboard.attack) {
                     this.attackEnemy(enemy, 30);
                     this.sound.attackSound();
+                    
                 }
             }
             else if (this.character.isColliding(enemy)) {
@@ -155,6 +159,8 @@ class World {
                     if (enemy.energy > 0) {
                         this.attackEnemy(enemy, 30);
                         this.sound.attackSound();
+                        this.sound.skeletonHurtSound();
+
                     }
                 } else {
                     this.handleEnemyAttack(enemy);
@@ -211,6 +217,7 @@ class World {
                     } else {
                         this.attackEnemy(enemy, 30);
                         this.sound.boltHitSound();
+                        this.sound.skeletonHurtSound();
                         bolt.isDead = true;
                     }
                 }
@@ -247,28 +254,28 @@ class World {
         this.level.enemies.forEach((enemy) => { enemy.isAttacking = false; });
     }
 
-       handleEnemyAttack(enemy) { 
+    handleEnemyAttack(enemy) {
         enemy.isAttacking = true;
         let currentAttackFrame = enemy.currentImage % enemy.IMAGES_ATTACK.length;
         if (currentAttackFrame === 0) {
             enemy.damageDealt = false;
         }
         if (currentAttackFrame === 2 && !enemy.damageDealt) {
-            
+
             if (this.keyboard.down && this.character.isColliding(enemy)) {
                 this.sound.shieldBlockSound();
                 console.log("Schildblock!");
-                enemy.damageDealt = true; 
+                enemy.damageDealt = true;
             }
             else if (this.character.isColliding(enemy)) {
                 this.character.hit(5);
                 this.healthStatusbar.setPercentage(this.character.energy);
                 this.sound.attackFromEnemySound();
-                enemy.damageDealt = true; 
+                enemy.damageDealt = true;
             }
         }
     }
- 
+
 
 
     attackEnemy(enemy, damageAmount) {
