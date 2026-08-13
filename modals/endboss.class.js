@@ -25,10 +25,7 @@ class Endboss extends Movableobject {
         this.loadImages(this.IMAGES_WALKING);
         this.fireImg = new Image();
         this.x = 1600;
-        
-        // 🎯 Start-Sperre: Der Drache hat beim Spawnen noch nicht gebrüllt
-        this.hasRoared = false;
-        
+        this.hasRoared = false;  
         this.animate();
     }
 
@@ -69,22 +66,13 @@ class Endboss extends Movableobject {
                 if (this.currentDistance < 600 && (this.currentImage % this.IMAGES_WALKING.length === 0)) {
                     if (this.world && this.world.sound) {
                         this.world.sound.dragonWingSound();
+
                         if(!this.hasRoared){
                             this.world.sound.dragonGrowlSound();
                             this.hasRoared = true; 
                         }
-                        
-                        
-                        
                     }
                 }
-
-                // if (this.currentDistance < 600 && !this.hasRoared) {
-                //     if (this.world && this.world.sound) {
-                //         this.world.sound.dragonGrowlSound();
-                //     }
-                //     this.hasRoared = true; 
-                // }
             }
         }, 300);
     }

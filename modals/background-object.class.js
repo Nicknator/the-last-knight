@@ -9,6 +9,10 @@ class BackgroundObject extends Movableobject {
         this.x = x;
         this.y = 0;
 
+        
+
     }
+
+    
  
 }

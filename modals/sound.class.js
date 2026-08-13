@@ -15,7 +15,10 @@ class Sound extends Movableobject {
     dragon_wing_sound = 'audio/3_dragon/wing/npc_dragon_wingflap_01.wav';
     dragon_fire_sound = 'audio/3_dragon/fire/dragon-fire5s.mp3';
     dragon_growl_sound = 'audio/3_dragon/growl/npc_dragon_injuredflight_01.wav';
-
+    ice_wind_sound = 'audio/4_backgroundsound/ice-wind-sound_sound.wav';
+    glaciers_breaking_sound = 'audio/4_backgroundsound/glaciers_breaking_sound.mp3';
+    loot_coin_sound = 'audio/5_loot_sound/loot_coin_sound.mp3';
+    loot_bolt_sound = 'audio/5_loot_sound/bolt_pickup_sound .wav';
 
 
     constructor() {
@@ -35,6 +38,10 @@ class Sound extends Movableobject {
             'dragon_wing_sound': 0.45,
             'dragon_fire_sound': 1,
             'dragon_growl_sound': 0.65,
+            'ice_wind_sound': 0.65,
+            'glaciers_breaking_sound': 0.65,
+            'loot_coin_sound': 0.45,
+            'loot_bolt_sound': 0.45,
         }
         const keys = Object.keys(soundConfig);
 
@@ -46,12 +53,7 @@ class Sound extends Movableobject {
                 this[key].volume = volume;
             }
         });
-
-
-
     }
-
-
 
 
     deadSound() {
@@ -60,17 +62,17 @@ class Sound extends Movableobject {
         this.deadsound = null;
     }
 
+    shieldBlockSound() {
+        this.shield_block_sound.play().catch(() => { });
+    }
+
 
     attackSound() {
         this.attack_sound.pause();
         this.attack_sound.currentTime = 0;
-        // this.attack_sound.playbackRate = 1;
         this.attack_sound.play().catch(() => { });
     }
 
-    shieldBlockSound() {
-        this.shield_block_sound.play().catch(() => { });
-    }
 
     boltHitSound() {
         this.bolt_hit_sound.pause();
@@ -113,7 +115,7 @@ class Sound extends Movableobject {
         this.dragon_wing_sound.currentTime = 0;
         this.dragon_wing_sound.play().catch(() => { });
     }
-    
+
     dragonFireSound() {
         this.dragon_fire_sound.pause();
         this.dragon_fire_sound.currentTime = 0;
@@ -126,8 +128,33 @@ class Sound extends Movableobject {
         this.dragon_growl_sound.play().catch(() => { });
     }
 
+    lootCoinSound() {
+        this.loot_coin_sound.pause();
+        this.loot_coin_sound.currentTime = 0;
+        this.loot_coin_sound.play().catch(() => { });
+    }
+
+    lootBoltSound() {
+        this.loot_bolt_sound.pause();
+        this.loot_bolt_sound.currentTime = 0;
+        this.loot_bolt_sound.play().catch(() => { });
+    }
 
 
+
+    glaciersBreakingSound() {
+        this.glaciers_breaking_sound.pause();
+        this.glaciers_breaking_sound.currentTime = 0;
+        this.glaciers_breaking_sound.play().catch(() => { });
+    }
+
+    iceWindSound() {
+        this.ice_wind_sound.loop = true;
+        this.ice_wind_sound.play().catch(() => { });
+        let clone = this.ice_wind_sound.cloneNode(true);
+        clone.loop = true;
+        setTimeout(() => clone.play().catch(() => { }), (this.ice_wind_sound.duration * 1000) / 1.4 || 2000);
+    }
 
 
 

@@ -15,6 +15,7 @@ async function init() {
     ctx.scale(2, 2);
 
     world = new World(canvas, keyboard);
+    
 }
 
 

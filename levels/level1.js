@@ -37,7 +37,10 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/winter-location2.png', 720),
         new BackgroundObject('img/5_background/winter-location.png', 1440),
         new BackgroundObject('img/5_background/winter-location.png', 2160),
+        
     ],
+
+    
 
 
     

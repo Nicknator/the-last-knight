@@ -7,6 +7,7 @@ class World {
     enemyProjectiles = [];
 
 
+
     fireParticles = [];
 
     level = level1;
@@ -34,10 +35,20 @@ class World {
         this.level.enemies.forEach(enemy => {
             enemy.world = this;
         });
-        
-         if (this.endboss) {
+
+        if (this.endboss) {
             this.endboss.world = this;
         }
+
+        this.sound.iceWindSound();
+
+        setInterval(() => {
+           
+            if (Math.random() < 0.2) {
+                this.sound.glaciersBreakingSound();
+            }
+        }, 10000);
+
     }
 
 
@@ -55,6 +66,8 @@ class World {
             this.checkBoltCollisions();
             this.simulateFireParticles();
         }, 1000 / 60);
+
+
     }
 
 
@@ -75,11 +88,15 @@ class World {
         this.addToMap(this.ammoStatusbar);
         this.addToMap(this.coinStatusbar);
 
+
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
+
         });
     }
+
+
 
 
     dragonFireAttack() {
@@ -143,7 +160,6 @@ class World {
             return;
         }
 
-
         this.level.enemies.forEach((enemy) => {
 
             if (enemy instanceof Endboss) {
@@ -151,7 +167,7 @@ class World {
                 if (enemy.y === 50 && xDistance < 200 && this.keyboard.attack) {
                     this.attackEnemy(enemy, 30);
                     this.sound.attackSound();
-                    
+
                 }
             }
             else if (this.character.isColliding(enemy)) {
@@ -185,6 +201,7 @@ class World {
                 let index = this.level.lootBolts.indexOf(boltItem);
                 if (index > -1) {
                     this.level.lootBolts.splice(index, 1);
+                    this.sound.lootBoltSound();
                 }
             }
         });
@@ -200,6 +217,7 @@ class World {
                 let index = this.level.coins.indexOf(coinItem);
                 if (index > -1) {
                     this.level.coins.splice(index, 1);
+                    this.sound.lootCoinSound();
                 }
             }
         });
