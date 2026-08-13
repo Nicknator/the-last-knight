@@ -193,11 +193,11 @@ class World {
         });
     }
 
-    checkAmmoPickups() {
+        checkAmmoPickups() {
         this.level.lootBolts.forEach((boltItem) => {
-            if (this.character.isColliding(boltItem)) {
+            if (this.character.isColliding(boltItem) && this.character.ammo < 5) {
                 this.character.ammo++;
-                this.ammoStatusbar.setPercentage(this.character.ammo * 20);
+                this.ammoStatusbar.setPercentage(this.character.ammo * 20);  
                 let index = this.level.lootBolts.indexOf(boltItem);
                 if (index > -1) {
                     this.level.lootBolts.splice(index, 1);
@@ -206,6 +206,7 @@ class World {
             }
         });
     }
+
 
 
     checkCoinCollisions() {
