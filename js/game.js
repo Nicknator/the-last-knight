@@ -5,23 +5,33 @@ let keyboard = new Keyboard();
 async function init() {
     canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
-
     canvas.width = 1440;
     canvas.height = 960;
-
-    canvas.style.width = "720px";
-    canvas.style.height = "480px";
-
+    // canvas.style.width = "720px";
+    // canvas.style.height = "480px";
     ctx.scale(2, 2);
+    world = new World(canvas, keyboard); 
+}
 
-    world = new World(canvas, keyboard);
-    
+function fullScreen() {
+    let container = document.getElementById('gameContainer');
+
+    if (!document.fullscreenElement) {
+        container.requestFullscreen().catch(err => {
+            console.error(`Fehler beim Aktivieren: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
 }
 
 
 
 
-// Wir loggen JEDE Taste, die gedrückt wird, ohne Filter!
+
+
+
+
 window.addEventListener('keydown', (e) => {
     if (e.key === 'd') {
         keyboard.right = true;

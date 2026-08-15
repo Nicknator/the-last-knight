@@ -1,12 +1,38 @@
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-
-canvas{
+canvas {
     background-color: black;
-    
 }
 
+
+#gameContainer {
+    position: relative;
+    width: 720px;
+    height: 480px;
+   
+}
+
+#canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+
+.img-button {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 9999;
+    padding: 10px 10px;
+
+
+}

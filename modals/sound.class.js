@@ -15,7 +15,7 @@ class Sound extends Movableobject {
     dragon_wing_sound = 'audio/3_dragon/wing/npc_dragon_wingflap_01.wav';
     dragon_fire_sound = 'audio/3_dragon/fire/dragon-fire5s.mp3';
     dragon_growl_sound = 'audio/3_dragon/growl/npc_dragon_injuredflight_01.wav';
-    ice_wind_sound = 'audio/4_backgroundsound/ice-wind-sound_sound.wav';
+    ice_wind_sound = 'audio/4_backgroundsound/ice-wind-sound_sound.mp3';
     glaciers_breaking_sound = 'audio/4_backgroundsound/glaciers_breaking_sound.mp3';
     loot_coin_sound = 'audio/5_loot_sound/loot_coin_sound.mp3';
     loot_bolt_sound = 'audio/5_loot_sound/bolt_pickup_sound .wav';
@@ -153,7 +153,7 @@ class Sound extends Movableobject {
         this.ice_wind_sound.play().catch(() => { });
         let clone = this.ice_wind_sound.cloneNode(true);
         clone.loop = true;
-        setTimeout(() => clone.play().catch(() => { }), (this.ice_wind_sound.duration * 1000) / 1.4 || 2000);
+        setTimeout(() => clone.play().catch(() => { }), (this.ice_wind_sound.duration * 1000) / 2 || 2000);
     }
 
 
