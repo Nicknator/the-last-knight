@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Last Knight</title>
+    <title>Skyebound</title>
+    <link href="https://googleapis.com" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="modals/drawable-object.class.js"></script>
     <script src="modals/movable-object.class.js"></script>
@@ -19,7 +20,6 @@
     <script src="modals/fire-particle.class.js"></script>
     <script src="modals/cloud.class.js"></script>
     <script src="modals/bolt.class.js"></script>
-    <script src="modals/fire-breath.class.js"></script>
     <script src="modals/sound.class.js"></script>
     <script src="modals/world.class.js"></script>
     <script src="modals/background-object.class.js"></script>
@@ -31,28 +31,41 @@
 </head>
 
 <body onload="init()">
-    <h1>The Last Knight</h1>
+    <h1>Skyebound</h1>
     <div id="gameContainer">
         <canvas id="canvas" width="720" height="480"></canvas>
         <img src="img/6_button/fsb.png" alt="fsb" class="img-button" onclick="fullScreen()">
-
     </div>
 
 
     <div class="bigStartImg" id="startScreen">
         <img src="img/5_background/winter-location.png" alt="start_img" class="setBigImg">
-
         <div class="smalStartImg">
             <img src="img/5_background/winter-location2.png" alt="smal_start_img" class="setSmalImg">
             <div class="setInnerArea">
-                <img src="img/7_intro_outro_screens/start/start_button.png" alt="start_button" class="setStartBtn" onclick="startGame()">
-                <img src="img/7_intro_outro_screens/start/start_knight.png" alt="start_knight"class="setStartKnightImg">
+                <img src="img/7_intro_outro_screens/start/start_button.png" alt="start_button" class="setStartBtn"
+                    onclick="startGame()">
+                <h2>Skyebound</h2>
+                <img src="img/7_intro_outro_screens/start/start_knight.png" alt="start_knight"
+                    class="setStartKnightImg">
 
             </div>
         </div>
 
     </div>
 
+
+    <div class="gameOverScreen" id="gameOverScreen">
+        <img src="img/5_background/winter-location.png" alt="start_img" class="setBigImg">
+        <div class="smalStartImg">
+            <img src="img/5_background/winter-location.png" alt="smal_start_img" class="setSmalImg">
+            <div class="setInnerArea">
+                <img src="img/7_intro_outro_screens/start/start_button.png" alt="start_button" class="setStartBtn"
+                    onclick="restartGame()">
+                <h2>Game Over!</h2>
+            </div>
+        </div>
+    </div>
 
 
 </body>

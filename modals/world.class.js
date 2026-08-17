@@ -6,10 +6,7 @@ class World {
     sound = new Sound();
     enemyProjectiles = [];
 
-
-
     fireParticles = [];
-
     level = level1;
     ctx;
     canvas;
@@ -43,7 +40,7 @@ class World {
         this.sound.iceWindSound();
 
         setInterval(() => {
-           
+
             if (Math.random() < 0.2) {
                 this.sound.glaciersBreakingSound();
             }
@@ -124,7 +121,7 @@ class World {
 
             let distToCharacter = Math.abs(particle.x - this.character.x);
             if (distToCharacter < 40 && particle.y > this.character.y && particle.y < this.character.y + this.character.height && !this.character.isHurt()) {
-                this.character.hit(1);
+                this.character.hit(5);
                 this.healthStatusbar.setPercentage(this.character.energy);
             }
         });
@@ -157,6 +154,7 @@ class World {
         if (this.character.energy === 0) {
             this.letEnemiesWalkPast();
             this.sound.deadSound();
+            showGameOverScreen();
             return;
         }
 
@@ -193,11 +191,11 @@ class World {
         });
     }
 
-        checkAmmoPickups() {
+    checkAmmoPickups() {
         this.level.lootBolts.forEach((boltItem) => {
             if (this.character.isColliding(boltItem) && this.character.ammo < 5) {
                 this.character.ammo++;
-                this.ammoStatusbar.setPercentage(this.character.ammo * 20);  
+                this.ammoStatusbar.setPercentage(this.character.ammo * 20);
                 let index = this.level.lootBolts.indexOf(boltItem);
                 if (index > -1) {
                     this.level.lootBolts.splice(index, 1);
@@ -230,7 +228,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (bolt.isColliding(enemy)) {
                     if (enemy instanceof Endboss) {
-                        enemy.hit(20);
+                        enemy.hit(10);
                         this.sound.boltHitSound();
                         bolt.isDead = true;
                     } else {
@@ -287,7 +285,7 @@ class World {
                 enemy.damageDealt = true;
             }
             else if (this.character.isColliding(enemy)) {
-                this.character.hit(5);
+                this.character.hit(20);
                 this.healthStatusbar.setPercentage(this.character.energy);
                 this.sound.attackFromEnemySound();
                 enemy.damageDealt = true;

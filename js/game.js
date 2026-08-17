@@ -10,7 +10,7 @@ async function init() {
     // canvas.style.width = "720px";
     // canvas.style.height = "480px";
     ctx.scale(2, 2);
-   
+
 }
 
 function fullScreen() {
@@ -26,16 +26,26 @@ function fullScreen() {
 }
 
 
-function startGame(){
-    startScreen = document.getElementById('startScreen')
+function startGame() {
+    startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
-    world = new World(canvas, keyboard); 
-   
+    world = new World(canvas, keyboard);
+
+}
+
+function showGameOverScreen() {
+    document.getElementById('gameOverScreen').style.display = 'flex';
 }
 
 
 
-
+function restartGame() {
+    gameOverScreen.style.display = 'none';
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+    world = new World(canvas, keyboard);
+}
 
 
 
@@ -67,11 +77,11 @@ window.addEventListener('keydown', (e) => {
     }
     if (e.key === 'f') {
         keyboard.shoot_crossbow = true;
-       
+
     }
     if (e.key === 'r') {
         keyboard.shoot_crossbow2 = true;
-       
+
     }
 
 
@@ -111,21 +121,21 @@ window.addEventListener('keyup', (e) => {
 
 
     }
-     if (e.key === 'e') {
+    if (e.key === 'e') {
         keyboard.attack = false;
-        
-    }
-    
 
-     if (e.key === 'f') {
-        keyboard.shoot_crossbow = false;
-        
-        
     }
-     if (e.key === 'r') {
+
+
+    if (e.key === 'f') {
+        keyboard.shoot_crossbow = false;
+
+
+    }
+    if (e.key === 'r') {
         keyboard.shoot_crossbow2 = false;
-        
-        
+
+
     }
 
     if (e.key === ' ') {
