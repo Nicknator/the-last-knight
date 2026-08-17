@@ -10,7 +10,7 @@ async function init() {
     // canvas.style.width = "720px";
     // canvas.style.height = "480px";
     ctx.scale(2, 2);
-    world = new World(canvas, keyboard); 
+   
 }
 
 function fullScreen() {
@@ -23,6 +23,14 @@ function fullScreen() {
     } else {
         document.exitFullscreen();
     }
+}
+
+
+function startGame(){
+    startScreen = document.getElementById('startScreen')
+    startScreen.style.display = 'none';
+    world = new World(canvas, keyboard); 
+   
 }
 
 
