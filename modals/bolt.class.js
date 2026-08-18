@@ -9,21 +9,18 @@ class Bolt extends Movableobject {
         this.height = 10;
         this.animate();
         this.otherDirection = shootLeft; 
-        this.isDead = false;
-       
+        this.isDead = false; 
     }
 
 
     animate() {
         setInterval(() => {
-            
             if(this.otherDirection === false){
                  this.x += this.boltSpeed; 
             }
             else{
                 this.x -= this.boltSpeed;      
             }
-           
         }, 1000 / 60);
     }
 }

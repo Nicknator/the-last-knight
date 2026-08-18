@@ -22,8 +22,7 @@ class Movableobject extends DrawableObject {
         }, 1000 / 25);
     }
 
-
-
+    
     isAboveGround() {
         return this.y < 320
     }
@@ -52,6 +51,7 @@ class Movableobject extends DrawableObject {
         }
     }
 
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -59,9 +59,7 @@ class Movableobject extends DrawableObject {
         this.currentImage++;
     }
     
-
-
-    // Ritter.isColliding(enemy)
+    // Knight.isColliding(enemy)
     isColliding(mo) {
         if (this.otherDirection) {
             let abstandX = Math.abs(this.x - mo.x);
@@ -76,7 +74,6 @@ class Movableobject extends DrawableObject {
     }
 
 
-
     hit(damageAmount) {
         this.energy -= damageAmount;    
         if (this.energy <= 0) {
@@ -86,6 +83,7 @@ class Movableobject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
+
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;

@@ -8,6 +8,4 @@ class Coin extends Movableobject {
         this.height = 30;
         this.x = 800 + Math.random() * 600;
     }
-
-
 }
