@@ -1,8 +1,7 @@
 class DrawableObject {
 
     constructor() {
-        // Hier setzen wir Standardwerte anstelle des sofortigen Zeichnens,
-        // damit beim späteren Zeichnen keine Fehler entstehen.
+  
         this.x = 0;
         this.y = 320;
         this.width = 100;

@@ -50,10 +50,7 @@ class World {
         }, 1000 / 60);
     }
 
-
     // Graphics and drawing pipeline
-
-
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.save();
@@ -256,7 +253,7 @@ class World {
     }
 
     // Loot Logic (Coins & Items)
-    
+
     checkAmmoPickups() {
         this.level.lootBolts.forEach((boltItem) => {
             if (this.character.isColliding(boltItem) && this.character.ammo < 5) {

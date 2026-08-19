@@ -51,10 +51,10 @@ class Character extends Movableobject {
     ];
 
     IMAGES_SHOOT = [
-        'img/2.character/shoot_crossbow/shoot1.png',
-        'img/2.character/shoot_crossbow/shoot2.png',
-        'img/2.character/shoot_crossbow/shoot3.png',
-        'img/2.character/shoot_crossbow/shoot4.png',
+        'img/2.character/shoot_crossbow/crossbow1.png',
+        'img/2.character/shoot_crossbow/crossbow2.png',
+        'img/2.character/shoot_crossbow/crossbow3.png',
+        'img/2.character/shoot_crossbow/crossbow4.png',
     ];
 
     constructor() {
@@ -73,7 +73,7 @@ class Character extends Movableobject {
         this.ammo = 5;
         this.coins = 0;
         this.wasAboveGround = false;
-
+  
     }
 
     animate() {
@@ -146,6 +146,7 @@ class Character extends Movableobject {
                     this.loadImage(this.IMAGES_SHOOT[i]);
                 }
             }
+            
             else {
                 if (this.world.keyboard.right || this.world.keyboard.left) {
                     this.playAnimation(this.IMAGES_WALKING);

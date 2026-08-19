@@ -11,7 +11,6 @@ class Movableobject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
-
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -87,8 +86,7 @@ class Movableobject extends DrawableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 500;
-        return timepassed < 0.2;
+        return timepassed < 400;
     }
 
 
