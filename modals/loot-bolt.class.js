@@ -1,14 +1,15 @@
 class LootBolt extends Movableobject {
 
+    /**
+     * Creates a new instance of a collectable crossbow bolt item on the map grid.
+     */
     constructor() {
         super();
         this.loadImage('img/2.character/shoot_crossbow/bolt.png');
        
-        this.y =400;
+        this.y = 400;
         this.width = 30;
         this.height = 20;
         this.x = 200 + Math.random() * 600;
     }
-
-  
 }

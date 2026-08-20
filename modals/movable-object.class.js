@@ -6,9 +6,12 @@ class Movableobject extends DrawableObject {
     acceleration = 2.4;
     energy = 100;
     lastHit = 0;
-    boltSpeed=20;
-    
+    boltSpeed = 20;
 
+
+    /**
+    * Applies gravitational acceleration forces by calculating vertical position changes over time intervals.
+    */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -21,7 +24,10 @@ class Movableobject extends DrawableObject {
         }, 1000 / 25);
     }
 
-    
+    /**
+    * Determines if the object is currently positioned above the base ground coordinate line.
+    * @returns {boolean} True if the current Y-coordinate is less than the ground level.
+    */
     isAboveGround() {
         return this.y < 320
     }
@@ -57,8 +63,13 @@ class Movableobject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-    
+
     // Knight.isColliding(enemy)
+    /**
+     * Analyzes boundary cross-overs to determine if an actively tracking entity collides with another element.
+     * @param {MovableObject} mo - The target object bounding box framework to verify overlaps against.
+     * @returns {boolean} True if structural coordinate intersections are registered.
+     */
     isColliding(mo) {
         if (this.otherDirection) {
             let abstandX = Math.abs(this.x - mo.x);
@@ -72,9 +83,12 @@ class Movableobject extends DrawableObject {
             this.y < mo.y + mo.height;
     }
 
-
+    /**
+    * Reduces active vitality quantities and logs precise timing stamps for invulnerability calculations.
+    * @param {number} damageAmount - The numeric reduction metric subtracted upon successful impacts.
+    */
     hit(damageAmount) {
-        this.energy -= damageAmount;    
+        this.energy -= damageAmount;
         if (this.energy <= 0) {
             this.energy = 0;
         }
@@ -82,33 +96,24 @@ class Movableobject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
-
+    /**
+    * Validates if the object resides within post-impact flash time frames using timestamp differences.
+    * @returns {boolean} True if the time elapsed since the last hit is under 400 milliseconds.
+    */
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         return timepassed < 400;
     }
 
+    /**
+    * Confirms whether structural vitality resources have dropped to zero boundaries.
+    * @returns {boolean} True if the energy attribute has reached zero.
+    */
 
     isDead() {
         return this.energy === 0;
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

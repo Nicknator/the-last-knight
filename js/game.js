@@ -4,8 +4,7 @@ let keyboard = new Keyboard();
 let isMuted = false; 
 
 /**
- * Initialisiert das Canvas-Spielfeld und den 2D-Kontext.
- * Lädt den gespeicherten Mute-Status aus dem Local Storage.
+ * Initializes the game canvas, scales the 2D context, and restores the mute state from local storage.
  */
 async function init() {
     canvas = document.getElementById('canvas');
@@ -13,14 +12,15 @@ async function init() {
     canvas.width = 1440;
     canvas.height = 960;
     ctx.scale(2, 2);
+
     isMuted = localStorage.getItem('gameMuted') === 'true';
     if (isMuted) {
-        document.getElementById('muteBtn').src = "img/6_button/mute_on.png";
-    }
+        document.getElementById('muteBtn').src = "img/8_other/mute_on.png";
+    } 
 }
 
 /**
- * Aktiviert oder deaktiviert den Vollbildmodus für den Spiel-Container.
+ * Toggles the screen state between default layout display and canvas container fullscreen view.
  */
 function fullScreen() {
     let container = document.getElementById('gameContainer');
@@ -28,14 +28,13 @@ function fullScreen() {
         container.requestFullscreen().catch(err => {
             console.error(`Fehler beim Aktivieren: ${err.message}`);
         });
-    } else {
+    } else { 
         document.exitFullscreen();
     }
 }
 
 /**
- * Startet das Spiel, blendet das Hauptmenü aus und initialisiert die Spielewelt.
- * Berücksichtigt den geladenen Stummschaltungs-Status.
+ * Shuts down the primary start screen, builds the game engine instance, and enforces mute persistence.
  */
 function startGame() {
     let startScreen = document.getElementById('startScreen');
@@ -47,14 +46,14 @@ function startGame() {
 }
 
 /**
- * Blendet den Game-Over-Bildschirm ein.
+ * Changes display layout rules to flex to present the game over screen interface.
  */
 function showGameOverScreen() {
     document.getElementById('gameOverScreen').style.display = 'flex';
 }
 
 /**
- * Schaltet den globalen Ton um und speichert den Status im Local Storage.
+ * Inverts the global muting tracking states, swaps icon graphic paths, and stores data in storage files.
  */
 function toggleMute() {
     let muteImg = document.getElementById('muteBtn');
@@ -62,23 +61,21 @@ function toggleMute() {
     localStorage.setItem('gameMuted', isMuted);
 
     if (isMuted) {
-        muteImg.src = "img/6_button/mute_on.png";
+        muteImg.src = "img/8_other/mute_off.png";
         if (world && world.sound) world.sound.muteAll();
     } else {
-        muteImg.src = "img/6_button/mute_off.png";
+        muteImg.src = "img/8_other/mute_on.png";
         if (world && world.sound) world.sound.unmuteAll();
     }
 }
 
 /**
- * Startet das Spiel nach einem Game Over komplett neu, ohne die Seite neu zu laden.
- * Bereinigt alte Intervalle und erzeugt frische Gegner-Instanzen.
+ * Completely resets runtime clock intervals and builds fresh enemy sets without triggering web document reloads.
  */
 function restartGame() {
     document.getElementById('gameOverScreen').style.display = 'none';
     for (let i = 1; i < 9999; i++) { window.clearInterval(i); }
     
-    // Frische Gegner für das Level generieren
     level1.enemies = [
         new SkeletonEnemy(600),
         new SkeletonEnemy(900),
@@ -92,9 +89,10 @@ function restartGame() {
     }
 }
 
-/**
- * TASTATUR-STEUERUNG (KEYBOARD LISTENERS)
- */
+// ==========================================
+// KEYBOARD CONTROLS (LISTENERS)
+// ==========================================
+
 window.addEventListener('keydown', (e) => {
     if (e.key === 'd') keyboard.right = true;
     if (e.key === 's') keyboard.down = true;

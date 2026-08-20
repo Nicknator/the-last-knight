@@ -9,6 +9,9 @@ class StatusbarHealth extends DrawableObject {
     ];
     percentage = 100;
 
+    /**
+     * Creates the health status bar and sets the default coordinates and images.
+     */
     constructor() {
         super();
         this.x = 0;
@@ -19,14 +22,20 @@ class StatusbarHealth extends DrawableObject {
         this.setPercentage(this.percentage);
     }
 
-
+    /**
+     * Updates the current percentage value and swaps the status bar image.
+     * @param {number} percentage - The new health value of the character.
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.IMAGES_HEALTH[this.percentageImgIndex()]
+        let path = this.IMAGES_HEALTH[this.percentageImgIndex()];
         this.img = this.imageCache[path];
     }
 
-
+    /**
+     * Calculates the matching image index based on the current health percentage.
+     * @returns {number} The index for the IMAGES_HEALTH array (0 to 5).
+     */
     percentageImgIndex() {
         if (this.percentage == 100) { return 5; }
         else if (this.percentage >= 80) { return 4; }
@@ -35,9 +44,4 @@ class StatusbarHealth extends DrawableObject {
         else if (this.percentage >= 20) { return 1; }
         else { return 0; }
     }
-
-
-
-
-
 }

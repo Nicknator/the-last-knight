@@ -63,6 +63,9 @@ class Character extends Movableobject {
         'img/2.character/shoot_crossbow/crossbow4.png',
     ];
 
+    /**
+     * Creates a new instance of the player character and preloads all required animation sheets.
+     */
     constructor() {
         super();
         this.loadImage(this.IMAGES_IDLE);
@@ -77,6 +80,9 @@ class Character extends Movableobject {
         this.animate();
     }
 
+    /**
+     * Initializes engine interval listeners separate for physics (60 FPS) and state rendering changes (100ms).
+     */
     animate() {
         setInterval(() => {
             if (!this.world || !this.world.keyboard) return;
@@ -95,12 +101,18 @@ class Character extends Movableobject {
         }, 100);
     }
 
+    /**
+     * Processes input queries shifting coordinate points rightwards evaluating spatial limits.
+     */
     horizontalMovementRight() {
         if (this.world.keyboard.right && !this.world.keyboard.down && this.x < this.world.level.level_end_x) {
             this.moveRight();
         }
     }
 
+    /**
+     * Processes input queries shifting coordinate points leftwards resetting layout inversion flags.
+     */
     horizontalMovementLeft() {
         if (this.world.keyboard.left && this.x > -425 && !this.world.keyboard.down) {
             this.moveLeft();
@@ -108,6 +120,9 @@ class Character extends Movableobject {
         }
     }
 
+    /**
+     * Calculates jumping momentum shifts and fires landing sound clips based on floor proximity.
+     */
     verticalHorizontal() {
         if (this.world.keyboard.up && !this.isAboveGround()) {
             this.jump();
@@ -119,6 +134,10 @@ class Character extends Movableobject {
         this.wasAboveGround = this.isAboveGround();
     }
 
+    /**
+     * Tracks health parameters to halt timeline animations and prompt specific defeat actions.
+     * @returns {boolean} True if player structural health properties register dead thresholds.
+     */
     onDeath() {
         if (this.isDead()) {
             if (!this.deathResetDone) {
@@ -135,6 +154,10 @@ class Character extends Movableobject {
         return false;
     }
 
+    /**
+     * Segregates combat animation sequences based on active input listeners and impact flashes.
+     * @returns {boolean} True if any high-priority status action is currently active.
+     */
     handleStateAnimations() {
         if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
@@ -152,6 +175,10 @@ class Character extends Movableobject {
         return false;
     }
 
+    /**
+     * Handles ammunition consumption, projectile creation cycles, and mechanical charging sounds.
+     * @returns {boolean} True if the shooting layout configurations match true filters.
+     */
     crossBowShooting() {
         if (this.world.keyboard.shoot_crossbow) {
             if (!this.lastShootTime) this.lastShootTime = 0;
@@ -169,6 +196,9 @@ class Character extends Movableobject {
         return false;
     }
 
+    /**
+     * Cycles walking sheets when directional filters match keys or halts audio step pipelines.
+     */
     animateWalk() {
         if (this.world.keyboard.right || this.world.keyboard.left) {
             this.playAnimation(this.IMAGES_WALKING);
@@ -180,6 +210,11 @@ class Character extends Movableobject {
         }
     }
 
+    /**
+     * Recalculates canvas layout transformations during active sword slashing sequences frame by frame.
+     * @param {string} file - The direct sprite description file path string.
+     * @param {Object} data - The metrics measurement wrapper containing scale coordinates.
+     */
     getAttackDimensions(file, data) {
         let i = this.currentImage % this.IMAGES_ATTACK.length;
         if (i === 0) { data.w = 140; data.h = 130; data.y = this.y + 5; }

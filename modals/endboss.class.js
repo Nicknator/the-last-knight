@@ -18,6 +18,9 @@ class Endboss extends Movableobject {
     IMAGE_DEAD_GROUND = 'img/4_enemie_boss/4_dead/dead-dragon.png';
     IMAGE_HURT = 'img/4_enemie_boss/5_hurt/hurt-dragon.png';
 
+    /**
+     * Creates a new instance of the dragon Endboss and preloads assets and position flags.
+     */
     constructor() {
         super();
         this.loadImage(this.IMAGES_WALKING[0]);
@@ -27,10 +30,18 @@ class Endboss extends Movableobject {
         this.animate();
     }
 
+    /**
+     * Evaluates if the dragon is hovering above its custom flight floor boundaries.
+     * @returns {boolean} True if the Y-coordinate sits below the flight floor index.
+     */
     isAboveGround() {
         return this.y < 120;
     }
 
+    /**
+     * Handles canvas context filters and draws either the main boss sprite or active combat particles.
+     * @param {CanvasRenderingContext2D} ctx - The target canvas rendering element reference.
+     */
     draw(ctx) {
         if (this.isDead() && this.y < 120) {
             ctx.save();
@@ -45,6 +56,9 @@ class Endboss extends Movableobject {
         }
     }
 
+    /**
+     * Initializes behavioral cycles evaluating active health layers to fire movements or animations.
+     */
     animate() {
         setInterval(() => {
             if (this.isDead()) {
@@ -57,7 +71,10 @@ class Endboss extends Movableobject {
         }, 300);
     }
 
-      handleBossDeath() {
+    /**
+     * Manages ground impact calculations upon health depletion and triggers transition locks.
+     */
+    handleBossDeath() {
         if (this.deathStarted) return;
         if (this.y >= 120 && !this.isDeadAnimationFinished) {
             this.deathStarted = true; 
@@ -70,7 +87,9 @@ class Endboss extends Movableobject {
         }
     }
 
-
+    /**
+     * Cycles flight animations and manages relative coordinate tracking to trigger sound audio clips.
+     */
     handleBossMovement() {
         this.playAnimation(this.IMAGES_WALKING);
         let frameCheck = this.currentImage % this.IMAGES_WALKING.length === 0;
@@ -83,6 +102,10 @@ class Endboss extends Movableobject {
         }
     }
 
+    /**
+     * Processes damage deductions onto the dragon's vitality pool and handles transient stun timers.
+     * @param {number} damageAmount - The numerical value subtracted from active health layers.
+     */
     hit(damageAmount) {
         if (this.isDead()) return;
         this.energy -= damageAmount;
@@ -96,6 +119,9 @@ class Endboss extends Movableobject {
         }
     }
 
+    /**
+     * Engages the core gravitational falling physics loop to bring down the defeated boss asset.
+     */
     triggerGravity() {
         if (!this.gravityTriggered) {
             this.gravityTriggered = true;
@@ -104,6 +130,10 @@ class Endboss extends Movableobject {
         }
     }
 
+    /**
+     * Measures horizontal vector absolute spreads to determine if the boss engages proximity attacks.
+     * @param {number} characterX - The horizontal coordinate key position of the player ritter.
+     */
     checkPlayerDistance(characterX) {
         if (this.isDead()) return;
         this.currentDistance = Math.abs(this.x - characterX);
@@ -114,6 +144,9 @@ class Endboss extends Movableobject {
         }
     }
 
+    /**
+     * Coordinates active fire sequence durations, shifts combat height levels, and sets cooldown buffers.
+     */
     triggerFireAttack() {
         this.isAttacking = true;
         if (this.world?.sound) this.world.sound.dragonFireSound();

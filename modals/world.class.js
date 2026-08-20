@@ -14,6 +14,11 @@ class World {
     flyBolt = [];
     lastShotImageNumber = -1;
 
+    /**
+     * Initializes the game world and sets up the 2D rendering context.
+     * @param {HTMLCanvasElement} canvas - The HTML canvas element.
+     * @param {Object} keyboard - The keyboard input mapping state.
+     */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -25,6 +30,9 @@ class World {
         this.run();
     }
 
+    /**
+     * Links the world reference to the active entities and triggers background ambient loops.
+     */
     setWorld() {
         this.character.world = this;
         this.level.enemies.forEach(enemy => enemy.world = this);
@@ -35,6 +43,9 @@ class World {
         }, 10000);
     }
 
+    /**
+     * Starts the central runtime intervals managing logic updates, projectile physics, and combat.
+     */
     run() {
         setInterval(() => {
             this.checkCharacterCollisions();
@@ -43,14 +54,15 @@ class World {
             this.checkCoinCollisions();
             this.dragonFireAttack();
         }, 200);
-
         setInterval(() => {
             this.checkBoltCollisions();
             this.simulateFireParticles();
         }, 1000 / 60);
     }
 
-    // Graphics and drawing pipeline
+    /**
+     * Clears the game field and redraws all active game elements in the current frames.
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.save();
@@ -62,6 +74,9 @@ class World {
         requestAnimationFrame(() => self.draw());
     }
 
+    /**
+     * Iterates and renders the movable game entities onto the map grid layout.
+     */
     drawGameObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.lootBolts);
@@ -73,12 +88,19 @@ class World {
         this.addObjectsToMap(this.flyBolt);
     }
 
+    /**
+     * Displays the graphical status bars pinned as fixed HUD items on top of the screen.
+     */
     drawStatusBars() {
         this.addToMap(this.healthStatusbar);
         this.addToMap(this.ammoStatusbar);
         this.addToMap(this.coinStatusbar);
     }
 
+    /**
+     * Handles orientation mirror processing and initiates the drawing sequence of an object.
+     * @param {MovableObject} mo - The target game entity to render.
+     */
     addToMap(mo) {
         if (mo.otherDirection) this.flipImage(mo);
         mo.draw(this.ctx);
@@ -86,6 +108,10 @@ class World {
         if (mo.otherDirection) this.flipImageBack(mo);
     }
 
+    /**
+     * Mirrors the canvas context state rendering calculations when entity faces leftwards.
+     * @param {MovableObject} mo - The targeted active entity.
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -93,16 +119,26 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Reverts horizontal inversion configurations applied to the image layer coordinates.
+     * @param {MovableObject} mo - The targeted active entity.
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
 
+    /**
+     * Maps through collection sets of map objects to execute the pipeline loop sequentially.
+     * @param {Array} objects - Collection set containing active entities.
+     */
     addObjectsToMap(objects) {
         objects.forEach((object) => this.addToMap(object));
     }
 
-    // Chracter-logic, attack & collisions
+    /**
+     * Verifies conditions required for the character to release a loaded crossbow bolt projectile.
+     */
     checkCrossbowAttack() {
         let i = this.character.currentImage % this.character.IMAGES_SHOOT.length;
         if (this.keyboard.shoot_crossbow && i === 2 && this.character.currentImage !== this.lastShotImageNumber && this.character.ammo > 0) {
@@ -110,6 +146,9 @@ class World {
         }
     }
 
+    /**
+     * Instantiates an active bolt item traveling based on character look direction flags.
+     */
     spawnBoltProjectile() {
         let dx = this.character.otherDirection ? -30 : 80;
         this.flyBolt.push(new Bolt(this.character.x + dx, this.character.y + 45, this.character.otherDirection));
@@ -118,6 +157,9 @@ class World {
         this.ammoStatusbar.setPercentage(this.character.ammo * 20);
     }
 
+    /**
+     * Constantly monitors horizontal coordinate cross-overs between the character and enemy arrays.
+     */
     checkCharacterCollisions() {
         if (this.character.energy === 0) return this.handleCharacterDeath();
         this.level.enemies.forEach((enemy) => {
@@ -129,13 +171,19 @@ class World {
         this.level.enemies = this.level.enemies.filter(enemy => !enemy.isDeadAnimationFinished);
     }
 
-
+    /**
+     * Manages character exhaustion states, plays respective defeat audio clips, and prompts HUDs.
+     */
     handleCharacterDeath() {
         this.letEnemiesWalkPast();
         this.sound.deadSound();
         showGameOverScreen();
     }
 
+    /**
+     * Segregates combat behavior depending on object inheritance checking blueprints.
+     * @param {MovableObject} enemy - The encountered target enemy.
+     */
     checkEnemyCombat(enemy) {
         if (enemy instanceof Endboss) {
             this.checkEndbossMelee(enemy);
@@ -146,6 +194,10 @@ class World {
         }
     }
 
+    /**
+     * Manages melee hitbox strikes registered against the boss enemy layer during active values.
+     * @param {Endboss} enemy - The boss level entity.
+     */
     checkEndbossMelee(enemy) {
         let xDistance = Math.abs(this.character.x - enemy.x);
         if (enemy.y === 50 && xDistance < 200 && this.keyboard.attack && enemy.energy > 0) {
@@ -154,6 +206,10 @@ class World {
         }
     }
 
+    /**
+     * Settles active sword hits launched against common moving skeleton frameworks.
+     * @param {MovableObject} enemy - The regular skeleton object.
+     */
     handleRegularEnemyCollision(enemy) {
         if (this.keyboard.attack && enemy.energy > 0) {
             enemy.hit(30);
@@ -166,6 +222,10 @@ class World {
         }
     }
 
+    /**
+     * Engages combat phase timelines, resetting flags or verifying shield defense metrics.
+     * @param {MovableObject} enemy - The actively striking monster entity.
+     */
     handleEnemyAttack(enemy) {
         enemy.isAttacking = true;
         let frame = enemy.currentImage % enemy.IMAGES_ATTACK.length;
@@ -177,17 +237,21 @@ class World {
                 this.character.hit(10);
                 this.healthStatusbar.setPercentage(this.character.energy);
                 this.sound.attackFromEnemySound();
-            } enemy.damageDealt = true;
+            } 
+            enemy.damageDealt = true;
         }
     }
 
-
+    /**
+     * Instructs level monsters to bypass combat triggers upon hero processing termination states.
+     */
     letEnemiesWalkPast() {
         this.level.enemies.forEach((enemy) => enemy.isAttacking = false);
     }
 
-    // projectile logic (crossbow bolts & fire)
-
+    /**
+     * Tracks bolt item pathways to verify if flying projectiles crash into enemy hitboxes.
+     */
     checkBoltCollisions() {
         this.flyBolt.forEach((bolt) => {
             this.level.enemies.forEach((enemy) => {
@@ -197,6 +261,11 @@ class World {
         this.flyBolt = this.flyBolt.filter(bolt => !bolt.isDead);
     }
 
+    /**
+     * Computes projectile damage impact reductions applied onto enemies alongside audio updates.
+     * @param {Bolt} bolt - The traveling ammunition item.
+     * @param {MovableObject} enemy - The impacted monster target.
+     */
     handleBoltHit(bolt, enemy) {
         if (enemy.energy > 0) {
             if (enemy instanceof Endboss) {
@@ -211,6 +280,9 @@ class World {
         }
     }
 
+      /**
+     * Updates proximity checking routines for dragon entities to launch fire sequences.
+     */
     dragonFireAttack() {
         this.level.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss && enemy.energy > 0) {
@@ -219,36 +291,37 @@ class World {
         });
     }
 
+    /**
+     * Runs updates regarding life cycle counts of flame elements and filters expired particles.
+     */
     simulateFireParticles() {
-        let bossAttacking = this.spawnBossParticles();
-        this.updateAndCheckParticles();
-        this.fireParticles = bossAttacking ? this.fireParticles.filter(p => p.life > 0) : [];
-    }
-
-    spawnBossParticles() {
         let bossIsAttacking = false;
         this.level.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss && enemy.isAttacking) {
                 bossIsAttacking = true;
-                for (let i = 0; i < 6; i++) this.fireParticles.push(new FireParticle(enemy));
+                for (let i = 0; i < 6; i++) {
+                    this.fireParticles.push(new FireParticle(enemy));
+                }
             }
         });
-        return bossIsAttacking;
-    }
-
-    updateAndCheckParticles() {
         this.fireParticles.forEach((particle) => {
             particle.update();
-            let dist = Math.abs(particle.x - this.character.x);
-            if (dist < 40 && particle.y > this.character.y && particle.y < this.character.y + this.character.height && !this.character.isHurt()) {
-                this.character.hit(10);
+            let distToCharacter = Math.abs(particle.x - this.character.x);
+            if (distToCharacter < 40 && particle.y > this.character.y && particle.y < this.character.y + this.character.height && !this.character.isHurt()) {
+                this.character.hit(5);
                 this.healthStatusbar.setPercentage(this.character.energy);
             }
         });
+        if (bossIsAttacking) {
+            this.fireParticles = this.fireParticles.filter(p => p.life > 0);
+        } else {
+            this.fireParticles = [];
+        }
     }
 
-    // Loot Logic (Coins & Items)
-
+    /**
+     * Detects if character triggers coordinate overlaps over ammunition bundle pickups.
+     */
     checkAmmoPickups() {
         this.level.lootBolts.forEach((boltItem) => {
             if (this.character.isColliding(boltItem) && this.character.ammo < 5) {
@@ -263,6 +336,9 @@ class World {
         });
     }
 
+    /**
+     * Manages coin inventory logic and updates indicators upon character intercept metrics.
+     */
     checkCoinCollisions() {
         this.level.coins.forEach((coinItem) => {
             if (this.character.isColliding(coinItem) && this.character.coins < 5) {

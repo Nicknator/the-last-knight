@@ -22,6 +22,9 @@ class Sound extends Movableobject {
     isMuted = false; 
     windClone = null; 
 
+    /**
+     * Initializes the sound management module, loading audio tracks and establishing custom volumes.
+     */
     constructor() {
         super();
         const soundConfig = {
@@ -40,6 +43,10 @@ class Sound extends Movableobject {
         });
     }
 
+    /**
+     * Resets timelines and starts playback for the specified audio object if not muted.
+     * @param {HTMLAudioElement} audioObject - The specific audio asset wrapper to handle.
+     */
     playSound(audioObject) {
         if (this.isMuted || !audioObject) return;
         audioObject.pause();
@@ -47,27 +54,60 @@ class Sound extends Movableobject {
         audioObject.play().catch(() => { });
     }
 
+    /**
+     * Plays the specific character defeat sound tracking array triggers and expires data references.
+     */
     deadSound() {
         if (this.isMuted || !this.deadsound) return;
         this.deadsound.play();
         this.deadsound = null;
     }
 
+    /** Plays the shield block barrier collision bounce effect tracking coordinates. */
     shieldBlockSound() { this.playSound(this.shield_block_sound); }
+
+    /** Triggers character blade swing acceleration sweep sounds. */
     attackSound() { this.playSound(this.attack_sound); }
+
+    /** Executes ballistic bolt contact break impact collision clips. */
     boltHitSound() { this.playSound(this.bolt_hit_sound); }
+
+    /** Plays crossbow tension mechanical lock charge sound clips. */
     loadingCrossbowSound() { this.playSound(this.loading_crossbow_sound); }
+
+    /** Plays vertical ground acceleration escape jump launch audios. */
     jumpSound() { this.playSound(this.jump_sound); }
+
+    /** Triggers baseline platform landing force impact deceleration sounds. */
     jumpGroundSound() { this.playSound(this.jump_ground_sound); }
+
+    /** Fires melee skeleton weapon swing contact collision alert clips. */
     attackFromEnemySound() { this.playSound(this.attack_from_enemy_sound); }
+
+    /** Plays damaged skeleton structural break crack audio elements. */
     skeletonHurtSound() { this.playSound(this.skeleton_hurt_sound); }
+
+    /** Executes boss dragon aerial wingflap draft atmosphere sound nodes. */
     dragonWingSound() { this.playSound(this.dragon_wing_sound); }
+
+    /** Spawns boss column fire breath exhaust combustion loops. */
     dragonFireSound() { this.playSound(this.dragon_fire_sound); }
+
+    /** Triggers generic boss warning vocalization sound streams. */
     dragonGrowlSound() { this.playSound(this.dragon_growl_sound); }
+
+    /** Plays status bar treasure pickup validation reward chime indicators. */
     lootCoinSound() { this.playSound(this.loot_coin_sound); }
+
+    /** Plays armbrust reload supply cluster collect click sequences. */
     lootBoltSound() { this.playSound(this.loot_bolt_sound); }
+
+    /** Executes ambient glacier cracking interval weather breakdown tracks. */
     glaciersBreakingSound() { this.playSound(this.glaciers_breaking_sound); }
 
+    /**
+     * Starts background environment wind loops and schedules seamless layer cloning offsets.
+     */
     iceWindSound() {
         if (this.isMuted) return;
         this.ice_wind_sound.loop = true;
@@ -79,6 +119,9 @@ class Sound extends Movableobject {
         }, (this.ice_wind_sound.duration * 1000) / 2 || 2000);
     }
 
+    /**
+     * Alternates left and right character locomotive mechanical step audio pieces.
+     */
     playNextStep() {
         if (this.isMuted) return;
         let sound = this.stepToggle ? this.walkL_sound : this.walkR_sound;
@@ -87,11 +130,17 @@ class Sound extends Movableobject {
         this.stepToggle = !this.stepToggle;
     }
 
+    /**
+     * Freezes actively playing footstep layers immediately upon motion stops.
+     */
     stopSteps() {
         this.walkL_sound.pause();
         this.walkR_sound.pause();
     }
 
+    /**
+     * Mutes all active audio properties dynamically cycling class references.
+     */
     muteAll() {
         this.isMuted = true;
         Object.keys(this).forEach(key => {
@@ -102,6 +151,9 @@ class Sound extends Movableobject {
         });
     }
 
+    /**
+     * Restores normalized balancing weights to sound assets managing specific map exceptions.
+     */
     unmuteAll() {
         this.isMuted = false;
         Object.keys(this).forEach(key => {

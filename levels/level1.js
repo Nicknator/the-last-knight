@@ -1,11 +1,14 @@
+/**
+ * Instantiates Level 1 containing all configured enemies, lootable items, 
+ * decorative clouds, and segmented background scenery layers.
+ * @type {Level}
+ */
 const level1 = new Level(
-
     [
         new SkeletonEnemy(300),
         new SkeletonEnemy(350),
         new SkeletonEnemy(450),
         new Endboss(),
-
     ],
 
     [
@@ -20,7 +23,6 @@ const level1 = new Level(
         new Coin(3000),
     ],
 
-    
     [
         new Cloud(),
         new Cloud(),
@@ -28,8 +30,6 @@ const level1 = new Level(
         new Cloud(),
         new Cloud(),
     ],
-
-   
 
     [
         new BackgroundObject('img/5_background/winter-location.png', -720),
@@ -37,17 +37,5 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/winter-location2.png', 720),
         new BackgroundObject('img/5_background/winter-location.png', 1440),
         new BackgroundObject('img/5_background/winter-location.png', 2160),
-        
-    ],
-
-    
-
-
-    
-
-
-
-
-
-
+    ]
 );
