@@ -241,7 +241,7 @@ class World {
             particle.update();
             let dist = Math.abs(particle.x - this.character.x);
             if (dist < 40 && particle.y > this.character.y && particle.y < this.character.y + this.character.height && !this.character.isHurt()) {
-                this.character.hit(3);
+                this.character.hit(10);
                 this.healthStatusbar.setPercentage(this.character.energy);
             }
         });

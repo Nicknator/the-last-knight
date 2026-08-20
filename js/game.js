@@ -52,13 +52,18 @@ function toggleMute() {
  
 
 function restartGame() {
-    gameOverScreen.style.display = 'none';
-    for (let i = 1; i < 9999; i++) {
-        window.clearInterval(i);
-    }
-    location.reload();
+    document.getElementById('gameOverScreen').style.display = 'none';
+    for (let i = 1; i < 9999; i++) { window.clearInterval(i); } 
+    level1.enemies = [
+        new SkeletonEnemy(600),
+        new SkeletonEnemy(900),
+        new SkeletonEnemy(1300),
+        new Endboss() 
+    ];
     world = new World(canvas, keyboard);
 }
+
+
 
 
 window.addEventListener('keydown', (e) => {
