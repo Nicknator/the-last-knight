@@ -102,10 +102,7 @@ class World {
         objects.forEach((object) => this.addToMap(object));
     }
 
-
     // Chracter-logic, attack & collisions
-
-
     checkCrossbowAttack() {
         let i = this.character.currentImage % this.character.IMAGES_SHOOT.length;
         if (this.keyboard.shoot_crossbow && i === 2 && this.character.currentImage !== this.lastShotImageNumber && this.character.ammo > 0) {
@@ -183,8 +180,6 @@ class World {
             } enemy.damageDealt = true;
         }
     }
-
-
 
 
     letEnemiesWalkPast() {
