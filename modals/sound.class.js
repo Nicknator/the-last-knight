@@ -18,9 +18,9 @@ class Sound extends Movableobject {
     glaciers_breaking_sound = 'audio/4_backgroundsound/glaciers_breaking_sound.mp3';
     loot_coin_sound = 'audio/5_loot_sound/loot_coin_sound.mp3';
     loot_bolt_sound = 'audio/5_loot_sound/bolt_pickup_sound .wav';
-    
-    isMuted = false; 
-    windClone = null; 
+
+    isMuted = false;
+    windClone = null;
 
     constructor() {
         super();
@@ -41,107 +41,35 @@ class Sound extends Movableobject {
         });
     }
 
+
+    playSound(audioObject) {
+        if (this.isMuted || !audioObject) return;
+        this.audioObject.pause();
+        this.audioObject.currentTime = 0;
+        this.audioObject.play().catch(() => { });
+    }
+
     deadSound() {
         if (this.isMuted || !this.deadsound) return;
         this.deadsound.play();
         this.deadsound = null;
     }
 
-    shieldBlockSound() {
-        if (this.isMuted) return;
-        this.shield_block_sound.play().catch(() => { });
-    }
+    shieldBlockSound() { this.playSound(this.shield_block_sound); }
+    attackSound() { this.playSound(this.attack_sound); }
+    boltHitSound() { this.playSound(this.bolt_hit_sound); }
+    loadingCrossbowSound() { this.playSound(this.loading_crossbow_sound); }
+    jumpSound() { this.playSound(this.jump_sound); }
+    jumpGroundSound() { this.playSound(this.jump_ground_sound); }
+    attackFromEnemySound() { this.playSound(this.attack_from_enemy_sound); }
+    skeletonHurtSound() { this.playSound(this.skeleton_hurt_sound); }
+    dragonWingSound() { this.playSound(this.dragon_wing_sound); }
+    dragonFireSound() { this.playSound(this.dragon_fire_sound); }
+    dragonGrowlSound() { this.playSound(this.dragon_growl_sound); }
+    lootCoinSound() { this.playSound(this.loot_coin_sound); }
+    lootBoltSound() { this.playSound(this.loot_bolt_sound); }
+    glaciersBreakingSound() { this.playSound(this.glaciers_breaking_sound); }
 
-    attackSound() {
-        if (this.isMuted) return;
-        this.attack_sound.pause();
-        this.attack_sound.currentTime = 0;
-        this.attack_sound.play().catch(() => { });
-    }
-
-    boltHitSound() {
-        if (this.isMuted) return;
-        this.bolt_hit_sound.pause();
-        this.bolt_hit_sound.currentTime = 0;
-        this.bolt_hit_sound.play().catch(() => { });
-    }
-
-    loadingCrossbowSound() {
-        if (this.isMuted) return;
-        this.loading_crossbow_sound.pause();
-        this.loading_crossbow_sound.currentTime = 0;
-        this.loading_crossbow_sound.play().catch(() => { });
-    }
-
-    jumpSound() {
-        if (this.isMuted) return;
-        this.jump_sound.pause();
-        this.jump_sound.currentTime = 0;
-        this.jump_sound.play().catch(() => { });
-    }
-
-    jumpGroundSound() {
-        if (this.isMuted) return;
-        this.jump_ground_sound.pause();
-        this.jump_ground_sound.currentTime = 0;
-        this.jump_ground_sound.play().catch(() => { });
-    }
-
-    attackFromEnemySound() {
-        if (this.isMuted) return;
-        this.attack_from_enemy_sound.pause();
-        this.attack_from_enemy_sound.currentTime = 0;
-        this.attack_from_enemy_sound.play().catch(() => { });
-    }
-
-    skeletonHurtSound() {
-        if (this.isMuted) return;
-        this.skeleton_hurt_sound.pause();
-        this.skeleton_hurt_sound.currentTime = 0;
-        this.skeleton_hurt_sound.play().catch(() => { });
-    }
-
-    dragonWingSound() {
-        if (this.isMuted) return;
-        this.dragon_wing_sound.pause();
-        this.dragon_wing_sound.currentTime = 0;
-        this.dragon_wing_sound.play().catch(() => { });
-    }
-
-    dragonFireSound() {
-        if (this.isMuted) return;
-        this.dragon_fire_sound.pause();
-        this.dragon_fire_sound.currentTime = 0;
-        this.dragon_fire_sound.play().catch(() => { });
-    }
-
-    dragonGrowlSound() {
-        if (this.isMuted) return;
-        this.dragon_growl_sound.pause();
-        this.dragon_growl_sound.currentTime = 0;
-        this.dragon_growl_sound.play().catch(() => { });
-    }
-
-    lootCoinSound() {
-        if (this.isMuted) return;
-        this.loot_coin_sound.pause();
-        this.loot_coin_sound.currentTime = 0;
-        this.loot_coin_sound.play().catch(() => { });
-    }
-
-    lootBoltSound() {
-        if (this.isMuted) return;
-        this.loot_bolt_sound.pause();
-        this.loot_bolt_sound.currentTime = 0;
-        this.loot_bolt_sound.play().catch(() => { });
-    }
-
-    glaciersBreakingSound() {
-        if (this.isMuted) return;
-        this.glaciers_breaking_sound.pause();
-        this.glaciers_breaking_sound.currentTime = 0;
-        this.glaciers_breaking_sound.play().catch(() => { });
-    }
 
     iceWindSound() {
         if (this.isMuted) return;
