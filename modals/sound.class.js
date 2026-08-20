@@ -18,9 +18,9 @@ class Sound extends Movableobject {
     glaciers_breaking_sound = 'audio/4_backgroundsound/glaciers_breaking_sound.mp3';
     loot_coin_sound = 'audio/5_loot_sound/loot_coin_sound.mp3';
     loot_bolt_sound = 'audio/5_loot_sound/bolt_pickup_sound .wav';
-
-    isMuted = false;
-    windClone = null;
+    
+    isMuted = false; 
+    windClone = null; 
 
     constructor() {
         super();
@@ -34,19 +34,17 @@ class Sound extends Movableobject {
         };
         Object.keys(soundConfig).forEach(key => {
             if (this[key]) {
-                let volume = soundConfig[key];
                 this[key] = new Audio(this[key]);
-                this[key].volume = volume;
+                this[key].volume = soundConfig[key];
             }
         });
     }
 
-
     playSound(audioObject) {
         if (this.isMuted || !audioObject) return;
-        this.audioObject.pause();
-        this.audioObject.currentTime = 0;
-        this.audioObject.play().catch(() => { });
+        audioObject.pause();
+        audioObject.currentTime = 0;
+        audioObject.play().catch(() => { });
     }
 
     deadSound() {
@@ -70,7 +68,6 @@ class Sound extends Movableobject {
     lootBoltSound() { this.playSound(this.loot_bolt_sound); }
     glaciersBreakingSound() { this.playSound(this.glaciers_breaking_sound); }
 
-
     iceWindSound() {
         if (this.isMuted) return;
         this.ice_wind_sound.loop = true;
@@ -78,7 +75,7 @@ class Sound extends Movableobject {
         this.windClone = this.ice_wind_sound.cloneNode(true);
         this.windClone.loop = true;
         setTimeout(() => {
-            if (!this.isMuted) this.windClone.play().catch(() => { });
+            if (!this.isMuted && this.windClone) this.windClone.play().catch(() => { });
         }, (this.ice_wind_sound.duration * 1000) / 2 || 2000);
     }
 
