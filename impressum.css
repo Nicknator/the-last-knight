@@ -1,0 +1,33 @@
+  body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #333;
+  }
+
+  h1 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+  }
+
+
+  .back-button-container {
+      margin-top: 40px;
+      text-align: center;
+  }
+
+  .back-to-game-link {
+      color: #0096ff;
+      text-decoration: none;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      transition: all 0.2s ease-in-out;
+  }
+
+  .back-to-game-link:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #0096ff;
+  }
