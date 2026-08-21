@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let isMuted = false; 
+let isMuted = false;
 
 /**
  * Initializes the game canvas, scales the 2D context, and restores the mute state from local storage.
@@ -12,27 +12,7 @@ async function init() {
     canvas.width = 1440;
     canvas.height = 960;
     ctx.scale(2, 2);
-
-    isMuted = localStorage.getItem('gameMuted') === 'true';
-    if (isMuted) {
-        document.getElementById('muteBtn').src = "img/8_other/mute_on.png";
-    } 
-}
-
-/**
- * Toggles fullscreen mode for the game container strictly on screens wider than 1200 pixels.
- */
-function fullScreen() {
-    if (window.innerWidth < 1200) return;
-    let container = document.getElementById('gameContainer');
-
-    if (!document.fullscreenElement) {
-        container.requestFullscreen().catch(err => {
-            console.error(`Fehler beim Aktivieren: ${err.message}`);
-        });
-    } else { 
-        document.exitFullscreen();
-    }
+    localMuteState();
 }
 
 /**
@@ -41,9 +21,34 @@ function fullScreen() {
 function startGame() {
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
+    spawnLevelEnemies();
     world = new World(canvas, keyboard);
     if (isMuted && world.sound) {
         world.sound.muteAll();
+    }
+}
+
+/**
+ * Hydrates the mute state tracker from local storage files and synchronizes button texture maps.
+ */
+function localMuteState() {
+    isMuted = localStorage.getItem('gameMuted') === 'true';
+    if (isMuted) {
+        document.getElementById('muteBtn').src = "img/8_other/mute_off.png";
+    }
+}
+
+/**
+ * Toggles fullscreen mode for the game container strictly on screens wider than 1200 pixels.
+ */
+function fullScreen() {
+    if (window.innerWidth < 1250) return;
+    let container = document.getElementById('gameContainer');
+    if (!document.fullscreenElement) {
+        container.requestFullscreen().catch(err => {
+        });
+    } else {
+        document.exitFullscreen();
     }
 }
 
@@ -61,7 +66,6 @@ function toggleMute() {
     let muteImg = document.getElementById('muteBtn');
     isMuted = !isMuted;
     localStorage.setItem('gameMuted', isMuted);
-
     if (isMuted) {
         muteImg.src = "img/8_other/mute_off.png";
         if (world && world.sound) world.sound.muteAll();
@@ -77,19 +81,24 @@ function toggleMute() {
 function restartGame() {
     document.getElementById('gameOverScreen').style.display = 'none';
     for (let i = 1; i < 9999; i++) { window.clearInterval(i); }
-    
-    level1.enemies = [
-        new SkeletonEnemy(600),
-        new SkeletonEnemy(900),
-        new SkeletonEnemy(1300),
-        new Endboss()
-    ];
-    
+    spawnLevelEnemies();
     world = new World(canvas, keyboard);
     if (isMuted && world.sound) {
         world.sound.muteAll();
     }
-} 
+}
+
+/**
+ * Spawns the default enemy configurations setup inside the active level instance.
+ */
+function spawnLevelEnemies() {
+    level1.enemies = [
+        new SkeletonEnemy(300),
+        new SkeletonEnemy(350),
+        new SkeletonEnemy(450),
+        new Endboss()
+    ];
+}
 
 /**
  * KEYBOARD CONTROLS (LISTENERS)
