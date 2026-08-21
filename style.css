@@ -197,9 +197,6 @@ img, button, .img-button {
     -webkit-touch-callout: none;
 }
 
-/* ==========================================================================
-   📸 DIE ZUSAMMENFASSUNG AUS DEINEM VIDEO-CODE (QUERFORMAT-REGLER)
-   ========================================================================== */
 @media only screen and (max-width: 720px) {
     #canvas, canvas {
         width: 100%;
@@ -229,9 +226,6 @@ img, button, .img-button {
     }
 }
 
-/* ==========================================================================
-   📱 DIE REINE RETTUNG: HOCHKANT-WARNUNG (MUSS FÜR ABGABE REIN!)
-   ========================================================================== */
 #rotateDeviceScreen {
     position: fixed;
     top: 0;
@@ -255,9 +249,17 @@ img, button, .img-button {
     font-weight: bold;
 }
 
-/* Wenn das Handy hochkant steht, blenden wir die Warnung ein. Das zerschossene Menü verschwindet vollständig! */
 @media (orientation: portrait) and (max-width: 1024px) {
     #rotateDeviceScreen {
         display: flex;
+    }
+}
+
+@media (max-width: 1199px) {
+    #gameContainer #fullscreenBtn {
+        display: none;
+    }
+    #gameContainer .mute-button {
+        right: 0px;
     }
 }
