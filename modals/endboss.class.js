@@ -50,11 +50,9 @@ class Endboss extends Movableobject {
             ctx.restore();
         } else {
             super.draw(ctx);
-            if (this.isAttacking && !this.isDead()) {
-                ctx.drawImage(this.fireImg, -100, 160, 200, 80);
-            }
         }
     }
+
 
     /**
      * Initializes behavioral cycles evaluating active health layers to fire movements or animations.
@@ -77,10 +75,10 @@ class Endboss extends Movableobject {
     handleBossDeath() {
         if (this.deathStarted) return;
         if (this.y >= 120 && !this.isDeadAnimationFinished) {
-            this.deathStarted = true; 
+            this.deathStarted = true;
             this.y = 120;
             this.speedY = 0;
-            this.loadImage(this.IMAGE_DEAD_GROUND);  
+            this.loadImage(this.IMAGE_DEAD_GROUND);
             setTimeout(() => {
                 this.isDeadAnimationFinished = true;
             }, 1500);
@@ -131,16 +129,20 @@ class Endboss extends Movableobject {
     }
 
     /**
-     * Measures horizontal vector absolute spreads to determine if the boss engages proximity attacks.
-     * @param {number} characterX - The horizontal coordinate key position of the player ritter.
-     */
+   * Measures horizontal vector absolute spreads to determine if the boss engages proximity attacks.
+   * @param {number} characterX - The horizontal coordinate key position of the player ritter.
+   */
     checkPlayerDistance(characterX) {
         if (this.isDead()) return;
+        if (characterX > this.x + 180) {
+            this.otherDirection = true;
+        } else if (characterX < this.x) {
+            this.otherDirection = false;
+        }
         this.currentDistance = Math.abs(this.x - characterX);
-        if (this.currentDistance < 200 && !this.isAttacking && !this.attackCooldown) {
+        let canAttack = this.otherDirection ? (characterX > this.x + 450 && this.currentDistance < 600) : (this.currentDistance < 200);
+        if (canAttack && !this.isAttacking && !this.attackCooldown) {
             this.triggerFireAttack();
-        } else if (this.currentDistance >= 200 && !this.attackCooldown) {
-            this.isAttacking = false;
         }
     }
 

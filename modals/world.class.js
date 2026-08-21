@@ -158,14 +158,16 @@ class World {
     }
 
     /**
-     * Constantly monitors horizontal coordinate cross-overs between the character and enemy arrays.
-     */
+ * Constantly monitors horizontal coordinate cross-overs between the character and enemy arrays.
+ */
     checkCharacterCollisions() {
         if (this.character.energy === 0) return this.handleCharacterDeath();
         this.level.enemies.forEach((enemy) => {
             if (enemy.energy > 0) {
                 this.checkEnemyCombat(enemy);
-                enemy.otherDirection = this.character.x > enemy.x;
+                if (!(enemy instanceof Endboss)) {
+                    enemy.otherDirection = this.character.x > enemy.x;
+                }
             }
         });
         this.level.enemies = this.level.enemies.filter(enemy => !enemy.isDeadAnimationFinished);
@@ -234,10 +236,10 @@ class World {
             if (this.keyboard.down && this.character.otherDirection == enemy.otherDirection) {
                 this.sound.shieldBlockSound();
             } else if (!this.character.isHurt()) {
-                this.character.hit(10);
+                this.character.hit(20);
                 this.healthStatusbar.setPercentage(this.character.energy);
                 this.sound.attackFromEnemySound();
-            } 
+            }
             enemy.damageDealt = true;
         }
     }
@@ -245,9 +247,7 @@ class World {
     /**
      * Instructs level monsters to bypass combat triggers upon hero processing termination states.
      */
-    letEnemiesWalkPast() {
-        this.level.enemies.forEach((enemy) => enemy.isAttacking = false);
-    }
+    letEnemiesWalkPast() { this.level.enemies.forEach((enemy) => enemy.isAttacking = false); }
 
     /**
      * Tracks bolt item pathways to verify if flying projectiles crash into enemy hitboxes.
@@ -280,44 +280,72 @@ class World {
         }
     }
 
-      /**
-     * Updates proximity checking routines for dragon entities to launch fire sequences.
-     */
+    /**
+    * Controls the dragon fire attack trigger states depending on character vitality.
+    */
     dragonFireAttack() {
         this.level.enemies.forEach((enemy) => {
-            if (enemy instanceof Endboss && enemy.energy > 0) {
-                enemy.checkPlayerDistance(this.character.x);
+            if (enemy instanceof Endboss) {
+                if (this.character.energy <= 0) {
+                    enemy.isAttacking = false;
+                } else { enemy.checkPlayerDistance(this.character.x); }
             }
         });
     }
 
     /**
-     * Runs updates regarding life cycle counts of flame elements and filters expired particles.
-     */
+ Loops through level enemies to detect and trigger active dragon fire attacks.
+ */
     simulateFireParticles() {
         let bossIsAttacking = false;
         this.level.enemies.forEach((enemy) => {
-            if (enemy instanceof Endboss && enemy.isAttacking) {
+            if (enemy instanceof Endboss && enemy.isAttacking && this.character.energy > 0) {
                 bossIsAttacking = true;
-                for (let i = 0; i < 6; i++) {
-                    this.fireParticles.push(new FireParticle(enemy));
-                }
+                this.spawnBossFire(enemy);
             }
         });
-        this.fireParticles.forEach((particle) => {
-            particle.update();
-            let distToCharacter = Math.abs(particle.x - this.character.x);
-            if (distToCharacter < 40 && particle.y > this.character.y && particle.y < this.character.y + this.character.height && !this.character.isHurt()) {
-                this.character.hit(5);
-                this.healthStatusbar.setPercentage(this.character.energy);
-            }
-        });
-        if (bossIsAttacking) {
-            this.fireParticles = this.fireParticles.filter(p => p.life > 0);
-        } else {
+        this.updateActiveParticles();
+        if (!bossIsAttacking || this.character.energy <= 0) {
             this.fireParticles = [];
         }
     }
+
+    /**
+     * Spawns a dedicated burst cluster of fresh fire particles.
+     * @param {Endboss} enemy - The reference instance of the active dragon boss.
+     */
+    spawnBossFire(enemy) {
+        for (let i = 0; i < 6; i++) {
+            this.fireParticles.push(new FireParticle(enemy));
+        }
+    }
+
+    /**
+     * Updates physics vectors for all particles and triggers their individual collision checks.
+     */
+    updateActiveParticles() {
+        this.fireParticles.forEach((particle) => {
+            particle.update();
+            this.checkParticleCollision(particle);
+        });
+        if (this.character.energy > 0) {
+            this.fireParticles = this.fireParticles.filter(p => p.life > 0);
+        }
+    }
+
+    /**
+     * Evaluates direct combat collision bounds between one particle and the character.
+     * @param {FireParticle} particle - The specific particle being tested against the player.
+     */
+    checkParticleCollision(particle) {
+        let distX = Math.abs(particle.x - this.character.x);
+        let boundsY = particle.y > this.character.y && particle.y < this.character.y + this.character.height;
+        if (distX < 40 && boundsY && !this.character.isHurt()) {
+            this.character.hit(10);
+            this.healthStatusbar.setPercentage(this.character.energy);
+        }
+    }
+
 
     /**
      * Detects if character triggers coordinate overlaps over ammunition bundle pickups.

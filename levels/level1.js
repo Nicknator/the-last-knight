@@ -16,7 +16,7 @@ function initLevel(){
 
     [
         new LootBolt(300),
-        new LootBolt(500),
+        new LootBolt(500), 
         new LootBolt(700),
     ],
 
