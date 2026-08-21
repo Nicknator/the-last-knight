@@ -20,10 +20,12 @@ async function init() {
 }
 
 /**
- * Toggles the screen state between default layout display and canvas container fullscreen view.
+ * Toggles fullscreen mode for the game container strictly on screens wider than 1200 pixels.
  */
 function fullScreen() {
+    if (window.innerWidth < 1200) return;
     let container = document.getElementById('gameContainer');
+
     if (!document.fullscreenElement) {
         container.requestFullscreen().catch(err => {
             console.error(`Fehler beim Aktivieren: ${err.message}`);
@@ -87,12 +89,11 @@ function restartGame() {
     if (isMuted && world.sound) {
         world.sound.muteAll();
     }
-}
+} 
 
-// ==========================================
-// KEYBOARD CONTROLS (LISTENERS)
-// ==========================================
-
+/**
+ * KEYBOARD CONTROLS (LISTENERS)
+ */
 window.addEventListener('keydown', (e) => {
     if (e.key === 'd') keyboard.right = true;
     if (e.key === 's') keyboard.down = true;
@@ -118,5 +119,11 @@ window.addEventListener('keyup', (e) => {
     if (e.key === ' ') {
         e.preventDefault();
         keyboard.space = false;
+    }
+});
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth < 1250 && document.fullscreenElement) {
+        document.exitFullscreen().catch(() => { });
     }
 });

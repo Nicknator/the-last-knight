@@ -13,7 +13,6 @@ body {
     overflow: hidden;
 }
 
-
 #gameContainer {
     position: relative;
     width: 720px;
@@ -26,7 +25,7 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-
+    background-color: black;
 }
 
 .img-button {
@@ -41,7 +40,7 @@ body {
 }
 
 .mute-button {
-    right: 50px;
+    right: 50px; 
 }
 
 .bigStartImg {
@@ -154,34 +153,34 @@ h1 {
 .ingame-controls-text {
     position: absolute;
     top: 15px;
-    right: 110px;
-    font-family: 'Cinzel', 'Georgia', serif;
+    right: 110px; 
+    font-family: 'Cinzel', 'Georgia', serif; 
     font-size: 13px;
     font-weight: 700;
-    color: #ffffff;
-    line-height: 1.4;
+    color: #ffffff; 
+    line-height: 1.4; 
     text-align: left;
     text-shadow: 0px 0px 8px #000000, 0px 0px 15px #000000;
-    z-index: 9999;
-    pointer-events: none;
+    z-index: 9999; 
+    pointer-events: none; 
 }
 
 .game-footer {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999;
+    position: fixed;            
+    bottom: 10px;             
+    left: 50%;                 
+    transform: translateX(-50%); 
+    z-index: 9999;             
     text-align: center;
 }
 
 .game-footer a {
-    color: #ffffff;
+    color: #ffffff;             
     text-decoration: none;
     font-size: 14px;
     font-family: Arial, sans-serif;
     opacity: 0.7;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); 
     padding: 6px 12px;
     border-radius: 4px;
     transition: all 0.2s ease-in-out;
@@ -189,67 +188,50 @@ h1 {
 
 .game-footer a:hover {
     opacity: 1;
-    background-color: rgba(0, 150, 255, 0.4);
+    background-color: rgba(0, 150, 255, 0.4); 
     text-shadow: 0 0 8px rgba(0, 150, 255, 0.8);
 }
 
-img,
-button,
-.img-button {
+img, button, .img-button {
     user-select: none;
     -webkit-touch-callout: none;
 }
 
-
+/* ==========================================================================
+   📸 DIE ZUSAMMENFASSUNG AUS DEINEM VIDEO-CODE (QUERFORMAT-REGLER)
+   ========================================================================== */
 @media only screen and (max-width: 720px) {
-
-    #canvas,
-    canvas {
+    #canvas, canvas {
         width: 100%;
         height: auto;
     }
-
-    #gameContainer,
-    .smalStartImg {
+    
+    #gameContainer, .smalStartImg {
         width: 100vw;
         height: calc(100vw * (480 / 720));
     }
 
-    h2 {
-        font-size: 20px;
-        margin-bottom: 5px;
-    }
-
-    .setStartBtn {
-        width: 120px;
-    }
-
-    .setStartKnightImg {
-        height: 160px;
-    }
-
-    .ingame-controls-text {
-        display: none;
-    }
+    h2 { font-size: 20px; margin-bottom: 5px; }
+    .setStartBtn { width: 120px; }
+    .setStartKnightImg { height: 160px; }
+    .ingame-controls-text { display: none; }
 }
 
-/* Mobile*/
 @media only screen and (max-width: 720px) and (max-height: 480px) {
-
-    #canvas,
-    canvas {
+    #canvas, canvas {
         height: 100vh;
         width: auto;
     }
 
-    #gameContainer,
-    .smalStartImg {
+    #gameContainer, .smalStartImg {
         height: 100vh;
         width: calc(100vh * (720 / 480));
     }
 }
 
-
+/* ==========================================================================
+   📱 DIE REINE RETTUNG: HOCHKANT-WARNUNG (MUSS FÜR ABGABE REIN!)
+   ========================================================================== */
 #rotateDeviceScreen {
     position: fixed;
     top: 0;
@@ -273,6 +255,7 @@ button,
     font-weight: bold;
 }
 
+/* Wenn das Handy hochkant steht, blenden wir die Warnung ein. Das zerschossene Menü verschwindet vollständig! */
 @media (orientation: portrait) and (max-width: 1024px) {
     #rotateDeviceScreen {
         display: flex;
