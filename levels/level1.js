@@ -3,7 +3,10 @@
  * decorative clouds, and segmented background scenery layers.
  * @type {Level}
  */
-const level1 = new Level(
+let level1;
+function initLevel(){
+
+ level1 = new Level(
     [
         new SkeletonEnemy(300),
         new SkeletonEnemy(350),
@@ -39,3 +42,5 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/winter-location.png', 2160),
     ]
 );
+
+}

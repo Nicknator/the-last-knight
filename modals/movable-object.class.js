@@ -8,7 +8,6 @@ class Movableobject extends DrawableObject {
     lastHit = 0;
     boltSpeed = 20;
 
-
     /**
     * Applies gravitational acceleration forces by calculating vertical position changes over time intervals.
     */
@@ -36,26 +35,20 @@ class Movableobject extends DrawableObject {
         this.x -= this.speed;
     }
 
-
     moveRight() {
-        // console.log('Moving right');
         this.x += this.speed;
         this.otherDirection = false;
     }
-
 
     moveLeft() {
         this.x -= this.speed;
     }
 
-
     jump() {
-
         if (!this.isAboveGround()) {
             this.speedY = 30;
         }
     }
-
 
     playAnimation(images) {
         let i = this.currentImage % images.length;

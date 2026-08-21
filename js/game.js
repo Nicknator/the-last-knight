@@ -21,7 +21,7 @@ async function init() {
 function startGame() {
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
-    spawnLevelEnemies();
+    initLevel();
     world = new World(canvas, keyboard);
     if (isMuted && world.sound) {
         world.sound.muteAll();
@@ -45,8 +45,7 @@ function fullScreen() {
     if (window.innerWidth < 1250) return;
     let container = document.getElementById('gameContainer');
     if (!document.fullscreenElement) {
-        container.requestFullscreen().catch(err => {
-        });
+        container.requestFullscreen().catch(err => {});
     } else {
         document.exitFullscreen();
     }
@@ -81,23 +80,11 @@ function toggleMute() {
 function restartGame() {
     document.getElementById('gameOverScreen').style.display = 'none';
     for (let i = 1; i < 9999; i++) { window.clearInterval(i); }
-    spawnLevelEnemies();
+    initLevel();
     world = new World(canvas, keyboard);
     if (isMuted && world.sound) {
         world.sound.muteAll();
     }
-}
-
-/**
- * Spawns the default enemy configurations setup inside the active level instance.
- */
-function spawnLevelEnemies() {
-    level1.enemies = [
-        new SkeletonEnemy(300),
-        new SkeletonEnemy(350),
-        new SkeletonEnemy(450),
-        new Endboss()
-    ];
 }
 
 /**
