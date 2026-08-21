@@ -91,6 +91,7 @@ function restartGame() {
  * KEYBOARD CONTROLS (LISTENERS)
  */
 window.addEventListener('keydown', (e) => {
+    if (world && world.character && world.character.energy <= 0) return;
     if (e.key === 'd') keyboard.right = true;
     if (e.key === 's') keyboard.down = true;
     if (e.key === 'a') keyboard.left = true;
@@ -105,6 +106,7 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('keyup', (e) => {
+    if (world && world.character && world.character.energy <= 0) return;
     if (e.key === 'd') keyboard.right = false;
     if (e.key === 's') keyboard.down = false;
     if (e.key === 'a') keyboard.left = false;

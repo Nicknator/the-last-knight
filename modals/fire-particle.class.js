@@ -10,7 +10,6 @@ class FireParticle {
         this.offsetY = Math.random() * 10 - 5;
         this.spreadY = Math.random() * 8 - 4;
         this.flightDist = 0;
-        // 🎯 GIGANTISCHER STARTPUNKT: Startet jetzt brutal fett am Drachenkopf
         this.startSize = Math.random() * 20 + 35;
         this.size = this.startSize;
         this.life = 1.0;

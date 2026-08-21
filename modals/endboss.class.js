@@ -53,7 +53,6 @@ class Endboss extends Movableobject {
         }
     }
 
-
     /**
      * Initializes behavioral cycles evaluating active health layers to fire movements or animations.
      */
