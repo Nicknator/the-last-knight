@@ -1,6 +1,7 @@
 class World {
     character = new Character();
     healthStatusbar = new StatusbarHealth();
+    bossStatusbar = new StatusbarHealth();
     ammoStatusbar = new StatusbarAMMO();
     coinStatusbar = new StatusbarCoin();
     sound = new Sound();
@@ -86,6 +87,21 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.fireParticles.forEach(particle => particle.draw(this.ctx));
         this.addObjectsToMap(this.flyBolt);
+        this.bosshealthBar();
+    }
+
+    /**
+     * Updates and draws the health bar over the active endboss.
+     */
+    bosshealthBar() {
+        this.level.enemies.forEach((enemy) => {
+            if (enemy instanceof Endboss) {
+                this.bossStatusbar.x = enemy.x + 150; 
+                this.bossStatusbar.y = enemy.y + 40; 
+                this.bossStatusbar.setPercentage(enemy.energy / 2);
+                this.addToMap(this.bossStatusbar);
+            }
+        });
     }
 
     /**
@@ -345,7 +361,6 @@ class World {
             this.healthStatusbar.setPercentage(this.character.energy);
         }
     }
-
 
     /**
      * Detects if character triggers coordinate overlaps over ammunition bundle pickups.
