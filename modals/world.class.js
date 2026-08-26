@@ -203,9 +203,10 @@ class World {
      * @param {MovableObject} enemy - The encountered target enemy.
      */
     checkEnemyCombat(enemy) {
+        let xDistance = Math.abs(this.character.x - enemy.x);
         if (enemy instanceof Endboss) {
             this.checkEndbossMelee(enemy);
-        } else if (this.character.isColliding(enemy)) {
+        } else if (this.keyboard.attack || this.character.isColliding(enemy) || xDistance < 130) {
             this.handleRegularEnemyCollision(enemy);
         } else {
             enemy.isAttacking = false;
@@ -229,11 +230,12 @@ class World {
      * @param {MovableObject} enemy - The regular skeleton object.
      */
     handleRegularEnemyCollision(enemy) {
-        if (this.keyboard.attack && enemy.energy > 0) {
+        let xDistance = Math.abs(this.character.x - enemy.x);
+        if (this.keyboard.attack && enemy.energy > 0 && xDistance < 130) {
             enemy.hit(30);
             this.sound.attackSound();
             this.sound.skeletonHurtSound();
-        } else if (enemy.energy > 0) {
+        } else if (enemy.energy > 0 && this.character.isColliding(enemy)) {
             this.handleEnemyAttack(enemy);
         } else {
             enemy.isAttacking = false;
