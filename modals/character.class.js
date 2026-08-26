@@ -121,11 +121,12 @@ class Character extends Movableobject {
     }
 
     /**
-     * Calculates jumping momentum shifts and fires landing sound clips based on floor proximity.
-     */
+  * Calculates jumping momentum shifts and fires landing sound clips based on floor proximity.
+  */
     verticalHorizontal() {
         if (this.world.keyboard.up && !this.isAboveGround()) {
             this.jump();
+            this.currentImage = 0;
             this.world.sound.jumpSound();
         }
         if (!this.isAboveGround() && this.wasAboveGround) {
@@ -133,6 +134,7 @@ class Character extends Movableobject {
         }
         this.wasAboveGround = this.isAboveGround();
     }
+
 
     /**
      * Tracks health parameters to halt timeline animations and prompt specific defeat actions.
@@ -155,21 +157,22 @@ class Character extends Movableobject {
     }
 
     /**
-     * Segregates combat animation sequences based on active input listeners and impact flashes.
-     * @returns {boolean} True if any high-priority status action is currently active.
-     */
+ * Segregates combat animation sequences based on active input listeners and impact flashes.
+ * @returns {boolean} True if any high-priority status action is currently active.
+ */
     handleStateAnimations() {
         if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             return true;
-        } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
+        }
+        if (this.isAboveGround()) {
+            let i = Math.min(this.currentImage, this.IMAGES_JUMPING.length - 1);
+            this.loadImage(this.IMAGES_JUMPING[i]);
+            this.currentImage++;
             return true;
-        } else if (this.world.keyboard.attack) {
-            this.playAnimation(this.IMAGES_ATTACK);
-            return true;
-        } else if (this.world.keyboard.down) {
-            this.playAnimation(this.IMAGES_PROTECTION);
+        }
+        if (this.world.keyboard.attack || this.world.keyboard.down) {
+            this.playAnimation(this.world.keyboard.attack ? this.IMAGES_ATTACK : this.IMAGES_PROTECTION);
             return true;
         }
         return false;
