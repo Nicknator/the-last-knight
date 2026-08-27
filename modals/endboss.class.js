@@ -53,11 +53,11 @@ class Endboss extends Movableobject {
         }
     }
 
-    /**
+       /**
      * Initializes behavioral cycles evaluating active health layers to fire movements or animations.
      */
     animate() {
-        setInterval(() => {
+        this.bossAnimationInterval = setInterval(() => {
             if (this.isDead()) {
                 this.handleBossDeath();
             } else if (this.isHurtState) {
@@ -66,6 +66,24 @@ class Endboss extends Movableobject {
                 this.handleBossMovement();
             }
         }, 300);
+    }
+
+    /**
+     * Cycles flight animations and manages relative coordinate tracking to trigger sound audio clips.
+     */
+    handleBossMovement() {
+        this.playAnimation(this.IMAGES_WALKING);
+        if (this.currentDistance > 180 && !this.isAttacking && !this.otherDirection) {
+            this.x -= 12; 
+        }
+        let frameCheck = this.currentImage % this.IMAGES_WALKING.length === 0;
+        if (this.currentDistance < 600 && frameCheck && this.world?.sound) {
+            this.world.sound.dragonWingSound();
+            if (!this.hasRoared) {
+                this.world.sound.dragonGrowlSound();
+                this.hasRoared = true;
+            }
+        }
     }
 
     /**
@@ -84,20 +102,7 @@ class Endboss extends Movableobject {
         }
     }
 
-    /**
-     * Cycles flight animations and manages relative coordinate tracking to trigger sound audio clips.
-     */
-    handleBossMovement() {
-        this.playAnimation(this.IMAGES_WALKING);
-        let frameCheck = this.currentImage % this.IMAGES_WALKING.length === 0;
-        if (this.currentDistance < 600 && frameCheck && this.world?.sound) {
-            this.world.sound.dragonWingSound();
-            if (!this.hasRoared) {
-                this.world.sound.dragonGrowlSound();
-                this.hasRoared = true;
-            }
-        }
-    }
+   
 
     /**
      * Processes damage deductions onto the dragon's vitality pool and handles transient stun timers.

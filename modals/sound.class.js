@@ -138,11 +138,12 @@ class Sound extends Movableobject {
         this.walkR_sound.pause();
     }
 
-    /**
+      /**
      * Mutes all active audio properties dynamically cycling class references.
      */
     muteAll() {
         this.isMuted = true;
+        if (this.windClone) this.windClone.pause();
         Object.keys(this).forEach(key => {
             if (this[key] && this[key] instanceof Audio) {
                 this[key].volume = 0;
@@ -157,11 +158,11 @@ class Sound extends Movableobject {
     unmuteAll() {
         this.isMuted = false;
         Object.keys(this).forEach(key => {
-            if (this[key] && this[key] instanceof Audio) this[key].volume = 0.45;
+            if (this[key] && this[key] instanceof Audio) {
+                this[key].volume = (key === 'dragon_fire_sound') ? 1.0 : ((key === 'ice_wind_sound' || key === 'dragon_growl_sound') ? 0.65 : 0.45);
+            }
         });
-        if (this.ice_wind_sound) this.ice_wind_sound.volume = 0.65;
-        if (this.dragon_growl_sound) this.dragon_growl_sound.volume = 0.65;
-        if (this.dragon_fire_sound) this.dragon_fire_sound.volume = 1.0;
         this.iceWindSound();
     }
+
 }

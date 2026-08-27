@@ -23,8 +23,16 @@ function startGame() {
     startScreen.style.display = 'none';
     initLevel();
     world = new World(canvas, keyboard);
-    if (isMuted && world.sound) {
-        world.sound.muteAll();
+    syncWorldMuteState();
+}
+
+/**
+ * Synchronizes the game world audio volume states based on current global muting configurations.
+ */
+function syncWorldMuteState() {
+    if (world && world.sound) {
+        if (isMuted) world.sound.muteAll();
+        else world.sound.unmuteAll();
     }
 }
 
@@ -45,7 +53,7 @@ function fullScreen() {
     if (window.innerWidth < 1250) return;
     let container = document.getElementById('gameContainer');
     if (!document.fullscreenElement) {
-        container.requestFullscreen().catch(err => {});
+        container.requestFullscreen().catch(err => { });
     } else {
         document.exitFullscreen();
     }
@@ -82,17 +90,15 @@ function restartGame() {
     clearAllRunningIntervals();
     initLevel();
     world = new World(canvas, keyboard);
-    if (isMuted && world.sound) {
-        world.sound.muteAll();
-    }
+    syncWorldMuteState();
 }
 
 /**
  * Iterates through active window interval slots to forcefully clear old background timers.
  */
 function clearAllRunningIntervals() {
-    for (let i = 1; i < 9999; i++) { 
-        window.clearInterval(i); 
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
     }
 }
 
