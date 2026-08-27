@@ -79,11 +79,20 @@ function toggleMute() {
  */
 function restartGame() {
     document.getElementById('gameOverScreen').style.display = 'none';
-    for (let i = 1; i < 9999; i++) { window.clearInterval(i); }
+    clearAllRunningIntervals();
     initLevel();
     world = new World(canvas, keyboard);
     if (isMuted && world.sound) {
         world.sound.muteAll();
+    }
+}
+
+/**
+ * Iterates through active window interval slots to forcefully clear old background timers.
+ */
+function clearAllRunningIntervals() {
+    for (let i = 1; i < 9999; i++) { 
+        window.clearInterval(i); 
     }
 }
 
