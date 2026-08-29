@@ -31,8 +31,13 @@ function startGame() {
  */
 function syncWorldMuteState() {
     if (world && world.sound) {
-        if (isMuted) world.sound.muteAll();
-        else world.sound.unmuteAll();
+        // Zwingt die Sound-Klasse sofort, den Mute-Status intern zu setzen
+        world.sound.isMuted = isMuted; 
+        if (isMuted) {
+            world.sound.muteAll();
+        } else {
+            world.sound.unmuteAll();
+        }
     }
 }
 
@@ -86,21 +91,25 @@ function toggleMute() {
  * Completely resets runtime clock intervals and builds fresh enemy sets without triggering web document reloads.
  */
 function restartGame() {
-    document.getElementById('gameOverScreen').style.display = 'none';
-    clearAllRunningIntervals();
-    initLevel();
-    world = new World(canvas, keyboard);
-    syncWorldMuteState();
+    // document.getElementById('gameOverScreen').style.display = 'none';
+    // clearAllRunningIntervals();
+    // initLevel();
+    // world = new World(canvas, keyboard);
+    // syncWorldMuteState();
+    window.location.reload();
+
 }
 
 /**
  * Iterates through active window interval slots to forcefully clear old background timers.
  */
-function clearAllRunningIntervals() {
-    for (let i = 1; i < 9999; i++) {
-        window.clearInterval(i);
-    }
-}
+// function clearAllRunningIntervals() {
+//     for (let i = 1; i < 9999; i++) {
+//         window.clearInterval(i);
+//         window.clearTimeout(i); 
+//     }
+// }
+
 
 /**
  * KEYBOARD CONTROLS (LISTENERS)
