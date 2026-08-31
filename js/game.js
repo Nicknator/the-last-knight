@@ -24,6 +24,9 @@ function startGame() {
     initLevel();
     world = new World(canvas, keyboard);
     syncWorldMuteState();
+    bindMobileTouchButtons();
+    document.getElementById('mobileGamepadGrid').classList.remove('d-none');
+    
 }
 
 /**
@@ -31,8 +34,7 @@ function startGame() {
  */
 function syncWorldMuteState() {
     if (world && world.sound) {
-        // Zwingt die Sound-Klasse sofort, den Mute-Status intern zu setzen
-        world.sound.isMuted = isMuted; 
+        world.sound.isMuted = isMuted;
         if (isMuted) {
             world.sound.muteAll();
         } else {
@@ -55,7 +57,7 @@ function localMuteState() {
  * Toggles fullscreen mode for the game container strictly on screens wider than 1200 pixels.
  */
 function fullScreen() {
-    if (window.innerWidth < 1250) return;
+    // if (window.innerWidth < 1250) return;
     let container = document.getElementById('gameContainer');
     if (!document.fullscreenElement) {
         container.requestFullscreen().catch(err => { });
@@ -69,6 +71,8 @@ function fullScreen() {
  */
 function showGameOverScreen() {
     document.getElementById('gameOverScreen').style.display = 'flex';
+    document.getElementById('mobileGamepadGrid').classList.add('d-none');
+
 }
 
 /**
@@ -88,28 +92,11 @@ function toggleMute() {
 }
 
 /**
- * Completely resets runtime clock intervals and builds fresh enemy sets without triggering web document reloads.
+ * Completely resets the game runtime by forcing a clean web page document reload.
  */
 function restartGame() {
-    // document.getElementById('gameOverScreen').style.display = 'none';
-    // clearAllRunningIntervals();
-    // initLevel();
-    // world = new World(canvas, keyboard);
-    // syncWorldMuteState();
     window.location.reload();
-
 }
-
-/**
- * Iterates through active window interval slots to forcefully clear old background timers.
- */
-// function clearAllRunningIntervals() {
-//     for (let i = 1; i < 9999; i++) {
-//         window.clearInterval(i);
-//         window.clearTimeout(i); 
-//     }
-// }
-
 
 /**
  * KEYBOARD CONTROLS (LISTENERS)
@@ -149,3 +136,34 @@ window.addEventListener('resize', () => {
         document.exitFullscreen().catch(() => { });
     }
 });
+
+/**
+ * Binds smartphone onscreen touch controller elements to digital input variables.
+ */
+function bindMobileTouchButtons() {
+    setupBtnTouch('btnLeft', 'left');
+    setupBtnTouch('btnRight', 'right');
+    setupBtnTouch('btnJump', 'up');
+    setupBtnTouch('btnAttack', 'attack');
+    setupBtnTouch('btnDown', 'down');
+    setupBtnTouch('btnCrossbow', 'shoot_crossbow');
+}
+
+/**
+ * Attaches touchstart and touchend listener logic onto a specific DOM button element.
+ * @param {string} elementId - The target HTML button element identifier key.
+ * @param {string} keyboardKey - The mapping key string within the global keyboard state object.
+ */
+function setupBtnTouch(elementId, keyboardKey) {
+    let btn = document.getElementById(elementId);
+    if (!btn) return;
+    btn.addEventListener('touchstart', (e) => {
+        if (e.cancelable) e.preventDefault(); 
+        keyboard[keyboardKey] = true;
+    }, { passive: false }); 
+    btn.addEventListener('touchend', (e) => {
+        if (e.cancelable) e.preventDefault();
+        keyboard[keyboardKey] = false;
+    }, { passive: false });
+}
+

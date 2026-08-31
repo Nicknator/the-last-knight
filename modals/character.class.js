@@ -7,6 +7,8 @@ class Character extends Movableobject {
     wasAboveGround = false;
     deathResetDone = false;
     hurtResetDone = false;
+    isFirstSpawn = true;
+
 
     IMAGES_IDLE = [
         'img/2.character/idle/knight-idle-frame-origen.png',
@@ -156,20 +158,17 @@ class Character extends Movableobject {
         return false;
     }
 
-    /**
- * Segregates combat animation sequences based on active input listeners and impact flashes.
- * @returns {boolean} True if any high-priority status action is currently active.
- */
+        /**
+     * Segregates combat animation sequences based on active input listeners and impact flashes.
+     * @returns {boolean} True if any high-priority status action is currently active.
+     */
     handleStateAnimations() {
-        if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT);
-            return true;
-        }
-        if (this.isAboveGround()) {
+        if (this.isFirstSpawn && !this.isAboveGround()) this.isFirstSpawn = false;
+        if (this.isHurt()) return this.playAnimation(this.IMAGES_HURT), true;
+        if (this.isAboveGround() && !this.isFirstSpawn) {
             let i = Math.min(this.currentImage, this.IMAGES_JUMPING.length - 1);
             this.loadImage(this.IMAGES_JUMPING[i]);
-            this.currentImage++;
-            return true;
+            return this.currentImage++, true;
         }
         if (this.world.keyboard.attack || this.world.keyboard.down) {
             this.playAnimation(this.world.keyboard.attack ? this.IMAGES_ATTACK : this.IMAGES_PROTECTION);
