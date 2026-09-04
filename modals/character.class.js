@@ -8,7 +8,7 @@ class Character extends Movableobject {
     deathResetDone = false;
     hurtResetDone = false;
     isFirstSpawn = true;
-
+    attackKeyReleased = true
 
     IMAGES_IDLE = [
         'img/2.character/idle/knight-idle-frame-origen.png',
@@ -158,24 +158,38 @@ class Character extends Movableobject {
         return false;
     }
 
-        /**
+       /**
      * Segregates combat animation sequences based on active input listeners and impact flashes.
      * @returns {boolean} True if any high-priority status action is currently active.
      */
     handleStateAnimations() {
         if (this.isFirstSpawn && !this.isAboveGround()) this.isFirstSpawn = false;
         if (this.isHurt()) return this.playAnimation(this.IMAGES_HURT), true;
+        if (!this.world.keyboard.attack) this.attackKeyReleased = true;
+        if ((this.world.keyboard.attack && this.attackKeyReleased) || this.isAttacking) {
+            return this.executeMeleeAttack();
+        }
         if (this.isAboveGround() && !this.isFirstSpawn) {
             let i = Math.min(this.currentImage, this.IMAGES_JUMPING.length - 1);
-            this.loadImage(this.IMAGES_JUMPING[i]);
-            return this.currentImage++, true;
+            return this.loadImage(this.IMAGES_JUMPING[i]), this.currentImage++, true;
         }
-        if (this.world.keyboard.attack || this.world.keyboard.down) {
-            this.playAnimation(this.world.keyboard.attack ? this.IMAGES_ATTACK : this.IMAGES_PROTECTION);
-            return true;
-        }
-        return false;
+        return this.world.keyboard.down ? (this.playAnimation(this.IMAGES_PROTECTION), true) : false;
     }
+
+    /**
+     * Executes a single-trigger melee sword swing sequence and manages key state blocks.
+     * @returns {boolean} Always returns true to signal an active priority animation.
+     */
+    executeMeleeAttack() {
+        if (!this.isAttacking) {
+            this.isAttacking = true;
+            this.currentImage = 0;
+            this.attackKeyReleased = false;
+        }
+        this.playAnimation(this.IMAGES_ATTACK);
+        if (this.currentImage >= this.IMAGES_ATTACK.length) this.isAttacking = false;
+        return true;
+    } 
 
     /**
      * Handles ammunition consumption, projectile creation cycles, and mechanical charging sounds.

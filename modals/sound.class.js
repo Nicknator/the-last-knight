@@ -1,23 +1,23 @@
 class Sound extends Movableobject {
     deadsound = 'audio/1_character/character-dead.mp3';
-    walkL_sound = 'audio/1_character/1_run/character-run-left.wav';
-    walkR_sound = 'audio/1_character/1_run/character-run-right.wav';
-    attack_sound = 'audio/1_character/2_attack/attack-sound (mp3cut.net).wav';
-    shield_block_sound = 'audio/1_character/3_block/character-block.wav';
-    bolt_hit_sound = 'audio/1_character/4_crossbow_attack/crossbow-sound.wav';
-    loading_crossbow_sound = 'audio/1_character/4_crossbow_attack/loading.wav';
-    jump_sound = 'audio/1_character/5_jump/jump1.wav';
-    jump_ground_sound = 'audio/1_character/5_jump/jump_ground.wav';
+    walkL_sound = 'audio/1_character/1_run/character-run-left.mp3';
+    walkR_sound = 'audio/1_character/1_run/character-run-right.mp3';
+    attack_sound = 'audio/1_character/2_attack/attack.mp3';
+    shield_block_sound = 'audio/1_character/3_block/character-block.mp3';
+    bolt_hit_sound = 'audio/1_character/4_crossbow_attack/crossbow-sound.mp3';
+    loading_crossbow_sound = 'audio/1_character/4_crossbow_attack/loading.mp3';
+    jump_sound = 'audio/1_character/5_jump/jump1.mp3';
+    jump_ground_sound = 'audio/1_character/5_jump/jump_ground.mp3';
     attack_from_enemy_sound = 'audio/2_skeleton/attack-skeleton.mp3';
     skeleton_hit_sound = 'audio/2_skeleton/attack-skeleton.mp3';
     skeleton_hurt_sound = 'audio/2_skeleton/hit/skeleton-hurt.mp3';
-    dragon_wing_sound = 'audio/3_dragon/wing/npc_dragon_wingflap_01.wav';
+    dragon_wing_sound = 'audio/3_dragon/wing/npc_dragon_wingflap_01.mp3';
     dragon_fire_sound = 'audio/3_dragon/fire/dragon-fire5s.mp3';
-    dragon_growl_sound = 'audio/3_dragon/growl/npc_dragon_injuredflight_01.wav';
+    dragon_growl_sound = 'audio/3_dragon/growl/npc_dragon_injuredflight_01.mp3';
     ice_wind_sound = 'audio/4_backgroundsound/ice-wind-sound_sound.mp3';
     glaciers_breaking_sound = 'audio/4_backgroundsound/glaciers_breaking_sound.mp3';
     loot_coin_sound = 'audio/5_loot_sound/loot_coin_sound.mp3';
-    loot_bolt_sound = 'audio/5_loot_sound/bolt_pickup_sound .wav';
+    loot_bolt_sound = 'audio/5_loot_sound/bolt_pickup_sound .mp3';
     
     isMuted = false; 
     windClone = null; 

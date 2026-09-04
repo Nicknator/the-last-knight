@@ -10,7 +10,7 @@ class World {
     level = level1;
     ctx;
     canvas;
-    keyboard;
+    keyboard; 
     camera_x = 100;
     flyBolt = [];
     lastShotImageNumber = -1;

@@ -8,6 +8,7 @@ let isMuted = false;
  */
 async function init() {
     canvas = document.getElementById('canvas');
+    if (!canvas) return; 
     let ctx = canvas.getContext('2d');
     canvas.width = 1440;
     canvas.height = 960;
@@ -54,13 +55,16 @@ function localMuteState() {
 }
 
 /**
- * Toggles fullscreen mode for the game container strictly on screens wider than 1200 pixels.
+ * Toggles fullscreen mode for the game container and locks screen orientation to landscape.
  */
 function fullScreen() {
-    // if (window.innerWidth < 1250) return;
     let container = document.getElementById('gameContainer');
     if (!document.fullscreenElement) {
-        container.requestFullscreen().catch(err => { });
+        container.requestFullscreen().then(() => {
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(() => {});
+            }
+        }).catch(() => {});
     } else {
         document.exitFullscreen();
     }
@@ -132,9 +136,7 @@ window.addEventListener('keyup', (e) => {
 });
 
 window.addEventListener('resize', () => {
-    if (window.innerWidth < 1250 && document.fullscreenElement) {
-        document.exitFullscreen().catch(() => { });
-    }
+   
 });
 
 /**
