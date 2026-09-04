@@ -165,9 +165,9 @@ class World {
     /**
      * Instantiates an active bolt item traveling based on character look direction flags.
      */
-    spawnBoltProjectile() {
+      spawnBoltProjectile() {
         let dx = this.character.otherDirection ? -30 : 80;
-        this.flyBolt.push(new Bolt(this.character.x + dx, this.character.y + 45, this.character.otherDirection));
+        this.flyBolt.push(new Bolt(this.character.x + dx, this.character.y + 45, this.character.otherDirection, this));
         this.lastShotImageNumber = this.character.currentImage;
         this.character.ammo--;
         this.ammoStatusbar.setPercentage(this.character.ammo * 20);
