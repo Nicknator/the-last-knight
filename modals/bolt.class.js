@@ -10,7 +10,7 @@ class Bolt extends Movableobject {
         this.otherDirection = shootLeft;
         this.world = world;
         this.isDead = false;
-        this.isFlyingUp = false; // 🎯 Merkt sich, ob er schräg fliegt
+        this.isFlyingUp = false; 
         this.animate();
     }
 
@@ -23,7 +23,7 @@ class Bolt extends Movableobject {
             let dragon = this.world?.level?.enemies?.find(e => e.constructor.name === 'Endboss' && e.energy > 0 && Math.abs(e.x - this.x) < 500);
             if (dragon) {
                 speedY = -this.boltSpeed;
-                this.isFlyingUp = true; // 🎯 Ja, wir fliegen schräg nach oben!
+                this.isFlyingUp = true; 
             }
             this.x += speedX;
             this.y += speedY;
