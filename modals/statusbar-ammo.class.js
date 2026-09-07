@@ -22,6 +22,16 @@ class StatusbarAMMO extends DrawableObject {
         this.setPercentage(this.percentage);
     }
 
+      /**
+     * Draws the status bar image and adds the "X/5" text next to it.
+     */
+    draw(ctx) {
+        super.draw(ctx); 
+        let currentAmmo = Math.round(this.percentage / 20); 
+        ctx.font = "15px Arial";
+        ctx.fillText(`${currentAmmo}/5`, this.x + this.width -20, this.y + 23);
+    }
+
     /**
      * Updates the current percentage value and swaps the ammunition bar image.
      * @param {number} percentage - The new percentage value of remaining ammunition.

@@ -10,7 +10,7 @@ class World {
     level = level1;
     ctx;
     canvas;
-    keyboard; 
+    keyboard;
     camera_x = 100;
     flyBolt = [];
     lastShotImageNumber = -1;
@@ -96,8 +96,8 @@ class World {
     bosshealthBar() {
         this.level.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss) {
-                this.bossStatusbar.x = enemy.x + 150; 
-                this.bossStatusbar.y = enemy.y + 40; 
+                this.bossStatusbar.x = enemy.x + 150;
+                this.bossStatusbar.y = enemy.y + 40;
                 this.bossStatusbar.setPercentage(enemy.energy / 2);
                 this.addToMap(this.bossStatusbar);
             }
@@ -165,7 +165,7 @@ class World {
     /**
      * Instantiates an active bolt item traveling based on character look direction flags.
      */
-      spawnBoltProjectile() {
+    spawnBoltProjectile() {
         let dx = this.character.otherDirection ? -30 : 80;
         this.flyBolt.push(new Bolt(this.character.x + dx, this.character.y + 45, this.character.otherDirection, this));
         this.lastShotImageNumber = this.character.currentImage;

@@ -12,6 +12,9 @@ class Character extends Movableobject {
 
     IMAGES_IDLE = [
         'img/2.character/idle/knight-idle-frame-origen.png',
+        'img/2.character/idle/idle2.png',
+        'img/2.character/idle/idle3.png',
+        'img/2.character/idle/idle4.png',
     ];
 
     IMAGES_WALKING = [
@@ -70,7 +73,7 @@ class Character extends Movableobject {
      */
     constructor() {
         super();
-        this.loadImage(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_PROTECTION);
@@ -212,8 +215,8 @@ class Character extends Movableobject {
         return false;
     }
 
-    /**
-     * Cycles walking sheets when directional filters match keys or halts audio step pipelines.
+       /**
+     * Cycles walking sheets when directional filters match keys or falls back to a slow breathing idle loop.
      */
     animateWalk() {
         if (this.world.keyboard.right || this.world.keyboard.left) {
@@ -223,6 +226,8 @@ class Character extends Movableobject {
             }
         } else {
             this.world.sound.stopSteps();
+            let i = Math.floor(this.currentImage / 4) % this.IMAGES_IDLE.length;
+            this.playAnimation([this.IMAGES_IDLE[i]]);
         }
     }
 
