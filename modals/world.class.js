@@ -287,7 +287,7 @@ class World {
     handleBoltHit(bolt, enemy) {
         if (enemy.energy > 0) {
             if (enemy instanceof Endboss) {
-                enemy.hit(10);
+                enemy.hit(40);
                 this.sound.boltHitSound();
             } else {
                 enemy.hit(30);
