@@ -94,7 +94,7 @@ function toggleMute() {
         if (world && world.sound) world.sound.unmuteAll();
     }
 }
-
+ 
 /**
  * Resets the game session instantly without forcing a webpage document reload.
  */
