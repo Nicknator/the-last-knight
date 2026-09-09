@@ -165,8 +165,8 @@ class Sound extends Movableobject {
     }
 
     /**
- * Restores normalized balancing weights to sound assets managing specific map exceptions.
- */
+        * Restores normalized balancing weights to sound assets managing specific map exceptions.
+        */
     unmuteAll() {
         this.isMuted = false;
         Object.keys(this).forEach(key => {
@@ -176,5 +176,6 @@ class Sound extends Movableobject {
         });
         if (this.windClone) this.windClone.volume = 0.15;
         this.iceWindSound();
+        this.playBackgroundMusic();
     }
 }

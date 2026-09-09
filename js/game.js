@@ -96,10 +96,25 @@ function toggleMute() {
 }
 
 /**
- * Completely resets the game runtime by forcing a clean web page document reload.
+ * Resets the game session instantly without forcing a webpage document reload.
  */
 function restartGame() {
-    window.location.reload();
+    document.getElementById('gameOverScreen').style.display = 'none';
+    if (world && world.sound) world.sound.muteAll(); 
+    clearAllActiveIntervals();
+    initLevel();
+    world = new World(canvas, keyboard);
+    syncWorldMuteState();
+    bindMobileTouchButtons();
+}
+
+/**
+ * Clears all active background game intervals to prevent duplicate runtime loops.
+ */
+function clearAllActiveIntervals() {
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
 }
 
 /**
