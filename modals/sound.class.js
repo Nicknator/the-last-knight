@@ -18,9 +18,10 @@ class Sound extends Movableobject {
     glaciers_breaking_sound = 'audio/4_backgroundsound/glaciers_breaking_sound.mp3';
     loot_coin_sound = 'audio/5_loot_sound/loot_coin_sound.mp3';
     loot_bolt_sound = 'audio/5_loot_sound/bolt_pickup_sound .mp3';
-    
-    isMuted = false; 
-    windClone = null; 
+    background_music = 'audio/4_backgroundsound/background-music1.mp3';
+
+    isMuted = false;
+    windClone = null;
 
     /**
      * Initializes the sound management module, loading audio tracks and establishing custom volumes.
@@ -32,8 +33,9 @@ class Sound extends Movableobject {
             'shield_block_sound': 0.45, 'bolt_hit_sound': 0.45, 'loading_crossbow_sound': 0.45,
             'jump_sound': 0.45, 'jump_ground_sound': 0.45, 'attack_from_enemy_sound': 0.45,
             'skeleton_hurt_sound': 0.45, 'dragon_wing_sound': 0.45, 'dragon_fire_sound': 1,
-            'dragon_growl_sound': 0.65, 'ice_wind_sound': 0.65, 'glaciers_breaking_sound': 0.65,
+            'dragon_growl_sound': 0.65, 'ice_wind_sound': 0.15, 'glaciers_breaking_sound': 0.35,
             'loot_coin_sound': 0.45, 'loot_bolt_sound': 0.45,
+            'background_music': 0.5,
         };
         Object.keys(soundConfig).forEach(key => {
             if (this[key]) {
@@ -106,6 +108,15 @@ class Sound extends Movableobject {
     glaciersBreakingSound() { this.playSound(this.glaciers_breaking_sound); }
 
     /**
+     * Starts the epic ambient background music score tracking looping properties.
+     */
+    playBackgroundMusic() {
+        if (this.isMuted || !this.background_music) return;
+        this.background_music.loop = true;
+        this.background_music.play().catch(() => { });
+    }
+
+    /**
      * Starts background environment wind loops and schedules seamless layer cloning offsets.
      */
     iceWindSound() {
@@ -114,6 +125,7 @@ class Sound extends Movableobject {
         this.ice_wind_sound.play().catch(() => { });
         this.windClone = this.ice_wind_sound.cloneNode(true);
         this.windClone.loop = true;
+        this.windClone.volume = this.ice_wind_sound.volume;
         setTimeout(() => {
             if (!this.isMuted && this.windClone) this.windClone.play().catch(() => { });
         }, (this.ice_wind_sound.duration * 1000) / 2 || 2000);
@@ -138,7 +150,7 @@ class Sound extends Movableobject {
         this.walkR_sound.pause();
     }
 
-      /**
+    /**
      * Mutes all active audio properties dynamically cycling class references.
      */
     muteAll() {
@@ -153,16 +165,16 @@ class Sound extends Movableobject {
     }
 
     /**
-     * Restores normalized balancing weights to sound assets managing specific map exceptions.
-     */
+ * Restores normalized balancing weights to sound assets managing specific map exceptions.
+ */
     unmuteAll() {
         this.isMuted = false;
         Object.keys(this).forEach(key => {
             if (this[key] && this[key] instanceof Audio) {
-                this[key].volume = (key === 'dragon_fire_sound') ? 1.0 : ((key === 'ice_wind_sound' || key === 'dragon_growl_sound') ? 0.65 : 0.45);
+                this[key].volume = (key === 'dragon_fire_sound') ? 1.0 : ((key === 'dragon_growl_sound') ? 0.65 : ((key === 'ice_wind_sound') ? 0.15 : 0.45));
             }
         });
+        if (this.windClone) this.windClone.volume = 0.15;
         this.iceWindSound();
     }
-
 }

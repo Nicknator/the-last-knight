@@ -39,6 +39,7 @@ class World {
         this.level.enemies.forEach(enemy => enemy.world = this);
         if (this.endboss) this.endboss.world = this;
         this.sound.iceWindSound();
+        this.sound.playBackgroundMusic();
         setInterval(() => {
             if (Math.random() < 0.2) this.sound.glaciersBreakingSound();
         }, 10000);
