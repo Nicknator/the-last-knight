@@ -28,8 +28,8 @@ class Movableobject extends DrawableObject {
     * @returns {boolean} True if the current Y-coordinate is less than the ground level.
     */
     isAboveGround() {
-        return this.y < 320
-    }
+        return this.y < 319;
+    } 
 
     animate() {
         this.x -= this.speed;
