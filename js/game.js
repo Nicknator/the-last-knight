@@ -100,11 +100,12 @@ function toggleMute() {
  */
 function restartGame() {
     document.getElementById('gameOverScreen').style.display = 'none';
-    if (world && world.sound) world.sound.muteAll(); 
+    if (world && world.sound) world.sound.muteAll();
     clearAllActiveIntervals();
     initLevel();
     world = new World(canvas, keyboard);
     syncWorldMuteState();
+    document.getElementById('mobileGamepadGrid').classList.remove('d-none');
     bindMobileTouchButtons();
 }
 
