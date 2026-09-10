@@ -151,10 +151,10 @@ h1 {
 
 .ingame-controls-text {
     position: fixed;
-    top: calc(50% - 225px);
-    left: calc(50% + 120px);
+    top: calc(50% - 190px);
+    left: calc(50% + 140px);
     font-family: 'Cinzel', 'Georgia', serif;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
     color: #ffffff;
     line-height: 1.4;
