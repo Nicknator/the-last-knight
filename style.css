@@ -296,7 +296,6 @@ button,
 .grid-attack { grid-column: 5; grid-row: 1; pointer-events: auto; }
 .grid-crossbow { grid-column: 5; grid-row: 2; pointer-events: auto; }
 
-/* 🛡️ KONTRAST-RETTUNG: Dunkler, scharfer Hintergrund für perfekte Erkennbarkeit */
 .mobile-btn {
     width: 45px;
     height: 45px;
