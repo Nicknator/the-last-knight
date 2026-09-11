@@ -35,12 +35,28 @@ function initLevel(){
     ],
 
     [
-        new BackgroundObject('img/5_background/winter-location.png', -720),
+        new BackgroundObject('img/5_background/winter-location.png', -719),
         new BackgroundObject('img/5_background/winter-location.png', 0),
-        new BackgroundObject('img/5_background/winter-location2.png', 720),
-        new BackgroundObject('img/5_background/winter-location.png', 1440),
-        new BackgroundObject('img/5_background/winter-location.png', 2160),
+        new BackgroundObject('img/5_background/winter-location2.png', 719),
+        new BackgroundObject('img/5_background/winter-location.png', 719*2),
+        new BackgroundObject('img/5_background/winter-location.png', 719*3), 
     ]
+
+    // [
+    //     new BackgroundObject('img/5_background/winter3.png', -719),
+    //     new BackgroundObject('img/5_background/winter3.png', 0),
+    //     new BackgroundObject('img/5_background/winter3-location2.png',719),
+    //     new BackgroundObject('img/5_background/winter3.png', 719*2),
+    //     new BackgroundObject('img/5_background/winter3.png', 719*3),
+    // ]
+
+    // [
+    //     new BackgroundObject('img/5_background/first_half_background.png', -719),
+    //     new BackgroundObject('img/5_background/second_half_background.png', 0),
+    //     new BackgroundObject('img/5_background/first_half_background.png', 719),
+    //     new BackgroundObject('img/5_background/second_half_background.png', 719*2),
+    //     new BackgroundObject('img/5_background/first_half_background.png', 719*3),
+    // ]
 );
 
 }

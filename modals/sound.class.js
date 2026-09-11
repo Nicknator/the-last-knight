@@ -165,8 +165,8 @@ class Sound extends Movableobject {
     }
 
     /**
-        * Restores normalized balancing weights to sound assets managing specific map exceptions.
-        */
+    * Restores normalized balancing weights to sound assets managing specific map exceptions.
+    */
     unmuteAll() {
         this.isMuted = false;
         Object.keys(this).forEach(key => {
@@ -178,4 +178,16 @@ class Sound extends Movableobject {
         this.iceWindSound();
         this.playBackgroundMusic();
     }
+
+    /**
+    * Instantly stops background ambient loops and boss dragon sounds upon game over thresholds.
+    */
+    stopAmbienceAndBoss() {
+        if (this.ice_wind_sound) this.ice_wind_sound.pause();
+        if (this.windClone) this.windClone.pause();
+        if (this.background_music) this.background_music.pause();
+        if (this.dragon_fire_sound) this.dragon_fire_sound.pause();
+        if (this.dragon_growl_sound) this.dragon_growl_sound.pause();
+    }
+
 }

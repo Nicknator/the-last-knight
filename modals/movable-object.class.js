@@ -109,7 +109,3 @@ class Movableobject extends DrawableObject {
     }
 
 }
-
-
-
-

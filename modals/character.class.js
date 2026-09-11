@@ -140,8 +140,7 @@ class Character extends Movableobject {
         this.wasAboveGround = this.isAboveGround();
     }
 
-
-    /**
+      /**
      * Tracks health parameters to halt timeline animations and prompt specific defeat actions.
      * @returns {boolean} True if player structural health properties register dead thresholds.
      */
@@ -150,12 +149,11 @@ class Character extends Movableobject {
             if (!this.deathResetDone) {
                 this.currentImage = 0;
                 this.deathResetDone = true;
-                this.world.sound.deadSound();
+                if (this.world && this.world.sound) this.world.sound.stopAmbienceAndBoss(); 
+                if (this.world && this.world.sound) this.world.sound.deadSound(); 
             }
             this.playAnimation(this.IMAGES_DEAD);
-            if (this.currentImage >= this.IMAGES_DEAD.length) {
-                clearInterval(this.characterAnimationInterval);
-            }
+            if (this.currentImage >= this.IMAGES_DEAD.length) clearInterval(this.characterAnimationInterval);
             return true;
         }
         return false;
