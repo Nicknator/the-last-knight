@@ -8,13 +8,13 @@ let isMuted = false;
  */
 async function init() {
     canvas = document.getElementById('canvas');
-    if (!canvas) return; 
+    if (!canvas) return;
     let ctx = canvas.getContext('2d');
     canvas.width = 1440;
     canvas.height = 960;
     ctx.scale(2, 2);
     localMuteState();
-    initGamepadRelocation(); 
+    initGamepadRelocation();
 }
 
 /**
@@ -62,9 +62,9 @@ function fullScreen() {
     if (!document.fullscreenElement) {
         container.requestFullscreen().then(() => {
             if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => {});
+                screen.orientation.lock('landscape').catch(() => { });
             }
-        }).catch(() => {});
+        }).catch(() => { });
     } else {
         document.exitFullscreen();
     }
@@ -74,6 +74,9 @@ function fullScreen() {
  * Changes display layout rules to flex to present the game over screen interface.
  */
 function showGameOverScreen() {
+    if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => { }); 
+    }
     document.getElementById('gameOverScreen').style.display = 'flex';
     document.getElementById('mobileGamepadGrid').classList.add('d-none');
 }
@@ -93,7 +96,7 @@ function toggleMute() {
         if (world && world.sound) world.sound.unmuteAll();
     }
 }
- 
+
 /**
  * Resets the game session instantly without forcing a webpage document reload.
  */
@@ -166,7 +169,7 @@ window.addEventListener('keyup', (e) => {
 });
 
 window.addEventListener('resize', () => {
-   
+
 });
 
 /**
@@ -190,9 +193,9 @@ function setupBtnTouch(elementId, keyboardKey) {
     let btn = document.getElementById(elementId);
     if (!btn) return;
     btn.addEventListener('touchstart', (e) => {
-        if (e.cancelable) e.preventDefault(); 
+        if (e.cancelable) e.preventDefault();
         keyboard[keyboardKey] = true;
-    }, { passive: false }); 
+    }, { passive: false });
     btn.addEventListener('touchend', (e) => {
         if (e.cancelable) e.preventDefault();
         keyboard[keyboardKey] = false;
@@ -207,9 +210,9 @@ function initGamepadRelocation() {
     let container = document.getElementById('gameContainer');
     document.addEventListener('fullscreenchange', () => {
         if (document.fullscreenElement) {
-            container.appendChild(gamepad); 
+            container.appendChild(gamepad);
         } else {
-            document.body.appendChild(gamepad); 
+            document.body.appendChild(gamepad);
         }
     });
     if (!document.fullscreenElement && gamepad) {
