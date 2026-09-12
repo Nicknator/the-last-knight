@@ -101,11 +101,26 @@ function restartGame() {
     document.getElementById('gameOverScreen').style.display = 'none';
     if (world && world.sound) world.sound.muteAll();
     clearAllActiveIntervals();
+    resetKeyboardFlags();
     initLevel();
     world = new World(canvas, keyboard);
     syncWorldMuteState();
     document.getElementById('mobileGamepadGrid').classList.remove('d-none');
     bindMobileTouchButtons();
+}
+
+/**
+ * Hard resets all structural keyboard execution flags to eliminate post-restart loop bugs.
+ */
+function resetKeyboardFlags() {
+    keyboard.left = false;
+    keyboard.right = false;
+    keyboard.up = false;
+    keyboard.down = false;
+    keyboard.space = false;
+    keyboard.attack = false;
+    keyboard.shoot_crossbow = false;
+    keyboard.shoot_crossbow2 = false;
 }
 
 /**
