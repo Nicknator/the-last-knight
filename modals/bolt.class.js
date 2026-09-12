@@ -10,7 +10,7 @@ class Bolt extends Movableobject {
         this.otherDirection = shootLeft;
         this.world = world;
         this.isDead = false;
-        this.isFlyingUp = false; 
+        this.isFlyingUp = false;
         this.animate();
     }
 
@@ -19,11 +19,10 @@ class Bolt extends Movableobject {
             let speedX = this.otherDirection ? -this.boltSpeed : this.boltSpeed;
             let speedY = 0;
             this.isFlyingUp = false;
-            
             let dragon = this.world?.level?.enemies?.find(e => e.constructor.name === 'Endboss' && e.energy > 0 && Math.abs(e.x - this.x) < 500);
             if (dragon) {
                 speedY = -this.boltSpeed;
-                this.isFlyingUp = true; 
+                this.isFlyingUp = true;
             }
             this.x += speedX;
             this.y += speedY;
@@ -43,7 +42,7 @@ class Bolt extends Movableobject {
             super.draw(ctx);
             ctx.restore();
         } else {
-            super.draw(ctx); // Ganz normal geradeaus zeichnen, wenn kein Drache da ist
+            super.draw(ctx); 
         }
     }
 }

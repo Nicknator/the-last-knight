@@ -175,8 +175,8 @@ class World {
     }
 
     /**
- * Constantly monitors horizontal coordinate cross-overs between the character and enemy arrays.
- */
+    * Constantly monitors horizontal coordinate cross-overs between the character and enemy arrays.
+    */
     checkCharacterCollisions() {
         if (this.character.energy === 0) return this.handleCharacterDeath();
         this.level.enemies.forEach((enemy) => {
@@ -313,8 +313,8 @@ class World {
     }
 
     /**
- Loops through level enemies to detect and trigger active dragon fire attacks.
- */
+     * Loops through level enemies to detect and trigger active dragon fire attacks.
+     */
     simulateFireParticles() {
         let bossIsAttacking = false;
         this.level.enemies.forEach((enemy) => {

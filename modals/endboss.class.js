@@ -53,9 +53,9 @@ class Endboss extends Movableobject {
         }
     }
 
-       /**
-     * Initializes behavioral cycles evaluating active health layers to fire movements or animations.
-     */
+    /**
+    * Initializes behavioral cycles evaluating active health layers to fire movements or animations.
+    */
     animate() {
         this.bossAnimationInterval = setInterval(() => {
             if (this.isDead()) {
@@ -102,8 +102,6 @@ class Endboss extends Movableobject {
         }
     }
 
-   
-
     /**
      * Processes damage deductions onto the dragon's vitality pool and handles transient stun timers.
      * @param {number} damageAmount - The numerical value subtracted from active health layers.
@@ -121,9 +119,9 @@ class Endboss extends Movableobject {
         }
     }
 
-    /**
-     * Engages the core gravitational falling physics loop to bring down the defeated boss asset.
-     */
+     /**
+      * Engages the core gravitational falling physics loop to bring down the defeated boss asset.
+      */
     triggerGravity() {
         if (!this.gravityTriggered) {
             this.gravityTriggered = true;
@@ -133,9 +131,9 @@ class Endboss extends Movableobject {
     }
 
     /**
-   * Measures horizontal vector absolute spreads to determine if the boss engages proximity attacks.
-   * @param {number} characterX - The horizontal coordinate key position of the player ritter.
-   */
+    * Measures horizontal vector absolute spreads to determine if the boss engages proximity attacks.
+    * @param {number} characterX - The horizontal coordinate key position of the player ritter.
+    */
     checkPlayerDistance(characterX) {
         if (this.isDead()) return;
         if (characterX > this.x + 180) {

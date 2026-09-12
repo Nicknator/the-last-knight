@@ -108,4 +108,4 @@ class Movableobject extends DrawableObject {
         return this.energy === 0;
     }
 
-}
+} 

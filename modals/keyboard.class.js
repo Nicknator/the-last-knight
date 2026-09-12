@@ -7,4 +7,3 @@ class Keyboard {
     attack = false;
     shoot_crossbow = false;  
 }
-

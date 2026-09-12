@@ -126,8 +126,8 @@ class Character extends Movableobject {
     }
 
     /**
-  * Calculates jumping momentum shifts and fires landing sound clips based on floor proximity.
-  */
+     * Calculates jumping momentum shifts and fires landing sound clips based on floor proximity.
+     */
     verticalHorizontal() {
         if (this.world.keyboard.up && !this.isAboveGround()) {
             this.jump();
@@ -140,7 +140,7 @@ class Character extends Movableobject {
         this.wasAboveGround = this.isAboveGround();
     }
 
-      /**
+    /**
      * Tracks health parameters to halt timeline animations and prompt specific defeat actions.
      * @returns {boolean} True if player structural health properties register dead thresholds.
      */
@@ -159,7 +159,7 @@ class Character extends Movableobject {
         return false;
     }
 
-       /**
+    /**
      * Segregates combat animation sequences based on active input listeners and impact flashes.
      * @returns {boolean} True if any high-priority status action is currently active.
      */
@@ -213,7 +213,7 @@ class Character extends Movableobject {
         return false;
     }
 
-       /**
+    /**
      * Cycles walking sheets when directional filters match keys or falls back to a slow breathing idle loop.
      */
     animateWalk() {

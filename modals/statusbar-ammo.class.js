@@ -22,7 +22,7 @@ class StatusbarAMMO extends DrawableObject {
         this.setPercentage(this.percentage);
     }
 
-      /**
+    /**
      * Draws the status bar image and adds the "X/5" text next to it.
      */
     draw(ctx) {

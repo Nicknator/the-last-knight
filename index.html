@@ -32,32 +32,27 @@
 
 <body onload="init()">
     <h1>Skyebound</h1>
-    
     <div id="gameContainer">
         <canvas id="canvas" width="720" height="480"></canvas>
-
         <div id="mobileGamepadGrid" class="mobile-gamepad-grid d-none">
-            <button id="btnJump" class="mobile-btn grid-up">
-                <img src="img/9_touchpad/jump.png" alt="Jump">
-            </button>   
-            <button id="btnLeft" class="mobile-btn grid-left">
-                <img src="img/9_touchpad/left.png" alt="Left">
-            </button>
-            <button id="btnRight" class="mobile-btn grid-right">
-                <img src="img/9_touchpad/right.png" alt="Right">
-            </button>
-            <button id="btnDown" class="mobile-btn sub-btn grid-down">
-                <img src="img/9_touchpad/schield.png" alt="Block">
-            </button>
-            <button id="btnAttack" class="mobile-btn grid-attack">
-                <img src="img/9_touchpad/sword.png" alt="Attack">
-            </button>
-            <button id="btnCrossbow" class="mobile-btn sub-btn grid-crossbow">
-                <img src="img/9_touchpad/crossbow.png" alt="Crossbow">
-            </button>
+            <!-- Linkes Steuerkreuz (Bleibt vollkommen unverändert) -->
+            <button id="btnJump" class="mobile-btn grid-up"><img src="img/9_touchpad/jump.png" alt="Jump"></button>
+            <button id="btnLeft" class="mobile-btn grid-left"><img src="img/9_touchpad/left.png" alt="Left"></button>
+            <button id="btnRight" class="mobile-btn grid-right"><img src="img/9_touchpad/right.png"
+                    alt="Right"></button>
+            <button id="btnDown" class="mobile-btn sub-btn grid-down"><img src="img/9_touchpad/schield.png"
+                    alt="Block"></button>
+            <div class="grid-action-column">
+                <button id="btnAttack" class="mobile-btn">
+                    <img src="img/9_touchpad/sword.png" alt="Attack">
+                </button>
+                <button id="btnCrossbow" class="mobile-btn sub-btn">
+                    <img src="img/9_touchpad/crossbow.png" alt="Crossbow">
+                </button>
+            </div>
         </div>
-
-        <img src="img/8_other/mute_on.png" alt="mute" class="img-button mute-button" id="muteBtn" onclick="toggleMute()">
+        <img src="img/8_other/mute_on.png" alt="mute" class="img-button mute-button" id="muteBtn"
+            onclick="toggleMute()">
         <img src="img/6_button/fsb.png" alt="fsb" class="img-button" onclick="fullScreen()" id="fullscreenBtn">
     </div>
     <div id="rotateDeviceScreen">
@@ -68,23 +63,25 @@
         <div class="smalStartImg">
             <img src="img/5_background/winter-location2.png" alt="smal_start_img" class="setSmalImg">
             <div class="setInnerArea">
-                <img src="img/7_intro_outro_screens/start/start_button.png" alt="start_button" class="setStartBtn" onclick="startGame()">
+                <img src="img/7_intro_outro_screens/start/start_button.png" alt="start_button" class="setStartBtn"
+                    onclick="startGame()">
                 <h2>Skyebound</h2>
-                <img src="img/7_intro_outro_screens/start/start_knight.png" alt="start_knight" class="setStartKnightImg">
+                <img src="img/7_intro_outro_screens/start/start_knight.png" alt="start_knight"
+                    class="setStartKnightImg">
             </div>
         </div>
     </div>
-
     <div class="gameOverScreen" id="gameOverScreen">
         <img src="img/5_background/winter-location.png" alt="start_img" class="setBigImg">
         <div class="smalStartImg">
             <img src="img/5_background/winter-location.png" alt="smal_start_img" class="setSmalImg">
             <div class="setInnerArea">
-                <img src="img/7_intro_outro_screens/start/start_button.png" alt="start_button" class="setStartBtn" onclick="restartGame()">
+                <img src="img/7_intro_outro_screens/start/start_button.png" alt="start_button" class="setStartBtn"
+                    onclick="restartGame()">
                 <h2>Game Over!</h2>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="ingame-controls-text">
         Left/Right = a/d<br>
         Jump = w<br>

@@ -14,6 +14,7 @@ async function init() {
     canvas.height = 960;
     ctx.scale(2, 2);
     localMuteState();
+    initGamepadRelocation(); 
 }
 
 /**
@@ -27,7 +28,6 @@ function startGame() {
     syncWorldMuteState();
     bindMobileTouchButtons();
     document.getElementById('mobileGamepadGrid').classList.remove('d-none');
-    
 }
 
 /**
@@ -76,7 +76,6 @@ function fullScreen() {
 function showGameOverScreen() {
     document.getElementById('gameOverScreen').style.display = 'flex';
     document.getElementById('mobileGamepadGrid').classList.add('d-none');
-
 }
 
 /**
@@ -185,4 +184,20 @@ function setupBtnTouch(elementId, keyboardKey) {
     }, { passive: false });
 }
 
-
+/**
+ * Automatically moves the touch gamepad HTML node based on native active window states.
+ */
+function initGamepadRelocation() {
+    let gamepad = document.getElementById('mobileGamepadGrid');
+    let container = document.getElementById('gameContainer');
+    document.addEventListener('fullscreenchange', () => {
+        if (document.fullscreenElement) {
+            container.appendChild(gamepad); 
+        } else {
+            document.body.appendChild(gamepad); 
+        }
+    });
+    if (!document.fullscreenElement && gamepad) {
+        document.body.appendChild(gamepad);
+    }
+}
