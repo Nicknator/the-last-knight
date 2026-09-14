@@ -32,8 +32,8 @@ class Movableobject extends DrawableObject {
     }
 
     /**
-   * Animates the object by constantly moving it to the left side.
-   */
+     * Animates the object by constantly moving it to the left side.
+     */
     animate() {
         this.x -= this.speed;
     }
@@ -104,11 +104,11 @@ class Movableobject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
+
     /**
     * Validates if the object resides within post-impact flash time frames using timestamp differences.
     * @returns {boolean} True if the time elapsed since the last hit is under 400 milliseconds.
     */
-
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         return timepassed < 400;
@@ -118,9 +118,8 @@ class Movableobject extends DrawableObject {
     * Confirms whether structural vitality resources have dropped to zero boundaries.
     * @returns {boolean} True if the energy attribute has reached zero.
     */
-
     isDead() {
         return this.energy === 0;
     }
-    
+
 } 
