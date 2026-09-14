@@ -29,27 +29,43 @@ class Movableobject extends DrawableObject {
     */
     isAboveGround() {
         return this.y < 319;
-    } 
+    }
 
+    /**
+   * Animates the object by constantly moving it to the left side.
+   */
     animate() {
         this.x -= this.speed;
     }
 
+    /**
+     * Moves the object to the right side and resets the image direction flag.
+     */
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
     }
 
+    /**
+     * Moves the object to the left side by reducing the horizontal X-coordinate.
+     */
     moveLeft() {
         this.x -= this.speed;
     }
 
+    /**
+     * Triggers a vertical jump sequence if the object is currently touching the ground.
+     */
     jump() {
         if (!this.isAboveGround()) {
             this.speedY = 30;
         }
     }
 
+    /**
+     * Loops through an array of image paths to play a continuous character animation.
+     * @param {string[]} images - The list of cached image path strings to iterate through.
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -57,7 +73,6 @@ class Movableobject extends DrawableObject {
         this.currentImage++;
     }
 
-    // Knight.isColliding(enemy)
     /**
      * Analyzes boundary cross-overs to determine if an actively tracking entity collides with another element.
      * @param {MovableObject} mo - The target object bounding box framework to verify overlaps against.
@@ -107,5 +122,5 @@ class Movableobject extends DrawableObject {
     isDead() {
         return this.energy === 0;
     }
-
+    
 } 
