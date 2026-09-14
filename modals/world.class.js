@@ -294,8 +294,7 @@ class World {
                 enemy.hit(30);
                 this.sound.boltHitSound();
                 this.sound.skeletonHurtSound();
-            }
-            bolt.isDead = true;
+            }bolt.isDead = true;
         }
     }
 

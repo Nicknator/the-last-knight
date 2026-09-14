@@ -1,5 +1,12 @@
 class Bolt extends Movableobject {
 
+    /**
+     * Initializes a new flying bolt projectile with spawning coordinates and direction flags.
+     * @param {number} startX - The initial horizontal X-axis grid coordinate on the map.
+     * @param {number} startY - The initial vertical Y-axis grid coordinate on the map.
+     * @param {boolean} shootLeft - True if the projectile travels towards the left direction.
+     * @param {Object} world - The reference instance linking back to the central game world.
+     */
     constructor(startX, startY, shootLeft, world) {
         super();
         this.loadImage('img/2.character/shoot_crossbow/bolt.png');
@@ -14,6 +21,9 @@ class Bolt extends Movableobject {
         this.animate();
     }
 
+    /**
+      * Starts the projectile flight physics tracking loop to calculate vector shifts and target homing.
+      */
     animate() {
         setInterval(() => {
             let speedX = this.otherDirection ? -this.boltSpeed : this.boltSpeed;
@@ -42,7 +52,7 @@ class Bolt extends Movableobject {
             super.draw(ctx);
             ctx.restore();
         } else {
-            super.draw(ctx); 
+            super.draw(ctx);
         }
     }
 }

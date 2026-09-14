@@ -4,8 +4,11 @@
  * @type {Level}
  */
 let level1;
-function initLevel(){
 
+/**
+ * Initializes and builds the first level instance with all objects.
+ */
+function initLevel(){
  level1 = new Level(
     [
         new SkeletonEnemy(300),
@@ -13,19 +16,16 @@ function initLevel(){
         new SkeletonEnemy(450),
         new Endboss(),
     ],
-
     [
         new LootBolt(300),
         new LootBolt(500), 
         new LootBolt(700),
     ],
-
     [
         new Coin(1500),
         new Coin(1900),
         new Coin(3000),
     ],
-
     [
         new Cloud(),
         new Cloud(),
@@ -33,7 +33,6 @@ function initLevel(){
         new Cloud(),
         new Cloud(),
     ],
-
     [
         new BackgroundObject('img/5_background/winter-location.png', -719),
         new BackgroundObject('img/5_background/winter-location.png', 0),
@@ -42,5 +41,4 @@ function initLevel(){
         new BackgroundObject('img/5_background/winter-location.png', 719*3), 
     ]
 );
-
 }
